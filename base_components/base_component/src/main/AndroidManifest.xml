@@ -1,0 +1,12 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.jaydroid.base_component">
+
+    <application>
+
+        <!--appLife ,name需要是全类名-->
+        <meta-data
+            android:name="com.jaydroid.base_component.app.BaseComponentApp"
+            android:value="IModuleConfig" />
+
+    </application>
+</manifest>

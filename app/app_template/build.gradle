@@ -1,0 +1,24 @@
+apply from: "../../biz_components_app.gradle"
+
+
+dependencies {
+
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+
+    implementation rootProject.ext.dependencies['lottie']
+    implementation rootProject.ext.dependencies['banner']
+    implementation rootProject.ext.dependencies['smart-refresh-layout']
+    implementation rootProject.ext.dependencies['recycler-adapter-helper']
+
+    //TODO 4. 修改要调试的组件
+    /**
+     * 单项目公共业务组件
+     */
+    implementation project(path: ':base_components:base_component_wan')
+
+    /**
+     * 登陆业务组件
+     */
+    implementation project(path: ':biz_components:login')
+
+}

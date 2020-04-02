@@ -1,0 +1,115 @@
+//App 插件，id: com.android.application ，打出apk包
+//Library 插件，id: com.android.libraay, 打出aar包
+//标示各个业务组件是否能够单独运行，修改后需要同步才能生效
+if (isBuildModule.toBoolean() && isCanBuildModule()) {
+    apply plugin: 'com.android.application'
+} else {
+    apply plugin: 'com.android.library'
+}
+//过滤一些组件是否能够单独调试
+def isCanBuildModule() {
+    def projectName = project.name.toLowerCase()
+    if (projectName == "login") {
+        return false
+    } else if (projectName == "component_login_a") {
+        return false
+    }
+    return true
+}
+
+apply plugin: 'com.jakewharton.butterknife'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+
+    //给 Module 内的资源名增加前缀, 避免资源名冲突
+//    resourcePrefix "${project.name.toLowerCase().replaceAll("-", "_")}_"
+
+    compileSdkVersion rootProject.ext.android["compileSdkVersion"]
+    buildToolsVersion rootProject.ext.android["buildToolsVersion"]
+
+    defaultConfig {
+        // 单独调试时添加 applicationId ，集成调试时移除
+        if (isBuildModule.toBoolean() && isCanBuildModule()) {
+            applicationId "com.component.${project.name.toLowerCase()}"
+        }
+        minSdkVersion rootProject.ext.android["minSdkVersion"]
+        targetSdkVersion rootProject.ext.android["targetSdkVersion"]
+        versionCode rootProject.ext.android["versionCode"]
+        versionName rootProject.ext.android["versionName"]
+        testInstrumentationRunner rootProject.ext.dependencies["androidJUnitRunner"]
+
+        kapt {
+            arguments {
+                arg("AROUTER_MODULE_NAME", project.getName())
+            }
+        }
+
+    }
+    buildTypes {
+        debug {
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+            buildConfigField "boolean", "IS_BUILD_MODULE", "${isBuildModule}"
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        release {
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+            buildConfigField "boolean", "IS_BUILD_MODULE", "${isBuildModule}"
+            minifyEnabled true
+            //Resource shrinker cannot be used for libraries.
+            if (isBuildModule.toBoolean() && isCanBuildModule()) {
+                shrinkResources true
+            }
+            zipAlignEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
+
+    lintOptions {
+        disable 'InvalidPackage'
+        disable "ResourceType"
+        abortOnError false
+    }
+
+    //解决主工程和组件的 AndroidManifes 文件合并问题
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+            if (isBuildModule.toBoolean() && isCanBuildModule()) {
+                manifest.srcFile 'src/main/debug/AndroidManifest.xml'
+            } else {
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+                java {
+                    //继承编译时剔除debug目录
+                    exclude '**/debug/**'
+                }
+            }
+        }
+    }
+}
+
+dependencies {
+    //初始的依赖
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation rootProject.ext.dependencies['kotlin-stdlib-jdk7']
+    implementation rootProject.ext.dependencies['appcompat']
+    implementation rootProject.ext.dependencies['core-ktx']
+    implementation rootProject.ext.dependencies['constraintlayout']
+    testImplementation rootProject.ext.dependencies['junit']
+    androidTestImplementation rootProject.ext.dependencies['junit-androidx']
+    androidTestImplementation rootProject.ext.dependencies['espresso-core-androidx']
+    //其它依赖
+    //arouter-compiler 的注解依赖需要所有使用 ARouter 的 model 都添加依赖
+    kapt rootProject.ext.dependencies['arouter-compiler']
+
+
+}

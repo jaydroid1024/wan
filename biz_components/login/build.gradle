@@ -1,0 +1,13 @@
+apply from: "../../biz_components.gradle"
+
+
+dependencies {
+
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+
+    /**
+     * 公共业务组件
+     */
+    api project(path: ':base_components:base_component')
+
+}

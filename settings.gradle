@@ -1,0 +1,72 @@
+rootProject.name = 'WanDroid'
+//宿主壳和调试壳
+include ':app:wan',
+        ':app:app_main',
+        ':app:app_login'
+//常规业务组件
+include ':biz_components:login',
+        ':biz_components:main'
+//基础业务组件
+include ':base_components:base_component',
+        ':base_components:base_component_wan'
+//基础功能组件
+include ':base_libs:basic_lib'
+
+
+/**
+ * 组件之间必须遵循以下规则：
+ * 1，只有上层的组件才能依赖下层组件，不能反向依赖，否则可能会出现循环依赖的情况；
+ * 2，同一层之间的组件不能相互依赖，这也是为了组件之间的彻底解耦
+ */
+
+
+/**
+ * 每个模块名称前面有个 ":"，表示的是相对于当前主工程的根目录，
+ * 如果将某几个组件放在一个二级目录下需要 :dir:component
+ */
+//include ':app:app_b',
+//        ':general_biz_components:component_login',
+//        ':general_biz_components:component_main_b',
+//        ':basic_biz_components:component_base',
+//        ':basic_biz_components:component_base_b',
+//        ':basic_func_components:component_lib'
+
+
+/**
+ * 公共组件添加说明
+ * 其中 new File(settingsDir,'../../BProject/')
+ * 参数说明：
+ * 参数一： settingsDir 指的是相对于 settings.gradle 文件所在路径
+ * 参数二： 填写被依赖项目的路径，**../**表示上级目录，所以根据自己的路径修改
+ */
+
+/**
+ * component_login:常规业务组件
+ * 该层的组件就是我们真正的业务组件了。我们通常按照功能模块来划分业务组件，
+ * 例如注册登录、用户协议、消息模块等。这里的每个业务组件都是一个小的APP，它必须可以单独编译，单独打包成APK在手机上运行。
+ */
+//include ':component_login'
+//project(':component_login').projectDir = new File('../../Components/component_login')
+
+/**
+ * component_base:基础业务组件
+ * 该层组件是对一些系统通用的业务能力进行封装的组件。
+ * 例如公共业务组件，BossApplication、BaseActivity、BaseFragment、mvp、mvvm 基类等；
+ * 例如分享能力组件，其他业务只要集成该组件就能进行相关分享；
+ * 例如共享公共数据，可以将用户登录信息缓存在这里等；
+ * 例如共享公共资源，value、drawable、style等；
+ * 例如组件间数据通信的接口，可以将Arouter服务所需的IProvider 以及path 放在这里。
+ */
+//include ':component_base'
+//project(':component_base').projectDir = new File('../../Components/component_base')
+
+/**
+ * component_lib:基础功能组件
+ * 这个层的组件都是最基础的功能，通常它不包含任何业务逻辑，也可以说这些组件是一些通用的工具类。
+ * 例如日志记录组件，它只是提供了日志记录的能力，你要记录什么样的日志，它并不关心；
+ * 例如基础UI组件，它是一个全局通用的UI资源库；
+ * 例如图片加载组件，它是一个全局通用图片加载框架；
+ * 例如网络服务组件，它封装了网络的请求能力。
+ */
+//include ':component_lib'
+//project(':component_lib').projectDir = new File('../../Components/component_lib')

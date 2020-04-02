@@ -1,0 +1,63 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'com.jakewharton.butterknife'
+
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+    defaultConfig {
+        applicationId "com.jaydroid.wanandroid"
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        //Arouter & AppInit
+        javaCompileOptions {
+            annotationProcessorOptions {
+                if (arguments == null) {
+                    arguments = [AROUTER_MODULE_NAME: project.getName(), AROUTER_GENERATE_DOC: "enable"]
+                } else {
+                    arguments.put("AROUTER_MODULE_NAME", project.getName())
+                    arguments.put("AROUTER_GENERATE_DOC", "enable")
+                }
+            }
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+
+    /**
+     * 主业务组件
+     */
+    implementation project(path: ':biz_components:main')
+
+
+    //初始的依赖
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation rootProject.ext.dependencies['kotlin-stdlib-jdk7']
+    implementation rootProject.ext.dependencies['appcompat']
+    implementation rootProject.ext.dependencies['core-ktx']
+    implementation rootProject.ext.dependencies['constraintlayout']
+    testImplementation rootProject.ext.dependencies['junit']
+    androidTestImplementation rootProject.ext.dependencies['junit-androidx']
+    androidTestImplementation rootProject.ext.dependencies['espresso-core-androidx']
+    //其它依赖
+    //arouter-compiler 的注解依赖需要所有使用 ARouter 的 model 都添加依赖
+    kapt rootProject.ext.dependencies['arouter-compiler']
+}

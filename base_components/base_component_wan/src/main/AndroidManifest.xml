@@ -1,0 +1,28 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.jaydroid.base_component_wan">
+    <!--NetworkSecurityConfig: No Network Security Config specified, using platform default-->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <!--自定义 Application 需要声明在 AndroidManifest.xml 中。
+        其次，每个 Module 都有该清单文件，但是最终的 APK 文件只能包含一个。
+        因此，在构建应用时，Gradle 构建会将所有清单文件合并到一个封装到 APK 的清单文件中。
+        合并的优先级是: App Module(值 A) > Library Module(值 B)
+        值 A 合并值 B，会产生冲突错误：
+        在高优先级的 App Module 中使用 tools:replace="android:name"
+        直接用值 A 替换了值 B -->
+    <application
+        android:name="com.jaydroid.base_component_wan.application.WanApp"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning"
+        tools:replace="android:name">
+
+    </application>
+</manifest>

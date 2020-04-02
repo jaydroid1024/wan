@@ -1,0 +1,10 @@
+apply from: "../../biz_components_app.gradle"
+
+dependencies {
+    
+    /**
+     * 主页业务组件
+     */
+    implementation project(path: ':biz_components:main')
+
+}

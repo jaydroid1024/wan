@@ -1,0 +1,62 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    //给 Module 内的资源名增加前缀, 避免资源名冲突
+    resourcePrefix "${project.name.toLowerCase().replaceAll("-", "_")}_"
+
+    compileSdkVersion rootProject.ext.android["compileSdkVersion"]
+    buildToolsVersion rootProject.ext.android["buildToolsVersion"]
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.android["minSdkVersion"]
+        targetSdkVersion rootProject.ext.android["targetSdkVersion"]
+        versionCode rootProject.ext.android["versionCode"]
+        versionName rootProject.ext.android["versionName"]
+
+        testInstrumentationRunner rootProject.ext.dependencies["androidJUnitRunner"]
+        consumerProguardFiles 'consumer-rules.pro'
+        //Arouter
+        kapt {
+            arguments {
+                println("jay-" + project.getName())
+                arg("AROUTER_MODULE_NAME", project.getName())
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+}
+
+dependencies {
+    /**
+     * 公共业务组件
+     */
+    api project(path: ':base_components:base_component')
+
+    //初始的依赖
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation rootProject.ext.dependencies['kotlin-stdlib-jdk7']
+    implementation rootProject.ext.dependencies['appcompat']
+    implementation rootProject.ext.dependencies['core-ktx']
+    implementation rootProject.ext.dependencies['constraintlayout']
+    testImplementation rootProject.ext.dependencies['junit']
+    androidTestImplementation rootProject.ext.dependencies['junit-androidx']
+    androidTestImplementation rootProject.ext.dependencies['espresso-core-androidx']
+    //其它依赖
+    //arouter-compiler 的注解依赖需要所有使用 ARouter 的 model 都添加依赖
+    kapt rootProject.ext.dependencies['arouter-compiler']
+}
