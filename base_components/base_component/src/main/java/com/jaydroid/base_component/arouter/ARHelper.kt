@@ -107,6 +107,24 @@ object ARHelper {
     }
 
     /**
+     * search组件
+     */
+    object PathSearch {
+
+        /**
+         * group name
+         */
+        private const val SEARCH = "/search"
+
+        /**
+         * 收藏页面
+         */
+        const val SEARCH_ACTIVITY_PATH = "$SEARCH/search/activity"
+
+
+    }
+
+    /**
      * 获取通用服务
      */
     fun <T> getService(service: Class<out T>): T? {

@@ -75,3 +75,4 @@ include ':base_libs:base_lib'
 //project(':component_lib').projectDir = new File('../../Components/component_lib')
 include ':setting'
 include ':biz_components:favorite'
+include ':biz_components:search'

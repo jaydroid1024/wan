@@ -5,11 +5,11 @@
         android:layout_height="200dp">
 
     <ImageView
-            android:id="@+id/iv_avatar_background"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/tian" />
+        android:id="@+id/iv_avatar_background"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@color/mintcream"
+        android:scaleType="centerCrop" />
 
     <LinearLayout
             android:layout_width="match_parent"
@@ -24,8 +24,9 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/tian"
                 app:borderColor="#55ff0000"
+            android:padding="3dp"
+            android:src="@drawable/android_logo"
                 app:radius="20dp"
                 app:shape="circle" />
 

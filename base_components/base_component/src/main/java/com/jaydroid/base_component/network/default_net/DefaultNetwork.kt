@@ -9,6 +9,8 @@ import com.jaydroid.base_component.network.bean.wan.Article
 import com.jaydroid.base_component.network.bean.wan.ArticleResponse
 import com.jaydroid.base_component.network.bean.wan.Banner
 import com.jaydroid.base_component.network.bean.wan.BaseResponse
+import com.jaydroid.base_component.network.bean.wan.search.SearchHot
+import com.jaydroid.base_component.network.bean.wan.search.SearchResultResponse
 import com.jaydroid.base_component.network.bean.wan.user.LogoutResult
 import com.jaydroid.base_component.network.bean.wan.user.RegisterResponse
 import com.jaydroid.base_component.network.bean.wan.user.User
@@ -26,6 +28,7 @@ class DefaultNetwork(context: Context) : AuthAbstractNetwork<DefaultApiService>(
             ARHelper.getService<UserService>(ARHelper.PathUser.USER_SERVICE_PATH)
 
     }
+
     override val baseUrl: String
         get() = "https://www.wanandroid.com"
 
@@ -90,7 +93,21 @@ class DefaultNetwork(context: Context) : AuthAbstractNetwork<DefaultApiService>(
             .compose(RxUtil.applyObservableTransformer())
     }
 
+    fun getSearchHot(): Observable<BaseResponse<ArrayList<SearchHot>>> {
+        return getNetworkService()
+            .getSearchHot()
+            .compose(RxUtil.applyObservableTransformer())
 
+    }
+
+    fun getSearchResult(
+        page: Int,
+        keyword: String
+    ): Observable<BaseResponse<SearchResultResponse>> {
+        return getNetworkService()
+            .getSearchResult(page, keyword)
+            .compose(RxUtil.applyObservableTransformer())
+    }
 
 
 }

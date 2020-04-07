@@ -1,7 +1,6 @@
 package com.jaydroid.main.main
 
 import android.content.Intent
-import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.util.Log
 import android.view.Gravity
@@ -22,7 +21,6 @@ import com.jaydroid.base_component.network.auth.isCookieNotEmpty
 import com.jaydroid.base_component.network.bean.wan.FragmentItem
 import com.jaydroid.base_component.network.bean.wan.LoggedInEvent
 import com.jaydroid.base_component.network.bean.wan.user.User
-import com.jaydroid.base_component.utils.blur
 import com.jaydroid.main.R
 import com.jaydroid.main.main.adapter.MainViewPageAdapter
 import com.jaydroid.main.main.contract.MainContract
@@ -89,8 +87,6 @@ class MainActivity : BaseMVPActivity<MainContract.View, MainPresenter>(), MainCo
             true
         }
 
-        val bitmap = BitmapFactory.decodeResource(resources, R.drawable.tian)
-        avatarBackground.setImageBitmap(blur(mContext, bitmap, 22))
     }
 
     override fun initData() {
@@ -257,6 +253,8 @@ class MainActivity : BaseMVPActivity<MainContract.View, MainPresenter>(), MainCo
     }
 
     private fun gotoSearchActivity() {
+        ARHelper.routerTo(ARHelper.PathSearch.SEARCH_ACTIVITY_PATH)
+
     }
 
     private fun gotoLoginActivity() {

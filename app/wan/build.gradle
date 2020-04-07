@@ -63,6 +63,12 @@ dependencies {
     implementation project(path: ':biz_components:favorite')
 
 
+    /**
+     * 搜索业务组件
+     */
+    implementation project(path: ':biz_components:search')
+
+
     //初始的依赖
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation rootProject.ext.dependencies['kotlin-stdlib-jdk7']

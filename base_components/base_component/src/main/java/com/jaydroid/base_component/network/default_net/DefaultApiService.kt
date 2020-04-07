@@ -5,6 +5,8 @@ import com.jaydroid.base_component.network.bean.wan.Article
 import com.jaydroid.base_component.network.bean.wan.ArticleResponse
 import com.jaydroid.base_component.network.bean.wan.Banner
 import com.jaydroid.base_component.network.bean.wan.BaseResponse
+import com.jaydroid.base_component.network.bean.wan.search.SearchHot
+import com.jaydroid.base_component.network.bean.wan.search.SearchResultResponse
 import com.jaydroid.base_component.network.bean.wan.user.LogoutResult
 import com.jaydroid.base_component.network.bean.wan.user.RegisterResponse
 import com.jaydroid.base_component.network.bean.wan.user.User
@@ -77,5 +79,14 @@ interface DefaultApiService {
 
     @GET("lg/collect/list/{page}/json")
     fun getArticleFavorites(@Path("page") page: Int): Observable<BaseResponse<ArticleResponse>>
+
+
+    @GET("hotkey/json")
+    fun getSearchHot(): Observable<BaseResponse<ArrayList<SearchHot>>>
+
+    @POST("article/query/{page}/json")
+    @FormUrlEncoded
+    fun getSearchResult(@Path("page") page: Int, @Field("k") keyword: String): Observable<BaseResponse<SearchResultResponse>>
+
 
 }
