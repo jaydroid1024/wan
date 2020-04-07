@@ -1,0 +1,31 @@
+apply from: "../../biz_components.gradle"
+
+
+dependencies {
+
+    /**
+     * 单项目公共业务组件
+     */
+    implementation project(path: ':base_components:base_component_wan')
+//    implementation 'com.jaydroid.base_component_wan:base_component_wan:1.0.0'
+
+    implementation rootProject.ext.dependencies['smart-refresh-layout']
+    implementation rootProject.ext.dependencies['recycler-adapter-helper']
+
+
+}
+
+apply plugin: 'maven'
+uploadArchives {
+    //dependencies path: com.jaydroid.setting:setting:1.0.0
+    repositories.mavenDeployer {
+        // 本地路径
+        repository(url: MAVEN_LOCAL_REPO_PATH)
+        // 唯一标识
+        pom.groupId = "com.jaydroid.setting"
+        // 项目名称
+        pom.artifactId = "setting"
+        // 版本号
+        pom.version = "1.0.0"
+    }
+}

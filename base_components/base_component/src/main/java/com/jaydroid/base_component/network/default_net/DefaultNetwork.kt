@@ -1,16 +1,17 @@
 package com.jaydroid.base_component.network.default_net
 
 import android.content.Context
-import com.alibaba.android.arouter.launcher.ARouter
-import com.jaydroid.main.home.bean.Article
-import com.jaydroid.main.home.bean.ArticleResponse
-import com.jaydroid.base_component.network.bean.wan.Banner
-import com.jaydroid.base_component.arouter.ARouterHelper
+import com.jaydroid.base_component.app.BaseComponentApp
+import com.jaydroid.base_component.arouter.ARHelper
 import com.jaydroid.base_component.arouter.service.user.UserService
 import com.jaydroid.base_component.network.auth.AuthAbstractNetwork
+import com.jaydroid.base_component.network.bean.wan.Article
+import com.jaydroid.base_component.network.bean.wan.ArticleResponse
+import com.jaydroid.base_component.network.bean.wan.Banner
 import com.jaydroid.base_component.network.bean.wan.BaseResponse
-import com.jaydroid.base_component.network.bean.wan.RegisterResponse
-import com.jaydroid.base_component.network.bean.wan.User
+import com.jaydroid.base_component.network.bean.wan.user.LogoutResult
+import com.jaydroid.base_component.network.bean.wan.user.RegisterResponse
+import com.jaydroid.base_component.network.bean.wan.user.User
 import io.reactivex.Observable
 
 /**
@@ -22,7 +23,7 @@ class DefaultNetwork(context: Context) : AuthAbstractNetwork<DefaultApiService>(
 
     init {
         userService =
-            ARouter.getInstance().build(ARouterHelper.Path.LOGIN_SERVICE_PATH).navigation() as UserService?
+            ARHelper.getService<UserService>(ARHelper.PathUser.USER_SERVICE_PATH)
 
     }
     override val baseUrl: String
@@ -38,6 +39,18 @@ class DefaultNetwork(context: Context) : AuthAbstractNetwork<DefaultApiService>(
             .compose(RxUtil.applyObservableTransformer())
             .doOnNext {
                 userService?.setUserInfo(it.data)
+            }
+    }
+
+    fun logout(): Observable<BaseResponse<LogoutResult>> {
+        return getNetworkService()
+            .logout()
+            .compose(RxUtil.applyObservableTransformer())
+            .doOnNext {
+                if (it.isSuccess()) {
+                    BaseComponentApp.getInstance().getPersistentCookieJar().clear()
+                    userService?.setUserInfo(null)
+                }
             }
     }
 
@@ -69,6 +82,15 @@ class DefaultNetwork(context: Context) : AuthAbstractNetwork<DefaultApiService>(
             .getArticles(page)
             .compose(RxUtil.applyObservableTransformer())
     }
+
+
+    fun getArticleFavorites(page: Int): Observable<BaseResponse<ArticleResponse>> {
+        return getNetworkService()
+            .getArticleFavorites(page)
+            .compose(RxUtil.applyObservableTransformer())
+    }
+
+
 
 
 }

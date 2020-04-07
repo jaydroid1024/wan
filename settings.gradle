@@ -2,9 +2,12 @@ rootProject.name = 'WanDroid'
 //宿主壳和调试壳
 include ':app:wan',
         ':app:app_main',
+        ':app:app_setting',
+        ':app:app_favorite',
         ':app:app_login'
 //常规业务组件
 include ':biz_components:login',
+        ':biz_components:setting',
         ':biz_components:main'
 //基础业务组件
 include ':base_components:base_component',
@@ -70,3 +73,5 @@ include ':base_libs:base_lib'
  */
 //include ':component_lib'
 //project(':component_lib').projectDir = new File('../../Components/component_lib')
+include ':setting'
+include ':biz_components:favorite'

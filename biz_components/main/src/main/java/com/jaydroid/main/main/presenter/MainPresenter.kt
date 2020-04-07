@@ -1,10 +1,9 @@
 package com.jaydroid.main.main.presenter
 
-import com.alibaba.android.arouter.launcher.ARouter
-import com.jaydroid.main.main.contract.MainContract
-import com.jaydroid.base_component.arouter.ARouterHelper
+import com.jaydroid.base_component.arouter.ARHelper
 import com.jaydroid.base_component.arouter.service.user.UserService
 import com.jaydroid.base_component.base.mvp.BasePresenter
+import com.jaydroid.main.main.contract.MainContract
 
 class MainPresenter : BasePresenter<MainContract.View>(), MainContract.Presenter {
 
@@ -12,7 +11,7 @@ class MainPresenter : BasePresenter<MainContract.View>(), MainContract.Presenter
 
     init {
         userService =
-            ARouter.getInstance().build(ARouterHelper.Path.LOGIN_SERVICE_PATH).navigation() as UserService?
+            ARHelper.getService<UserService>(ARHelper.PathUser.USER_SERVICE_PATH)
     }
 
     override fun getUserInfo() {

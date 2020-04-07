@@ -1,9 +1,9 @@
 package com.jaydroid.main.main
 
 import android.animation.Animator
-import com.jaydroid.main.R
-import com.jaydroid.base_component.arouter.ARouterHelper
+import com.jaydroid.base_component.arouter.ARHelper
 import com.jaydroid.base_component.base.BaseActivity
+import com.jaydroid.main.R
 import kotlinx.android.synthetic.main.activity_splash.*
 
 class SplashActivity : BaseActivity() {
@@ -38,7 +38,7 @@ class SplashActivity : BaseActivity() {
 //        } else {
 //            ARouterHelper.routerTo(ARouterHelper.Path.HOME_ACTIVITY_PATH)
 //        }
-        ARouterHelper.routerTo(ARouterHelper.Path.HOME_ACTIVITY_PATH)
+        ARHelper.routerTo(ARHelper.PathMain.MAIN_ACTIVITY_PATH)
         finish()
     }
 }

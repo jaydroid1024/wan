@@ -4,7 +4,7 @@ import com.jaydroid.login.user.contract.LoginContract
 import com.jaydroid.base_component.base.mvp.BaseObserver
 import com.jaydroid.base_component.base.mvp.BasePresenter
 import com.jaydroid.base_component.network.bean.wan.LoggedInEvent
-import com.jaydroid.base_component.network.bean.wan.User
+import com.jaydroid.base_component.network.bean.wan.user.User
 import org.greenrobot.eventbus.EventBus
 
 class LoginPresenter : BasePresenter<LoginContract.View>(), LoginContract.Presenter {

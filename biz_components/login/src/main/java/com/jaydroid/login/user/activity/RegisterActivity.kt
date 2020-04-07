@@ -6,16 +6,16 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.jaydroid.base_component.arouter.ARouterHelper
+import com.jaydroid.base_component.arouter.ARHelper
 import com.jaydroid.base_component.base.mvp.BaseMVPActivity
-import com.jaydroid.base_component.network.bean.wan.RegisterResponse
+import com.jaydroid.base_component.network.bean.wan.user.RegisterResponse
 import com.jaydroid.base_component.widget.ClearEditText
 import com.jaydroid.login.R
 import com.jaydroid.login.R2
 import com.jaydroid.login.user.contract.RegisterContract
 import com.jaydroid.login.user.presenter.RegisterPresenter
 
-@Route(path = ARouterHelper.Path.REGISTER_ACTIVITY_PATH)
+@Route(path = ARHelper.PathUser.REGISTER_ACTIVITY_PATH)
 class RegisterActivity : BaseMVPActivity<RegisterContract.View, RegisterPresenter>(),
     RegisterContract.View, View.OnClickListener {
 

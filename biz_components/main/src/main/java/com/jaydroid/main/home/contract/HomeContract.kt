@@ -1,7 +1,7 @@
 package com.jaydroid.main.home.contract
 
 import com.jaydroid.base_component.network.bean.wan.Banner
-import com.jaydroid.main.home.bean.Article
+import com.jaydroid.base_component.network.bean.wan.Article
 import com.jaydroid.base_component.base.mvp.IView
 
 

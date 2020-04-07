@@ -11,27 +11,27 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayout
 import com.jaeger.library.StatusBarUtil
-import com.jaydroid.main.R
-import com.jaydroid.main.home.HomeFragment
-import com.jaydroid.main.main.adapter.MainViewPageAdapter
-import com.jaydroid.main.main.contract.MainContract
-import com.jaydroid.main.main.presenter.MainPresenter
-import com.jaydroid.main.main.widgets.MainViewPager
-import com.jaydroid.base_component.arouter.ARouterHelper
+import com.jaydroid.base_component.arouter.ARHelper
 import com.jaydroid.base_component.base.mvp.BaseMVPActivity
 import com.jaydroid.base_component.network.auth.isCookieNotEmpty
 import com.jaydroid.base_component.network.bean.wan.FragmentItem
 import com.jaydroid.base_component.network.bean.wan.LoggedInEvent
-import com.jaydroid.base_component.network.bean.wan.User
+import com.jaydroid.base_component.network.bean.wan.user.User
 import com.jaydroid.base_component.utils.blur
+import com.jaydroid.main.R
+import com.jaydroid.main.main.adapter.MainViewPageAdapter
+import com.jaydroid.main.main.contract.MainContract
+import com.jaydroid.main.main.presenter.MainPresenter
+import com.jaydroid.main.main.widgets.MainViewPager
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
-@Route(path = ARouterHelper.Path.HOME_ACTIVITY_PATH)
+@Route(path = ARHelper.PathMain.MAIN_ACTIVITY_PATH)
 class MainActivity : BaseMVPActivity<MainContract.View, MainPresenter>(), MainContract.View,
     View.OnClickListener {
 
@@ -79,12 +79,12 @@ class MainActivity : BaseMVPActivity<MainContract.View, MainPresenter>(), MainCo
         navigationView.setNavigationItemSelectedListener { item ->
             closeDrawer()
             when (item.itemId) {
-
                 R.id.item_nav_favorite -> {
+                    ARHelper.routerTo(ARHelper.PathFavorite.FAVORITE_ACTIVITY_PATH)
                 }
                 R.id.item_nav_setting -> {
+                    ARHelper.routerTo(ARHelper.PathSetting.SETTING_ACTIVITY_PATH)
                 }
-
             }
             true
         }
@@ -96,30 +96,27 @@ class MainActivity : BaseMVPActivity<MainContract.View, MainPresenter>(), MainCo
     override fun initData() {
         super.initData()
         val list = mutableListOf<FragmentItem>()
-        list.add(
-            FragmentItem(
-                "首页",
-                HomeFragment.newInstance()
+        //通过ARouter 获取其他组件提供的fragment
+        val homeFragment = ARHelper.getService<Fragment>(ARHelper.PathMain.HOME_FRAGMENT_PATH)
+        val homeFragment2 = ARHelper.getService<Fragment>(ARHelper.PathMain.HOME_FRAGMENT_PATH)
+        homeFragment?.let {
+            list.add(
+                FragmentItem(
+                    "首页",
+                    it
+                )
             )
-        )
-        list.add(
-            FragmentItem(
-                "项目",
-                HomeFragment.newInstance()
+        }
+
+        homeFragment2?.let {
+            list.add(
+                FragmentItem(
+                    "首页",
+                    it
+                )
             )
-        )
-        list.add(
-            FragmentItem(
-                "体系",
-                HomeFragment.newInstance()
-            )
-        )
-        list.add(
-            FragmentItem(
-                "干货",
-                HomeFragment.newInstance()
-            )
-        )
+        }
+
         mAdapter = MainViewPageAdapter(this, supportFragmentManager, list)
         mainViewPager.adapter = mAdapter
         mainTabLayout.setupWithViewPager(mainViewPager)
@@ -153,14 +150,25 @@ class MainActivity : BaseMVPActivity<MainContract.View, MainPresenter>(), MainCo
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
-        initData()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setUsernameFromCache()
     }
 
     private fun setUsernameFromCache() {
         loggedIn = isCookieNotEmpty(mContext)
         if (!loggedIn) {
             usernameTextView.text = "点击登陆"
+            //todo fix -android-extensions 无法实例化view
+//            iv_avatar_background.setImageDrawable(getDrawable(R.drawable.shape_recommend_bg))
+//            iv_nav_avatar.setImageDrawable(getDrawable(R.drawable.shape_recommend_bg))
         } else {
+            //todo fix -android-extensions 无法实例化view
+//            val bitmap = BitmapFactory.decodeResource(resources, R.drawable.tian)
+//            iv_avatar_background.setImageBitmap(blur(mContext, bitmap, 22))
+//            iv_nav_avatar.setImageDrawable(getDrawable(R.drawable.tian))
             val user = presenter.userService?.getUserInfo()
             val username: String
             username = if (user != null) {
@@ -252,7 +260,7 @@ class MainActivity : BaseMVPActivity<MainContract.View, MainPresenter>(), MainCo
     }
 
     private fun gotoLoginActivity() {
-        ARouterHelper.routerTo(ARouterHelper.Path.LOGIN_ACTIVITY_PATH)
+        ARHelper.routerTo(ARHelper.PathUser.LOGIN_ACTIVITY_PATH)
 
     }
 
@@ -262,7 +270,7 @@ class MainActivity : BaseMVPActivity<MainContract.View, MainPresenter>(), MainCo
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             val now = System.currentTimeMillis()
             if (now - lastTime > 1000) {
-                Toast.makeText(mContext, "再按一次,推出应用", Toast.LENGTH_LONG).show()
+                Toast.makeText(mContext, "再按一次,推出应用", Toast.LENGTH_SHORT).show()
                 lastTime = now
                 return false
             }

@@ -17,8 +17,7 @@ open class BasePresenter<V : IView> : IPresenter<V> {
 
     fun <T> addSubscribe(observable: Observable<BaseResponse<T>>, baseObserver: BaseObserver<T>) {
         val observer =
-            observable
-                .subscribeOn(Schedulers.newThread())
+            observable.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(baseObserver)
         disposable.add(observer)

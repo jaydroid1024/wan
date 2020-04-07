@@ -1,7 +1,7 @@
 package com.jaydroid.base_component.arouter.service.user
 
 import com.jaydroid.base_component.arouter.service.ARouterService
-import com.jaydroid.base_component.network.bean.wan.User
+import com.jaydroid.base_component.network.bean.wan.user.User
 
 /**
  * 用户服务管理

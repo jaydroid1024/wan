@@ -11,10 +11,10 @@ import butterknife.BindView
 import com.alibaba.android.arouter.facade.Postcard
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.facade.callback.NavigationCallback
-import com.jaydroid.base_component.arouter.ARouterHelper
-import com.jaydroid.base_component.arouter.ARouterHelper.Path.REGISTER_ACTIVITY_PATH
+import com.jaydroid.base_component.arouter.ARHelper
+import com.jaydroid.base_component.arouter.ARHelper.PathUser.REGISTER_ACTIVITY_PATH
 import com.jaydroid.base_component.base.mvp.BaseMVPActivity
-import com.jaydroid.base_component.network.bean.wan.User
+import com.jaydroid.base_component.network.bean.wan.user.User
 import com.jaydroid.base_component.widget.ClearEditText
 import com.jaydroid.base_component.widget.LoginView
 import com.jaydroid.base_lib.utils.L
@@ -23,7 +23,7 @@ import com.jaydroid.login.R2
 import com.jaydroid.login.user.contract.LoginContract
 import com.jaydroid.login.user.presenter.LoginPresenter
 
-@Route(path = ARouterHelper.Path.LOGIN_ACTIVITY_PATH)
+@Route(path = ARHelper.PathUser.LOGIN_ACTIVITY_PATH)
 class LoginActivity : BaseMVPActivity<LoginContract.View, LoginPresenter>(),
     LoginContract.View, View.OnClickListener {
 
@@ -75,7 +75,7 @@ class LoginActivity : BaseMVPActivity<LoginContract.View, LoginPresenter>(),
                 login()
             }
             R.id.tv_user_register -> {
-                ARouterHelper.routerTo(REGISTER_ACTIVITY_PATH)
+                ARHelper.routerTo(REGISTER_ACTIVITY_PATH)
             }
             R.id.iv_login_close -> {
                 finish()
@@ -108,8 +108,8 @@ class LoginActivity : BaseMVPActivity<LoginContract.View, LoginPresenter>(),
 
     override fun onLoginResult(username: String, user: User?) {
 
-        ARouterHelper.routerTo(
-            ARouterHelper.Path.HOME_ACTIVITY_PATH,
+        ARHelper.routerTo(
+            ARHelper.PathMain.MAIN_ACTIVITY_PATH,
             this,
             object : NavigationCallback {
                 override fun onLost(postcard: Postcard?) {

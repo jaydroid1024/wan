@@ -1,4 +1,4 @@
-package com.jaydroid.main.home.bean
+package com.jaydroid.base_component.network.bean.wan
 
 data class Article(
     val id: Int,

@@ -1,14 +1,7 @@
-apply from: "../../biz_components_app.gradle"
+apply from: "../../app_components.gradle"
 
 
 dependencies {
-
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-
-    implementation rootProject.ext.dependencies['lottie']
-    implementation rootProject.ext.dependencies['banner']
-    implementation rootProject.ext.dependencies['smart-refresh-layout']
-    implementation rootProject.ext.dependencies['recycler-adapter-helper']
 
     //TODO 4. 修改要调试的组件
     /**

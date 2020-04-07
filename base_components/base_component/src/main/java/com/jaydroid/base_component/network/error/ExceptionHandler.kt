@@ -1,6 +1,8 @@
 package com.jaydroid.base_component.network.error
 
+import android.widget.Toast
 import com.google.gson.JsonParseException
+import com.jaydroid.base_component.app.BaseComponentApp
 import org.apache.http.conn.ConnectTimeoutException
 import org.json.JSONException
 import retrofit2.HttpException
@@ -22,38 +24,47 @@ class ExceptionHandler {
         private const val GATEWAY_TIMEOUT = 504
         fun handleException(exception: Throwable) {
             var errorMsg = ""
-            if (exception is HttpException) {
-                when (exception.code()) {
-                    UNAUTHORIZED,
-                    FORBIDDEN,
-                    NOT_FOUND,
-                    REQUEST_TIMEOUT,
-                    GATEWAY_TIMEOUT,
-                    INTERNAL_SERVER_ERROR,
-                    BAD_GATEWAY,
-                    SERVICE_UNAVAILABLE -> {
-                        errorMsg = "网络错误"
+            when {
+                exception is HttpException -> {
+                    when (exception.code()) {
+                        UNAUTHORIZED,
+                        FORBIDDEN,
+                        NOT_FOUND,
+                        REQUEST_TIMEOUT,
+                        GATEWAY_TIMEOUT,
+                        INTERNAL_SERVER_ERROR,
+                        BAD_GATEWAY,
+                        SERVICE_UNAVAILABLE -> {
+                            errorMsg = "网络错误"
+                        }
                     }
                 }
-            } else if (exception is ApiException) {
-                errorMsg = exception.errMsg
-                val errorCode = exception.errCode
-                // 根据 errorCode 处理服务端接口异常，如 token 登录失效
-                handleServerException(errorCode)
-            } else if ((exception is JsonParseException) or (exception is JSONException) or (exception is ParseException)) {
-                errorMsg = "解析错误"
-            } else if (exception is ConnectException) {
-                errorMsg = "网络链接失败，请稍后重试"
-            } else if (exception is SSLHandshakeException) {
-                errorMsg = "证书验证失败"
-            } else if (exception is ConnectTimeoutException) {
-                errorMsg = "网络链接超时"
-            } else if (exception is SocketTimeoutException) {
-                errorMsg = "连接超时"
-            } else {
-                errorMsg = "网络链接异常，请稍后重试"
+                exception is ApiException -> {
+                    errorMsg = exception.errMsg
+                    val errorCode = exception.errCode
+                    // 根据 errorCode 处理服务端接口异常，如 token 登录失效
+                    handleServerException(errorCode)
+                }
+                (exception is JsonParseException) or (exception is JSONException) or (exception is ParseException) -> {
+                    errorMsg = "解析错误"
+                }
+                exception is ConnectException -> {
+                    errorMsg = "网络链接失败，请稍后重试"
+                }
+                exception is SSLHandshakeException -> {
+                    errorMsg = "证书验证失败"
+                }
+                exception is ConnectTimeoutException -> {
+                    errorMsg = "网络链接超时"
+                }
+                exception is SocketTimeoutException -> {
+                    errorMsg = "连接超时"
+                }
+                else -> {
+                    errorMsg = "网络链接异常，请稍后重试"
+                }
             }
-//            Toast.makeText(BaseCommentInit.instance, errorMsg, Toast.LENGTH_LONG).show()
+            Toast.makeText(BaseComponentApp.getApp(), errorMsg, Toast.LENGTH_LONG).show()
         }
 
         private fun handleServerException(errorCode: Int) {

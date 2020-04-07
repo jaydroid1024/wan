@@ -10,69 +10,98 @@ import java.util.*
 
 
 /**
- * 公共路由帮助类
+ * ARouter 帮助类
+ * 路由路径
+ * 跳转公共方法
  * @author wangxuejie
  * @date 2019-12-17 14:04
  * @version 1.0
  */
-object ARouterHelper {
+object ARHelper {
 
-    object Path {
-
-        /* ========================================================= */
-        /* ==================== component_base组件  ================= */
-        /* ========================================================= */
-        /**
-         * 登录服务
-         */
-        const val LOGIN_SERVICE_PATH = "/login/login/service"
+    /**
+     * main组件
+     */
+    object PathMain {
 
         /**
-         * 登录服务
+         * group name
          */
-        const val GIT_LOGIN_SERVICE_PATH = "/component_login_a/git_login/service"
+        private const val MAIN = "/main"
+
+        /**
+         * MainActivity 页面
+         */
+        const val MAIN_ACTIVITY_PATH = "$MAIN/main/activity"
+
+        /**
+         * HomeFragment 页面
+         */
+        const val HOME_FRAGMENT_PATH = "$MAIN/home/fragment"
 
 
-        /* ========================================================= */
-        /* ==================== component_login组件 ================= */
-        /* ========================================================= */
+    }
+
+    /**
+     * user组件
+     */
+    object PathUser {
+
+        /**
+         * group name
+         */
+        private const val USER = "/login"
+
         /**
          * 登录页面
          */
-        const val LOGIN_ACTIVITY_PATH = "/login/login/activity"
+        const val LOGIN_ACTIVITY_PATH = "$USER/login/activity"
 
         /**
          * 注册页面
          */
-        const val REGISTER_ACTIVITY_PATH = "/login/register/activity"
-
-
-        /* ========================================================= */
-        /* ========================= app_a组件  ===================== */
-        /* ========================================================= */
+        const val REGISTER_ACTIVITY_PATH = "$USER/register/activity"
 
         /**
-         * Home页面
+         * 用户服务
          */
-        const val HOME_ACTIVITY_PATH = "/main/main/activity"
+        const val USER_SERVICE_PATH = "$USER/login/service"
 
 
-        /* ========================================================= */
-        /* =================== component_login_a组件 ================ */
-        /* ========================================================= */
+    }
+
+    /**
+     * setting组件
+     */
+    object PathSetting {
+
         /**
-         * Git登录页面
+         * group name
          */
-        const val LOGIN_GITHUB_ACTIVITY_PATH = "/component_login_a/login/activity"
+        private const val SETTING = "/setting"
 
-
-        /* ========================================================= */
-        /* =================== component_main_a组件 ================ */
-        /* ========================================================= */
         /**
-         * Git主页面
+         * 设置页面
          */
-        const val GIT_MAIN_ACTIVITY_PATH = "/component_main_a/main/activity"
+        const val SETTING_ACTIVITY_PATH = "$SETTING/setting/activity"
+
+
+    }
+
+    /**
+     * favorite组件
+     */
+    object PathFavorite {
+
+        /**
+         * group name
+         */
+        private const val FAVORITE = "/favorite"
+
+        /**
+         * 收藏页面
+         */
+        const val FAVORITE_ACTIVITY_PATH = "$FAVORITE/favorite/activity"
 
 
     }

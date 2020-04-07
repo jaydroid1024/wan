@@ -4,7 +4,7 @@ import android.text.TextUtils
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.jaydroid.main.R
-import com.jaydroid.main.home.bean.Article
+import com.jaydroid.base_component.network.bean.wan.Article
 import java.text.SimpleDateFormat
 import java.util.*
 

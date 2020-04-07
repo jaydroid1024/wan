@@ -1,7 +1,7 @@
 package com.jaydroid.login.user.contract
 
 import com.jaydroid.base_component.base.mvp.IView
-import com.jaydroid.base_component.network.bean.wan.User
+import com.jaydroid.base_component.network.bean.wan.user.User
 
 interface LoginContract {
 

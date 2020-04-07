@@ -52,6 +52,17 @@ dependencies {
 //    implementation 'com.jaydroid.main:main:1.0.0'
 //    implementation 'com.jaydroid.base_component_wan:base_component_wan:1.0.0'
 
+    /**
+     * 设置业务组件
+     */
+    implementation project(path: ':biz_components:setting')
+
+    /**
+     * 收藏业务组件
+     */
+    implementation project(path: ':biz_components:favorite')
+
+
     //初始的依赖
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation rootProject.ext.dependencies['kotlin-stdlib-jdk7']

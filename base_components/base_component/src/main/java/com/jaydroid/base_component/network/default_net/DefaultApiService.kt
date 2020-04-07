@@ -1,12 +1,13 @@
 package com.jaydroid.base_component.network.default_net
 
-import com.jaydroid.main.home.bean.Article
-import com.jaydroid.main.home.bean.ArticleResponse
+import com.jaydroid.base_component.network.bean.github.Repo
+import com.jaydroid.base_component.network.bean.wan.Article
+import com.jaydroid.base_component.network.bean.wan.ArticleResponse
 import com.jaydroid.base_component.network.bean.wan.Banner
 import com.jaydroid.base_component.network.bean.wan.BaseResponse
-import com.jaydroid.base_component.network.bean.wan.RegisterResponse
-import com.jaydroid.base_component.network.bean.wan.User
-import com.jaydroid.base_component.network.bean.github.Repo
+import com.jaydroid.base_component.network.bean.wan.user.LogoutResult
+import com.jaydroid.base_component.network.bean.wan.user.RegisterResponse
+import com.jaydroid.base_component.network.bean.wan.user.User
 import io.reactivex.Flowable
 import io.reactivex.Observable
 import retrofit2.Call
@@ -51,6 +52,10 @@ interface DefaultApiService {
     ): Observable<BaseResponse<User>>
 
 
+    @GET("user/logout/json")
+    fun logout(): Observable<BaseResponse<LogoutResult>>
+
+
     @POST("user/register")
     @FormUrlEncoded
     fun register(
@@ -70,5 +75,7 @@ interface DefaultApiService {
     fun getArticles(@Path("page") page: Int): Observable<BaseResponse<ArticleResponse>>
 
 
+    @GET("lg/collect/list/{page}/json")
+    fun getArticleFavorites(@Path("page") page: Int): Observable<BaseResponse<ArticleResponse>>
 
 }
