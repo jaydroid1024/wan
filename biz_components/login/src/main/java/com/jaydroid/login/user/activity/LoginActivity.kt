@@ -36,7 +36,7 @@ class LoginActivity : BaseMVPActivity<LoginContract.View, LoginPresenter>(),
     lateinit var closeImgView: ImageView
 
     override fun getLayoutResId(): Int {
-        return R2.layout.activity_login
+        return R.layout.activity_login
     }
 
     override fun createPresenter(): LoginPresenter {

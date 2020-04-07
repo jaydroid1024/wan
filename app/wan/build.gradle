@@ -2,27 +2,30 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-apply plugin: 'com.jakewharton.butterknife'
 
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.2"
+
+    compileSdkVersion rootProject.ext.android["compileSdkVersion"]
+    buildToolsVersion rootProject.ext.android["buildToolsVersion"]
+
     defaultConfig {
         applicationId "com.jaydroid.wanandroid"
-        minSdkVersion 21
-        targetSdkVersion 29
+        minSdkVersion rootProject.ext.android["minSdkVersion"]
+        targetSdkVersion rootProject.ext.android["targetSdkVersion"]
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        //Arouter & AppInit
+//        kapt {
+//            arguments {
+//                arg("AROUTER_MODULE_NAME", project.getName(), "AROUTER_GENERATE_DOC","enable")
+//            }
+//        }
+
         javaCompileOptions {
-            annotationProcessorOptions {
-                if (arguments == null) {
+            javaCompileOptions {
+                annotationProcessorOptions {
                     arguments = [AROUTER_MODULE_NAME: project.getName(), AROUTER_GENERATE_DOC: "enable"]
-                } else {
-                    arguments.put("AROUTER_MODULE_NAME", project.getName())
-                    arguments.put("AROUTER_GENERATE_DOC", "enable")
                 }
             }
         }
@@ -46,7 +49,8 @@ dependencies {
      * 主业务组件
      */
     implementation project(path: ':biz_components:main')
-
+//    implementation 'com.jaydroid.main:main:1.0.0'
+//    implementation 'com.jaydroid.base_component_wan:base_component_wan:1.0.0'
 
     //初始的依赖
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -59,5 +63,6 @@ dependencies {
     androidTestImplementation rootProject.ext.dependencies['espresso-core-androidx']
     //其它依赖
     //arouter-compiler 的注解依赖需要所有使用 ARouter 的 model 都添加依赖
-    kapt rootProject.ext.dependencies['arouter-compiler']
+//    kapt rootProject.ext.dependencies['arouter-compiler']
+    annotationProcessor rootProject.ext.dependencies['arouter-compiler']
 }

@@ -50,7 +50,9 @@ dependencies {
     /**
      * 基础功能组件
      */
-    api project(path: ':base_libs:basic_lib')
+    api project(path: ':base_libs:base_lib')
+//    api 'com.jaydroid.base_lib:base_lib:1.0.0'
+
     //初始的依赖
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation rootProject.ext.dependencies['kotlin-stdlib-jdk7']
@@ -70,5 +72,19 @@ dependencies {
     //arouter-compiler 的注解依赖需要所有使用 ARouter 的 model 都添加依赖
     kapt rootProject.ext.dependencies['arouter-compiler']
 
+}
 
+apply plugin: 'maven'
+uploadArchives {
+    //dependencies path: com.jaydroid.base_component:base_component:1.0.0
+    repositories.mavenDeployer {
+        // 本地路径
+        repository(url: MAVEN_LOCAL_REPO_PATH)
+        // 唯一标识
+        pom.groupId = "com.jaydroid.base_component"
+        // 项目名称
+        pom.artifactId = "base_component"
+        // 版本号
+        pom.version = "1.0.0"
+    }
 }

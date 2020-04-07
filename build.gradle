@@ -1,19 +1,19 @@
 //使用config.gradle统一管理项目的依赖库
 apply from: "config.gradle"
 buildscript {
-    ext.kotlin_version = '1.3.50'
+    ext.kotlin_version = '1.3.61'
     repositories {
         google()
         jcenter()
+        mavenCentral()
         maven { url "https://jitpack.io" }
+        maven { url MAVEN_LOCAL_REPO_PATH }
 
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.5.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.jakewharton:butterknife-gradle-plugin:10.2.1'
-        //解决butterknife R2在library中找不到的问题
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
 
 
     }
@@ -22,8 +22,10 @@ buildscript {
 allprojects {
     repositories {
         google()
+        mavenCentral()
         jcenter()
         maven { url "https://jitpack.io" }
+        maven { url MAVEN_LOCAL_REPO_PATH }
 
     }
 }

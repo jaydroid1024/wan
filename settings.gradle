@@ -10,7 +10,7 @@ include ':biz_components:login',
 include ':base_components:base_component',
         ':base_components:base_component_wan'
 //基础功能组件
-include ':base_libs:basic_lib'
+include ':base_libs:base_lib'
 
 
 /**

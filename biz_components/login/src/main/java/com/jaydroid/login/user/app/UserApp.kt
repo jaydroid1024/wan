@@ -15,7 +15,8 @@ import com.jaydroid.base_lib.app.appdelegate.PriorityLevel
  * @date 2019-10-15 10:57
  */
 class UserApp : IAppLife {
-    override fun attachBaseContext(base: Context) {
+
+    override fun attachBaseContext(context: Context) {
         Log.d(TAG, "attachBaseContext")
     }
 
