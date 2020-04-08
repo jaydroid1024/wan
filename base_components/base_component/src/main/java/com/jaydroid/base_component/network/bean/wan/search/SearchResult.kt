@@ -1,6 +1,7 @@
 package com.jaydroid.base_component.network.bean.wan.search
 
 data class SearchResult(
+    val id: String,
     val author: String,
     val link: String,
     val niceDate: String,

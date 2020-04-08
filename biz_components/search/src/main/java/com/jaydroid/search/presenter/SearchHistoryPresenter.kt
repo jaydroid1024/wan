@@ -1,4 +1,4 @@
-package com.xing.wanandroid.search.presenter
+package  search.presenter
 
 import android.util.Log
 import com.jaydroid.base_component.base.mvp.BaseObserver

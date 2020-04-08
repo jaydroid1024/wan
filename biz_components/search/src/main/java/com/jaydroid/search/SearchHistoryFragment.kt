@@ -16,7 +16,7 @@ import com.jaydroid.base_component.widget.flowlayout.FlowAdapter
 import com.jaydroid.base_component.widget.flowlayout.FlowLayout
 import com.jaydroid.search.adapter.SearchHistoryAdapter
 import com.jaydroid.search.contract.SearchHistoryContract
-import com.xing.wanandroid.search.presenter.SearchHistoryPresenter
+import  search.presenter.SearchHistoryPresenter
 
 /**
  *  搜索历史

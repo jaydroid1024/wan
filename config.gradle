@@ -1,5 +1,4 @@
 ext {
-
     android = [
             compileSdkVersion: 29,
             buildToolsVersion: "29.0.2",
@@ -10,17 +9,17 @@ ext {
     ]
 
     version = [
-            androidSupportSdkVersion    : "28.0.0",
-            retrofitSdkVersion          : "2.7.0",
-            dagger2SdkVersion           : "2.19",
-            glideSdkVersion             : "4.8.0",
-            butterknifeSdkVersion       : "10.2.1",
-            rxlifecycleSdkVersion       : "1.0",
-            rxlifecycle2SdkVersion      : "2.2.2",
-            espressoSdkVersion          : "3.0.1",
-            canarySdkVersion            : "1.5.4",
-            circleImageviewVersion      : "2.1.0",
-            kotlinVersion               : "1.3.50"
+            androidSupportSdkVersion: "28.0.0",
+            retrofitSdkVersion      : "2.7.0",
+            dagger2SdkVersion       : "2.19",
+            glideSdkVersion         : "4.8.0",
+            butterknifeSdkVersion   : "10.2.1",
+            rxlifecycleSdkVersion   : "1.0",
+            rxlifecycle2SdkVersion  : "2.2.2",
+            espressoSdkVersion      : "3.0.1",
+            canarySdkVersion        : "1.5.4",
+            circleImageviewVersion  : "2.1.0",
+            kotlinVersion           : "1.3.50"
     ]
 
     dependencies = [
@@ -116,7 +115,104 @@ ext {
             "logger"                   : "com.orhanobut:logger:2.2.0",
             "canary-debug"             : "com.squareup.leakcanary:leakcanary-android:${version["canarySdkVersion"]}",
             "canary-release"           : "com.squareup.leakcanary:leakcanary-android-no-op:${version["canarySdkVersion"]}",
-            "umeng-analytics"          : "com.umeng.analytics:analytics:6.0.1"
+            "umeng-analytics"          : "com.umeng.analytics:analytics:6.0.1",
+
+            //sdk
+            "wechat"                   : "com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+",
 
     ]
+
+
+    /* ========================================================= */
+    /* ==========================签名信息======================== */
+    /* ========================================================= */
+    println("/* ========================签名信息======================= */")
+
+    def rootDir = rootDir.path
+    println("rootDir:$rootDir")
+    //签名信息
+    def keyProps = getKeyProperties()
+    println("config-keyProps" + keyProps.toString())
+    println("file-keyProps" + file(keyProps["storeDebug"]))
+    sign = [
+            //debug sign
+            aliasDebug    : keyProps["aliasDebug"],
+            passDebug     : keyProps["passDebug"],
+            storeDebug    : file(keyProps["storeDebug"]),
+            storePassDebug: keyProps["storePassDebug"],
+            //release sign
+            alias         : keyProps["alias"],
+            pass          : keyProps["pass"],
+            store         : file(keyProps["store"]),
+            storePass     : keyProps["storePass"]
+    ]
+
+    /* ========================================================= */
+    /* ========================环境变量信息======================= */
+    /* ========================================================= */
+    println("/* ========================环境变量信息======================= */")
+    def debugEnvironmentProps = getEnvironmentProperties(getEnvironmentPropertyType())
+    def liveEnvironmentProps = getEnvironmentProperties("live")
+    println("debugEnvironmentProps:$debugEnvironmentProps")
+    println("liveEnvironmentProps:$liveEnvironmentProps")
+    println("propertyType:${getEnvironmentPropertyType()}")
+    environment = [
+            // 测试环境 Properties dev local
+            debugEnvironmentProps: debugEnvironmentProps,
+            // 线上环境 Properties live
+            liveEnvironmentProps : liveEnvironmentProps
+    ]
+
+
 }
+
+/**
+ * 获取属性总配置文件
+ * @return Properties实例 config
+ */
+Properties getConfigProperties() {
+    def CONFIG_PATH = "./buildsystem/config.properties"
+    return getProperties(CONFIG_PATH)
+}
+
+/**
+ * 获取属性配置文件公共方法
+ * @param propPath Properties配置文件路径
+ * @return Properties实例
+ */
+Properties getProperties(String propPath) {
+    Properties props = new Properties()
+    props.load(new FileInputStream(file(propPath)))
+    return props
+}
+
+/**
+ * 获取签名配置文件
+ * @return Properties实例  签名
+ */
+Properties getKeyProperties() {
+    Properties configProperties = getConfigProperties()
+    // 使用assert确保存在该属性否则报错，避免错误打包
+    assert configProperties['keystore.props.file']
+    return getProperties(configProperties.getProperty("keystore.props.file"))
+}
+
+/**
+ * 获取当前指定的环境类型，缺省dev
+ * @return
+ */
+String getEnvironmentPropertyType() {
+    Properties localProperties = getConfigProperties()
+    return localProperties.getProperty("propertyType", "dev")
+}
+
+//根据环境类型获取环境配置文件
+Properties getEnvironmentProperties(String propertyType) {
+    Properties localProperties = getConfigProperties()
+    String environmentPath = "${propertyType}.props.file"
+    // 使用assert确保存在该属性否则报错，避免错误打包
+    assert localProperties[environmentPath]
+    return getProperties(localProperties.getProperty(environmentPath))
+}
+
+

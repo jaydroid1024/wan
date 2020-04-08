@@ -39,6 +39,13 @@ object Constants {
          * 通用_id
          */
         const val ID = "_id"
+        const val URL: String = "_url"
+        const val LINK: String = "_link"
+        const val AUTHOR: String = "_author"
+        const val TITLE: String = "_title"
+        const val IMAGES: String = "images"
+        const val INDEX: String = "index"
+        const val CID: String = "cid"
 
     }
 

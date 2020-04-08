@@ -27,12 +27,36 @@ android {
         }
     }
 
+
     buildTypes {
+        //打包命令：
+        // ./gradlew :app:wan:assembleDebug
+        // ./gradlew :app:wan:assembleRelease
+
+        debug {
+            // Zipalign优化 true
+            zipAlignEnabled false
+            // 移除无用的resource文件 true  Resource shrinker cannot be used for libraries.
+//            shrinkResources true
+            // 启用Android插件压缩器
+            // useProguard true
+            // 代码压缩/是否进行混淆 true
+            minifyEnabled false
+            // 前一部分代表系统默认的android程序的混淆文件，该文件已经包含了基本的混淆声明,后一部分是我们项目里的自定义的混淆文件
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+        }
         release {
+            // Zipalign优化
+            zipAlignEnabled false
+            // 移除无用的resource文件 true  Resource shrinker cannot be used for libraries.
+//            shrinkResources true
+            // 代码压缩/是否进行混淆
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8

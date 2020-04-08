@@ -125,6 +125,24 @@ object ARHelper {
     }
 
     /**
+     * detail组件
+     */
+    object PathDetail {
+
+        /**
+         * group name
+         */
+        private const val DETAIL = "/detail"
+
+        /**
+         * 文章详情页面
+         */
+        const val DETAIL_ACTIVITY_PATH = "$DETAIL/detail/activity"
+
+
+    }
+
+    /**
      * 获取通用服务
      */
     fun <T> getService(service: Class<out T>): T? {

@@ -1,4 +1,4 @@
-package com.xing.wanandroid.home.widget
+package  home.widget
 
 import android.content.Context
 import android.util.AttributeSet
@@ -28,8 +28,12 @@ class WxPublicRecyclerView : RecyclerView {
             }
             MotionEvent.ACTION_MOVE -> {
                 if (layoutManager is LinearLayoutManager) {
-                    val firstVisiblePosition = (layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
-                    Log.e("WxPublicRecyclerView", "firstVisiblePosition----------- = ${firstVisiblePosition}")
+                    val firstVisiblePosition =
+                        (layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
+                    Log.e(
+                        "WxPublicRecyclerView",
+                        "firstVisiblePosition----------- = ${firstVisiblePosition}"
+                    )
                     if (firstVisiblePosition == 0 && (ev.x > downX)) {
                         parent.requestDisallowInterceptTouchEvent(false)
                     }

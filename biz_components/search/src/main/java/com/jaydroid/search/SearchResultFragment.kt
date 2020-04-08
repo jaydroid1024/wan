@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.jaydroid.base_component.arouter.ARHelper
 import com.jaydroid.base_component.base.mvp.BaseMVPFragment
+import com.jaydroid.base_component.constant.Constants
 import com.jaydroid.base_component.network.bean.wan.search.SearchResult
 import com.jaydroid.base_component.network.bean.wan.search.SearchResultResponse
 import com.jaydroid.base_component.widget.LinearItemDecoration
@@ -15,6 +17,9 @@ import com.jaydroid.search.presenter.SearchResultPresenter
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.set
 
 private const val KEY_WORD = "key_word"
 
@@ -55,14 +60,25 @@ class SearchResultFragment : BaseMVPFragment<SearchResultContract.View, SearchRe
             LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false)
         searchResultAdapter = SearchResultAdapter(R.layout.item_search_result)
         searchResultAdapter.setOnItemClickListener { adapter, view, position ->
-            //            val bundle = Bundle()
-//            bundle.putString(WebViewActivity.URL, dataList[position].link)
-//            gotoActivity(activity!!, WebViewActivity().javaClass, bundle)
+
+            ARHelper.routerTo(
+                getDetailParamMap(dataList[position]),
+                ARHelper.PathDetail.DETAIL_ACTIVITY_PATH
+            )
         }
         recyclerView?.adapter = searchResultAdapter
         presenter.getSearchResult(0, keyword ?: "")
 
         setListener()
+    }
+
+    private fun getDetailParamMap(searchResult: SearchResult): HashMap<String, Any> {
+        val map = HashMap<String, Any>(3)
+        map[Constants.MapKey.ID] = searchResult.id
+        map[Constants.MapKey.TITLE] = searchResult.title
+        map[Constants.MapKey.AUTHOR] = searchResult.author
+        map[Constants.MapKey.LINK] = searchResult.link
+        return map
     }
 
     private fun setListener() {

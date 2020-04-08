@@ -1,5 +1,6 @@
 package com.jaydroid.search.adapter
 
+import android.text.Html
 import android.text.TextUtils
 import com.bumptech.glide.Glide
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -10,7 +11,7 @@ import com.jaydroid.search.R
 class SearchResultAdapter(layoutRes: Int) :
     BaseQuickAdapter<SearchResult, BaseViewHolder>(layoutRes) {
     override fun convert(helper: BaseViewHolder?, item: SearchResult?) {
-        helper?.setText(R.id.tv_search_result_title, item?.title)
+        helper?.setText(R.id.tv_search_result_title, Html.fromHtml(item?.title))
             ?.setText(R.id.tv_search_result_author, item?.author)
             ?.setText(R.id.tv_search_result_date, item?.niceDate)
             ?.setGone(R.id.iv_search_result_image, !TextUtils.isEmpty(item?.envelopePic))

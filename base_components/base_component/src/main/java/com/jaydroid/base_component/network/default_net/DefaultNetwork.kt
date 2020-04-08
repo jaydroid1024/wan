@@ -1,6 +1,7 @@
 package com.jaydroid.base_component.network.default_net
 
 import android.content.Context
+import com.jaydroid.base_component.BuildConfig
 import com.jaydroid.base_component.app.BaseComponentApp
 import com.jaydroid.base_component.arouter.ARHelper
 import com.jaydroid.base_component.arouter.service.user.UserService
@@ -9,6 +10,7 @@ import com.jaydroid.base_component.network.bean.wan.Article
 import com.jaydroid.base_component.network.bean.wan.ArticleResponse
 import com.jaydroid.base_component.network.bean.wan.Banner
 import com.jaydroid.base_component.network.bean.wan.BaseResponse
+import com.jaydroid.base_component.network.bean.wan.detail.AddFavoriteResponse
 import com.jaydroid.base_component.network.bean.wan.search.SearchHot
 import com.jaydroid.base_component.network.bean.wan.search.SearchResultResponse
 import com.jaydroid.base_component.network.bean.wan.user.LogoutResult
@@ -26,11 +28,10 @@ class DefaultNetwork(context: Context) : AuthAbstractNetwork<DefaultApiService>(
     init {
         userService =
             ARHelper.getService<UserService>(ARHelper.PathUser.USER_SERVICE_PATH)
-
     }
 
     override val baseUrl: String
-        get() = "https://www.wanandroid.com"
+        get() = BuildConfig.BASE_URL
 
     override val restClass: Class<DefaultApiService>
         get() = DefaultApiService::class.java
@@ -106,6 +107,22 @@ class DefaultNetwork(context: Context) : AuthAbstractNetwork<DefaultApiService>(
     ): Observable<BaseResponse<SearchResultResponse>> {
         return getNetworkService()
             .getSearchResult(page, keyword)
+            .compose(RxUtil.applyObservableTransformer())
+    }
+
+    fun addFavorite(
+        title: String,
+        author: String,
+        link: String
+    ): Observable<BaseResponse<AddFavoriteResponse>> {
+        return getNetworkService()
+            .addFavorite(title, author, link)
+            .compose(RxUtil.applyObservableTransformer())
+    }
+
+    fun cancelFavorite(id: Int): Observable<BaseResponse<AddFavoriteResponse>> {
+        return getNetworkService()
+            .cancelFavorite(id)
             .compose(RxUtil.applyObservableTransformer())
     }
 

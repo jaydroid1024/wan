@@ -31,7 +31,24 @@ android {
         }
     }
 
+    buildTypes.each {
+
+        Properties props
+        if (it.name == "debug") {
+            props = rootProject.ext.environment['debugEnvironmentProps']
+        } else {
+            props = rootProject.ext.environment['liveEnvironmentProps']
+        }
+
+        it.buildConfigField("String", "BASE_URL", String.format(Locale.getDefault(), "\"%s\"", props["base_url"]))
+
+    }
+
     buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -46,7 +63,6 @@ android {
 }
 
 dependencies {
-
     /**
      * 基础功能组件
      */

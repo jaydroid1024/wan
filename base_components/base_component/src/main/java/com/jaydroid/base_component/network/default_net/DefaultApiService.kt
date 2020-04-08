@@ -5,6 +5,7 @@ import com.jaydroid.base_component.network.bean.wan.Article
 import com.jaydroid.base_component.network.bean.wan.ArticleResponse
 import com.jaydroid.base_component.network.bean.wan.Banner
 import com.jaydroid.base_component.network.bean.wan.BaseResponse
+import com.jaydroid.base_component.network.bean.wan.detail.AddFavoriteResponse
 import com.jaydroid.base_component.network.bean.wan.search.SearchHot
 import com.jaydroid.base_component.network.bean.wan.search.SearchResultResponse
 import com.jaydroid.base_component.network.bean.wan.user.LogoutResult
@@ -87,6 +88,15 @@ interface DefaultApiService {
     @POST("article/query/{page}/json")
     @FormUrlEncoded
     fun getSearchResult(@Path("page") page: Int, @Field("k") keyword: String): Observable<BaseResponse<SearchResultResponse>>
+
+
+    @POST("lg/collect/{id}/json")
+    fun cancelFavorite(@Path("id") id: Int): Observable<BaseResponse<AddFavoriteResponse>>
+
+
+    @POST("lg/collect/add/json")
+    @FormUrlEncoded
+    fun addFavorite(@Field("title") title: String, @Field("author") author: String, @Field("link") link: String): Observable<BaseResponse<AddFavoriteResponse>>
 
 
 }

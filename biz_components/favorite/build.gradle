@@ -17,14 +17,14 @@ dependencies {
 
 apply plugin: 'maven'
 uploadArchives {
-    //dependencies path: com.jaydroid.setting:setting:1.0.0
+    //dependencies path: com.jaydroid.favorite:favorite:1.0.0
     repositories.mavenDeployer {
         // 本地路径
         repository(url: MAVEN_LOCAL_REPO_PATH)
         // 唯一标识
-        pom.groupId = "com.jaydroid.setting"
+        pom.groupId = "com.jaydroid.favorite"
         // 项目名称
-        pom.artifactId = "setting"
+        pom.artifactId = "favorite"
         // 版本号
         pom.version = "1.0.0"
     }
