@@ -95,7 +95,8 @@ class SearchResultFragment : BaseMVPFragment<SearchResultContract.View, SearchRe
         if (page == 0) {
             if (datas == null || datas.isEmpty()) {
                 val emptyView: View =
-                    LayoutInflater.from(context).inflate(R.layout.layout_empty, null, false)
+                    LayoutInflater.from(context)
+                        .inflate(R.layout.base_component_layout_empty, null, false)
                 searchResultAdapter.emptyView = emptyView
             }
         }

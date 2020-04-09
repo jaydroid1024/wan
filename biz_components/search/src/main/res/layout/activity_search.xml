@@ -34,7 +34,7 @@
             android:layout_height="match_parent"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
-            android:src="@drawable/ic_back" />
+            android:src="@drawable/base_component_ic_back" />
 
         <com.jaydroid.base_component.widget.ClearEditText
             android:id="@+id/et_search_input"
@@ -43,15 +43,15 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:background="@drawable/shape_search_input"
+            android:background="@drawable/base_component_shape_search_input"
             android:hint="搜索"
             android:imeOptions="actionSearch"
             android:maxLines="1"
             android:paddingLeft="10dp"
             android:singleLine="true"
             android:textSize="16sp"
-            app:clearIcon="@drawable/ic_clear_gray"
-            app:tipIcon="@drawable/ic_search_gray" />
+            app:clearIcon="@drawable/base_component_ic_clear_gray"
+            app:tipIcon="@drawable/base_component_ic_search_gray" />
     </RelativeLayout>
 
     <FrameLayout

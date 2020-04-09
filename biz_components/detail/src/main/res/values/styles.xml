@@ -9,8 +9,8 @@
     </style>
 
     <style name="WebDialogFragmentAnimation" parent="android:Animation">
-        <item name="android:windowEnterAnimation">@anim/anim_top_enter</item>
-        <item name="android:windowExitAnimation">@anim/anim_top_exit</item>
+        <item name="android:windowEnterAnimation">@anim/base_component_anim_top_enter</item>
+        <item name="android:windowExitAnimation">@anim/base_component_anim_top_exit</item>
     </style>
 
 </resources>

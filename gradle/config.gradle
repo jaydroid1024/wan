@@ -132,8 +132,7 @@ ext {
     println("rootDir:$rootDir")
     //签名信息
     def keyProps = getKeyProperties()
-    println("config-keyProps" + keyProps.toString())
-    println("file-keyProps" + file(keyProps["storeDebug"]))
+    println("keyProps" + keyProps.toString())
     sign = [
             //debug sign
             aliasDebug    : keyProps["aliasDebug"],
@@ -163,6 +162,21 @@ ext {
             liveEnvironmentProps : liveEnvironmentProps
     ]
 
+    /* ========================================================= */
+    /* ======================组件Maven仓库信息==================== */
+    /* ========================================================= */
+    println("/* ========================组件Maven仓库信息======================= */")
+    //签名信息
+    def mavenProps = getMavenProperties()
+    println("mavenProps" + mavenProps.toString())
+    mavenRepo = [
+            //MavenProperties
+            mavenProps    : mavenProps,
+            //local
+            repoPathLocal : mavenProps["repoPathLocal"],
+            //remote
+            repoPathRemote: mavenProps["repoPathRemote"]
+    ]
 
 }
 
@@ -195,6 +209,17 @@ Properties getKeyProperties() {
     // 使用assert确保存在该属性否则报错，避免错误打包
     assert configProperties['keystore.props.file']
     return getProperties(configProperties.getProperty("keystore.props.file"))
+}
+
+/**
+ * 获取Maven仓库配置文件
+ * @return Properties实例  Maven
+ */
+Properties getMavenProperties() {
+    Properties configProperties = getConfigProperties()
+    // 使用assert确保存在该属性否则报错，避免错误打包
+    assert configProperties['maven.props.file']
+    return getProperties(configProperties.getProperty("maven.props.file"))
 }
 
 /**

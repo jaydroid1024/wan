@@ -1,22 +1,14 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="component_base_app_theme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="base_component_app_theme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/component_base_colorPrimary</item>
-        <item name="colorPrimaryDark">@color/component_base_colorPrimaryDark</item>
-        <item name="colorAccent">@color/component_base_colorAccent</item>
+        <item name="colorPrimary">@color/base_component_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/base_component_colorPrimaryDark</item>
+        <item name="colorAccent">@color/base_component_colorAccent</item>
     </style>
 
-    <style name="component_base_b_app_theme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/component_base_colorPrimary</item>
-        <item name="colorPrimaryDark">@color/component_base_colorPrimaryDark</item>
-        <item name="colorAccent">@color/component_base_colorAccent</item>
-    </style>
-
-
-    <style name="component_base_full_screen_style" parent="component_base_app_theme">
+    <style name="base_component_full_screen_style" parent="base_component_app_theme">
         <item name="windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>
     </style>

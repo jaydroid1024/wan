@@ -23,7 +23,7 @@ abstract class BaseActivity : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR//黑色
         }
-        StatusBarUtil.setColor(this, resources.getColor(R.color.component_base_colorPrimary), 0)
+        StatusBarUtil.setColor(this, resources.getColor(R.color.base_component_colorPrimary), 0)
         if (isEventBusAnnotationPresent()) {
             EventBusUtils.register(this)
         }

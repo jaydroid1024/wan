@@ -23,11 +23,11 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="15dp"
         android:layout_marginRight="15dp"
-        android:background="@drawable/shape_bottom_border"
+        android:background="@drawable/base_component_shape_bottom_border"
         android:hint="用户名"
         android:inputType="textPassword"
-        app:clearIcon="@drawable/ic_close_gray"
-        app:tipIcon="@drawable/ic_login_user" />
+        app:clearIcon="@drawable/base_component_ic_close_gray"
+        app:tipIcon="@drawable/base_component_ic_login_user" />
 
     <com.jaydroid.base_component.widget.ClearEditText
         android:id="@+id/cet_register_password"
@@ -38,11 +38,11 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="15dp"
         android:layout_marginRight="15dp"
-        android:background="@drawable/shape_bottom_border"
+        android:background="@drawable/base_component_shape_bottom_border"
         android:hint="密码"
         android:inputType="textPassword"
-        app:clearIcon="@drawable/ic_close_gray"
-        app:tipIcon="@drawable/ic_login_password" />
+        app:clearIcon="@drawable/base_component_ic_close_gray"
+        app:tipIcon="@drawable/base_component_ic_login_password" />
 
     <com.jaydroid.base_component.widget.ClearEditText
         android:id="@+id/cet_register_repassword"
@@ -53,11 +53,11 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="15dp"
         android:layout_marginRight="15dp"
-        android:background="@drawable/shape_bottom_border"
+        android:background="@drawable/base_component_shape_bottom_border"
         android:hint="确认密码"
         android:inputType="textPassword"
-        app:clearIcon="@drawable/ic_close_gray"
-        app:tipIcon="@drawable/ic_login_password" />
+        app:clearIcon="@drawable/base_component_ic_close_gray"
+        app:tipIcon="@drawable/base_component_ic_login_password" />
 
     <Button
         android:id="@+id/btn_register"
@@ -68,7 +68,7 @@
         android:layout_marginTop="25dp"
         android:layout_marginEnd="15dp"
         android:layout_marginRight="15dp"
-        android:background="@drawable/selector_btn_user"
+        android:background="@drawable/base_component_selector_btn_user"
         android:text="注册"
         android:textColor="@android:color/white"
         android:textSize="18sp" />

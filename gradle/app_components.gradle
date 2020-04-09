@@ -1,23 +1,24 @@
-apply plugin: 'com.android.library'
+//****************************************
+//********  调试壳公共gradle配置  **********
+//****************************************
+//todo 添加需要的其它配置
+apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-apply plugin: 'com.jakewharton.butterknife'
 
 android {
 
-    //给 Module 内的资源名增加前缀, 避免资源名冲突
-//    resourcePrefix "${project.name.toLowerCase().replaceAll("-", "_")}_"
     compileSdkVersion rootProject.ext.android["compileSdkVersion"]
     buildToolsVersion rootProject.ext.android["buildToolsVersion"]
 
     defaultConfig {
+        applicationId "com.component.${project.name.toLowerCase()}"
         minSdkVersion rootProject.ext.android["minSdkVersion"]
         targetSdkVersion rootProject.ext.android["targetSdkVersion"]
         versionCode rootProject.ext.android["versionCode"]
         versionName rootProject.ext.android["versionName"]
         testInstrumentationRunner rootProject.ext.dependencies["androidJUnitRunner"]
-
         kapt {
             arguments {
                 arg("AROUTER_MODULE_NAME", project.getName())
@@ -27,14 +28,13 @@ android {
     }
     buildTypes {
         debug {
-            buildConfigField "boolean", "LOG_DEBUG", "true"
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
 
         release {
-            buildConfigField "boolean", "LOG_DEBUG", "false"
             minifyEnabled true
+            shrinkResources true
             zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -45,12 +45,13 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
     }
 
-    lintOptions {
-        disable 'InvalidPackage'
-        disable "ResourceType"
-        abortOnError false
-    }
 
+    //解决主工程和组件的 AndroidManifest 文件合并问题
+    sourceSets {
+        main {
+            manifest.srcFile './AndroidManifest.xml'
+        }
+    }
 }
 
 dependencies {
@@ -65,5 +66,6 @@ dependencies {
     //arouter-compiler 的注解依赖需要所有使用 ARouter 的 model 都添加依赖
     kapt rootProject.ext.dependencies['arouter-compiler']
     kapt rootProject.ext.dependencies['butterknife-compiler']
+
 
 }

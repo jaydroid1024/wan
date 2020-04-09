@@ -2,8 +2,6 @@ package com.jaydroid.detail.web
 
 import android.app.Dialog
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
@@ -14,7 +12,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.jaydroid.base_component.network.bean.wan.detail.WebOptBean
-import com.jaydroid.base_component.utils.blur
 import com.jaydroid.detail.R
 import com.jaydroid.detail.web.adapter.WebOptAdapter
 
@@ -75,11 +72,6 @@ class WebDialogFragment : DialogFragment() {
                 dismissAllowingStateLoss()
             }
         })
-        val bitmap: Bitmap = BitmapFactory.decodeResource(
-            resources,
-            R.drawable.android_logo
-        )
-        val blurBitmap = blur(mContext, bitmap, 10)
         parentView.background = ContextCompat.getDrawable(context!!, R.color.gray_8f)
 
         val recyclerView: RecyclerView = rootView.findViewById(R.id.rv_web_opt)

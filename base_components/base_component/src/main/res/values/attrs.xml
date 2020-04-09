@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <declare-styleable name="RoundImageView">
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <declare-styleable name="RoundImageView" tools:ignore="ResourceName">
         <attr name="shape" format="enum">
             <enum name="circle" value="0" />
             <enum name="rectangle" value="1" />
@@ -10,17 +10,17 @@
         <attr name="borderWidth" format="dimension" />
     </declare-styleable>
 
-    <declare-styleable name="FlowLayout">
+    <declare-styleable name="FlowLayout" tools:ignore="ResourceName">
         <attr name="horizontalMargin" format="dimension" />
         <attr name="verticalMargin" format="dimension" />
     </declare-styleable>
 
-    <declare-styleable name="ClearEditText">
+    <declare-styleable name="ClearEditText" tools:ignore="ResourceName">
         <attr name="tipIcon" format="reference" />
         <attr name="clearIcon" format="reference" />
     </declare-styleable>
 
-    <declare-styleable name="LoginView">
+    <declare-styleable name="LoginView" tools:ignore="ResourceName">
         <attr name="borderRadius" format="dimension|reference" />
         <attr name="bgColor" format="color" />
         <attr name="text" format="string" />
@@ -30,7 +30,7 @@
         <attr name="arcStrokeWidth" format="dimension" />
     </declare-styleable>
 
-    <declare-styleable name="ItemView">
+    <declare-styleable name="ItemView" tools:ignore="ResourceName">
         <attr name="itemIcon" format="reference" />
         <attr name="itemTitle" format="string" />
     </declare-styleable>

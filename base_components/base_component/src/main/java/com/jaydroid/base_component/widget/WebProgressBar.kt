@@ -19,7 +19,7 @@ class WebProgressBar : View {
 
     init {
         paint.style = Paint.Style.FILL
-        paint.color = resources.getColor(R.color.component_base_colorAccent)
+        paint.color = resources.getColor(R.color.base_component_colorAccent)
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {

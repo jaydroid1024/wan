@@ -16,11 +16,11 @@
     <application
         android:name="com.jaydroid.base_component_wan.application.WanApp"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:icon="@mipmap/base_component_wan_ic_launcher"
+        android:label="@string/base_component_wan_app_name"
+        android:roundIcon="@mipmap/base_component_wan_ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
+        android:theme="@style/base_component_wan_AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:name">
 

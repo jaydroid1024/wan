@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
-        android:src="@drawable/ic_search_tip" />
+        android:src="@drawable/base_component_ic_search_tip" />
 
 
     <TextView

@@ -52,7 +52,7 @@ class WebViewActivity : BaseMVPActivity<WebContract.View, WebPresenter>(), WebCo
         setSupportActionBar(toolbar)
         supportActionBar?.title = ""
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        toolbar.setNavigationIcon(R.drawable.ic_back)
+        toolbar.setNavigationIcon(R.drawable.base_component_ic_back)
         supportActionBar?.elevation = dp2px(mContext, 5f)
         toolbar.setNavigationOnClickListener {
             goBack()

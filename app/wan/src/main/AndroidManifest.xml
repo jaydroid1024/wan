@@ -4,7 +4,7 @@
     package="com.jaydroid.wanandroid">
 
     <application
-        android:label="@string/app_name"
+        android:label="@string/base_component_wan_app_name"
         tools:replace="android:label">
 
         <activity android:name=".MainActivity" />

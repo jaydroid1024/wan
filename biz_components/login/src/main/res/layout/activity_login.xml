@@ -14,7 +14,7 @@
         android:layout_width="26dp"
         android:layout_height="26dp"
         android:layout_marginTop="15dp"
-        android:src="@drawable/ic_close" />
+        android:src="@drawable/base_component_ic_close" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,28 +28,28 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="50dp"
             android:scaleType="centerInside"
-            android:src="@drawable/android_logo" />
+            android:src="@drawable/base_component_img_android" />
 
         <com.jaydroid.base_component.widget.ClearEditText
             android:id="@+id/cet_login_username"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
-            android:background="@drawable/shape_bottom_border"
+            android:background="@drawable/base_component_shape_bottom_border"
             android:hint="用户名"
-            app:clearIcon="@drawable/ic_close_gray"
-            app:tipIcon="@drawable/ic_login_user" />
+            app:clearIcon="@drawable/base_component_ic_close_gray"
+            app:tipIcon="@drawable/base_component_ic_login_user" />
 
         <com.jaydroid.base_component.widget.ClearEditText
             android:id="@+id/cet_login_password"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/shape_bottom_border"
+            android:background="@drawable/base_component_shape_bottom_border"
             android:hint="密码"
             android:inputType="textPassword"
-            app:clearIcon="@drawable/ic_close_gray"
-            app:tipIcon="@drawable/ic_login_password" />
+            app:clearIcon="@drawable/base_component_ic_close_gray"
+            app:tipIcon="@drawable/base_component_ic_login_password" />
 
 
         <com.jaydroid.base_component.widget.LoginView
@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             app:arcColor="@android:color/white"
-            app:bgColor="@color/component_base_colorAccent"
+            app:bgColor="@color/base_component_colorAccent"
             app:borderRadius="6dp"
             app:text="登录"
             app:textColor="@android:color/white"

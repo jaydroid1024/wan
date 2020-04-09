@@ -158,8 +158,8 @@ class MainActivity : BaseMVPActivity<MainContract.View, MainPresenter>(), MainCo
         if (!loggedIn) {
             usernameTextView.text = "点击登陆"
             //todo fix -android-extensions 无法实例化view
-//            iv_avatar_background.setImageDrawable(getDrawable(R.drawable.shape_recommend_bg))
-//            iv_nav_avatar.setImageDrawable(getDrawable(R.drawable.shape_recommend_bg))
+//            iv_avatar_background.setImageDrawable(getDrawable(R.drawable.base_component_wan_shape_recommend_bg))
+//            iv_nav_avatar.setImageDrawable(getDrawable(R.drawable.base_component_wan_shape_recommend_bg))
         } else {
             //todo fix -android-extensions 无法实例化view
 //            val bitmap = BitmapFactory.decodeResource(resources, R.drawable.tian)
