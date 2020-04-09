@@ -55,8 +55,9 @@ include ':biz_components:login',
  * 单项目基础组件需要依赖公共基础业务组件，单项目基础组是针对单项目的，公共基础业务组件是针对多项目的，隔离多项目之间的基础数据
  */
 include ':base_components:base_component',
+        ':base_components:biz_qrcode',
+        ':base_components:biz_share',
         ':base_components:base_component_wan'
-
 
 /**
  * 4.基础功能组件\base_libs
@@ -68,5 +69,7 @@ include ':base_components:base_component',
  * 例如图片加载组件，它是一个全局通用图片加载框架；
  * 例如网络服务组件，它封装了网络的请求能力
  */
-include ':base_libs:base_lib'
 
+include ':base_libs:base_lib',
+        ':base_libs:lib_tracker',
+        ':base_libs:lib_net'
