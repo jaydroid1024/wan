@@ -14,4 +14,9 @@ dependencies {
     implementation project(path: ':biz_components:login')
 //    implementation 'com.jaydroid.login:login:1.0.0'
 
+    /**
+     * 二维码基础业务组件
+     */
+    implementation project(path: ':base_components:biz_qrcode')
+
 }

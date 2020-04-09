@@ -12,5 +12,10 @@ dependencies {
      * 登陆业务组件
      */
     implementation project(path: ':biz_components:detail')
+    
+    /**
+     * 分享基础业务组件
+     */
+    implementation project(path: ':base_components:biz_share')
 
 }
