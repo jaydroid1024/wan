@@ -4,6 +4,7 @@
 
 Demo地址：[WanDroid组件化测试项目](https://github.com/Jay-Droid/WanDroid)
 
+![Demo项目结构](https://github.com/Jay-Droid/WanDroid/blob/master/resource/project_struct.png)
 
 
 
