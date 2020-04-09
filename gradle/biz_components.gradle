@@ -49,12 +49,7 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
         sourceCompatibility JavaVersion.VERSION_1_8
     }
-
-//    lintOptions {
-//        disable 'InvalidPackage'
-//        disable "ResourceType"
-//        abortOnError false
-//    }
+    
 
 }
 

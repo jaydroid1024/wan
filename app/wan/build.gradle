@@ -98,24 +98,24 @@ dependencies {
     /**
      * 设置业务组件
      */
-    implementation project(path: ':biz_components:setting')
+    runtimeOnly project(path: ':biz_components:setting')
 
     /**
      * 收藏业务组件
      */
-    implementation project(path: ':biz_components:favorite')
+    runtimeOnly project(path: ':biz_components:favorite')
 
 
     /**
      * 搜索业务组件
      */
-    implementation project(path: ':biz_components:search')
+    runtimeOnly project(path: ':biz_components:search')
 
 
     /**
      * 文章详情业务组件
      */
-    implementation project(path: ':biz_components:detail')
+    runtimeOnly project(path: ':biz_components:detail')
 
 
     //初始的依赖

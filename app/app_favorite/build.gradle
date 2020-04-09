@@ -4,7 +4,7 @@ apply from: "../../gradle/app_components.gradle"
 dependencies {
 
     /**
-     * 设置业务组件
+     * 收藏业务组件
      */
     implementation project(path: ':biz_components:favorite')
 

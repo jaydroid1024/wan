@@ -18,11 +18,17 @@ import androidx.annotation.StringDef
 @Retention(AnnotationRetention.SOURCE)
 annotation class PriorityLevel {
     companion object {
-
+        /**
+         * 低优先级
+         */
         const val LOW = "LOW"
-
+        /**
+         * 中优先级
+         */
         const val MEDIUM = "MEDIUM"
-
+        /**
+         * 高优先级
+         */
         const val HIGH = "HIGH"
     }
 }
