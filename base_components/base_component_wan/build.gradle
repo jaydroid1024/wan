@@ -2,6 +2,20 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'maven'
+uploadArchives {
+    //dependencies path: com.jaydroid.base_component_wan:base_component_wan:1.0.0
+    repositories.mavenDeployer {
+        // 本地路径
+        repository(url: MAVEN_LOCAL_REPO_PATH)
+        // 唯一标识
+        pom.groupId = "com.jaydroid.base_component_wan"
+        // 项目名称
+        pom.artifactId = "base_component_wan"
+        // 版本号
+        pom.version = "1.0.0"
+    }
+}
 
 android {
     //给 Module 内的资源名增加前缀, 避免资源名冲突
@@ -21,7 +35,6 @@ android {
         //Arouter
         kapt {
             arguments {
-                println("jay-" + project.getName())
                 arg("AROUTER_MODULE_NAME", project.getName())
             }
         }
@@ -34,6 +47,8 @@ android {
         // ./gradlew :app:wan:assembleRelease
 
         debug {
+
+            buildConfigField "boolean", "LOG_DEBUG", "true"  // 显示Log
             // Zipalign优化 true
             zipAlignEnabled false
             // 移除无用的resource文件 true  Resource shrinker cannot be used for libraries.
@@ -47,6 +62,7 @@ android {
 
         }
         release {
+            buildConfigField "boolean", "LOG_DEBUG", "false"  // 显示Log
             // Zipalign优化
             zipAlignEnabled false
             // 移除无用的resource文件 true  Resource shrinker cannot be used for libraries.
@@ -70,7 +86,7 @@ dependencies {
      * 公共业务组件
      */
     api project(path: ':base_components:base_component')
-//    api 'com.jaydroid.base_component:base_component:1.0.0'
+//    api rootProject.ext.dependencies['base_component']
 
     //初始的依赖
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -86,17 +102,4 @@ dependencies {
     kapt rootProject.ext.dependencies['arouter-compiler']
 }
 
-apply plugin: 'maven'
-uploadArchives {
-    //dependencies path: com.jaydroid.base_component_wan:base_component_wan:1.0.0
-    repositories.mavenDeployer {
-        // 本地路径
-        repository(url: MAVEN_LOCAL_REPO_PATH)
-        // 唯一标识
-        pom.groupId = "com.jaydroid.base_component_wan"
-        // 项目名称
-        pom.artifactId = "base_component_wan"
-        // 版本号
-        pom.version = "1.0.0"
-    }
-}
+

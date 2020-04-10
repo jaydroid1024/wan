@@ -5,7 +5,7 @@ import android.content.Context
 import android.content.res.Configuration
 import android.util.Log
 import com.alibaba.android.arouter.launcher.ARouter
-import com.jaydroid.base_component.BuildConfig
+import com.jaydroid.base_lib.BuildConfig
 import com.jaydroid.base_lib.app.appdelegate.ApplicationDelegate
 
 

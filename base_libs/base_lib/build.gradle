@@ -1,6 +1,23 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'maven'
+uploadArchives {
+    //dependencies path: `com.jaydroid.base_lib:base_lib:1.0.0`
+    repositories.mavenDeployer {
+        // 本地路径
+        repository(url: MAVEN_LOCAL_REPO_PATH)
+        // 唯一标识
+        pom.groupId = "com.jaydroid.base_lib"
+        // 项目名称
+        pom.artifactId = "base_lib"
+        // 版本号
+        pom.version = "1.0.0"
+    }
+}
+
+
 android {
     //给 Module 内的资源名增加前缀, 避免资源名冲突
     resourcePrefix "${project.name.toLowerCase().replaceAll("-", "_")}_"
@@ -38,15 +55,15 @@ dependencies {
      * 网络
      */
     api project(path: ':base_libs:lib_net')
-
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation rootProject.ext.dependencies['kotlin-stdlib-jdk7']
-    implementation rootProject.ext.dependencies['appcompat']
-    implementation rootProject.ext.dependencies['core-ktx']
-    implementation rootProject.ext.dependencies['constraintlayout']
-    testImplementation rootProject.ext.dependencies['junit']
-    androidTestImplementation rootProject.ext.dependencies['junit-androidx']
-    androidTestImplementation rootProject.ext.dependencies['espresso-core-androidx']
+    
+    api fileTree(dir: 'libs', include: ['*.jar'])
+    api rootProject.ext.dependencies['kotlin-stdlib-jdk7']
+    api rootProject.ext.dependencies['appcompat']
+    api rootProject.ext.dependencies['core-ktx']
+    api rootProject.ext.dependencies['constraintlayout']
+    testApi rootProject.ext.dependencies['junit']
+    androidTestApi rootProject.ext.dependencies['junit-androidx']
+    androidTestApi rootProject.ext.dependencies['espresso-core-androidx']
 
     // Arouter 放在最底层的组件中统一依赖
     api rootProject.ext.dependencies["arouter"]
@@ -74,17 +91,4 @@ dependencies {
     releaseApi rootProject.ext.dependencies["chuck-no-op"]
 }
 
-apply plugin: 'maven'
-uploadArchives {
-    //dependencies path: `com.jaydroid.base_lib:base_lib:1.0.0`
-    repositories.mavenDeployer {
-        // 本地路径
-        repository(url: MAVEN_LOCAL_REPO_PATH)
-        // 唯一标识
-        pom.groupId = "com.jaydroid.base_lib"
-        // 项目名称
-        pom.artifactId = "base_lib"
-        // 版本号
-        pom.version = "1.0.0"
-    }
-}
+

@@ -1,0 +1,30 @@
+apply plugin: 'maven'
+//todo 配置maven私服
+def maven_url = "http://127.0.0.1:8081/repository/debug/"
+def m_Username = "admin"
+def m_Password = "admin123"
+def m_Name = "myName"
+def m_Version = "1.0.1"
+def m_GroupId = "com.test"
+def m_Description = ""
+def m_ArtifactId = "mylib"
+def m_Type = "aar"
+
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: maven_url) {
+                authentication(userName: m_Username, password: m_Password)
+            }
+            pom.project {
+                name m_Name
+                version m_Version
+                artifactId m_ArtifactId
+                groupId m_GroupId
+                packaging m_Type
+                description m_Description
+            }
+        }
+    }
+}

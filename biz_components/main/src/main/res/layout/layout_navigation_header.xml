@@ -8,7 +8,7 @@
         android:id="@+id/iv_avatar_background"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:background="@color/mintcream"
+        android:background="@color/slateblue"
         android:scaleType="centerCrop" />
 
     <LinearLayout
@@ -24,8 +24,8 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:scaleType="centerCrop"
-            android:background="@color/black"
             app:borderColor="#55ff0000"
+            android:src="@drawable/ic_meizi"
             android:padding="3dp"
             app:radius="20dp"
             app:shape="circle" />
@@ -39,7 +39,7 @@
             android:ellipsize="end"
             android:gravity="center_vertical"
             android:singleLine="true"
-            android:textColor="@android:color/white"
+            android:textColor="@color/white"
             android:textSize="22sp" />
 
     </LinearLayout>

@@ -14,6 +14,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.jaydroid.base_component.arouter.ARHelper
 import com.jaydroid.base_component.base.mvp.BaseMVPFragment
+import com.jaydroid.base_component.constant.Constants
 import com.jaydroid.base_component.network.bean.wan.Article
 import com.jaydroid.base_component.widget.LinearItemDecoration
 import com.jaydroid.main.R
@@ -26,6 +27,9 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
 import com.youth.banner.Banner
 import com.youth.banner.listener.OnBannerListener
 import com.youth.banner.loader.ImageLoader
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.set
 
 @Route(path = ARHelper.PathMain.HOME_FRAGMENT_PATH)
 class HomeFragment : BaseMVPFragment<HomeContract.View, HomePresenter>(), HomeContract.View {
@@ -37,7 +41,6 @@ class HomeFragment : BaseMVPFragment<HomeContract.View, HomePresenter>(), HomeCo
     private lateinit var headerView: View
     private var mCurPage: Int = 0
     private var dataList: List<Article> = ArrayList()
-
     override fun getLayoutResId(): Int {
         return R.layout.fragment_home
     }
@@ -75,7 +78,10 @@ class HomeFragment : BaseMVPFragment<HomeContract.View, HomePresenter>(), HomeCo
         // recyclerview 点击监听
         adapter.onItemClickListener =
             BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
-
+                ARHelper.routerTo(
+                    getDetailParamMap(dataList[position]),
+                    ARHelper.PathDetail.DETAIL_ACTIVITY_PATH
+                )
             }
         recyclerView?.adapter = adapter
 
@@ -85,6 +91,15 @@ class HomeFragment : BaseMVPFragment<HomeContract.View, HomePresenter>(), HomeCo
         presenter.getArticles(mCurPage)
 
         setListener()
+    }
+
+    private fun getDetailParamMap(searchResult: Article): HashMap<String, Any> {
+        val map = HashMap<String, Any>(3)
+        map[Constants.MapKey.ID] = searchResult.id
+        map[Constants.MapKey.TITLE] = searchResult.title
+        map[Constants.MapKey.AUTHOR] = searchResult.author
+        map[Constants.MapKey.LINK] = searchResult.link
+        return map
     }
 
     private fun setListener() {

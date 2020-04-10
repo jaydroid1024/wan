@@ -22,6 +22,7 @@ ext {
             kotlinVersion           : "1.3.50"
     ]
 
+
     dependencies = [
             //AndroidX
             "appcompat"                : "androidx.appcompat:appcompat:1.1.0",
@@ -119,6 +120,11 @@ ext {
 
             //sdk
             "wechat"                   : "com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+",
+
+            //maven components
+            "base_lib"                 : 'com.jaydroid.base_lib:base_lib:1.0.0',
+            "base_component"           : 'com.jaydroid.base_component:base_component:1.0.0',
+            "base_component_wan"       : 'com.jaydroid.base_component_wan:base_component_wan:1.0.0',
 
     ]
 

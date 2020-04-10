@@ -15,5 +15,6 @@ object ARouterPathForB {
      * 详情页面
      */
     const val DETAIL_ACTIVITY_PATH = "/app_b/detail/activity"
+    
 
 }

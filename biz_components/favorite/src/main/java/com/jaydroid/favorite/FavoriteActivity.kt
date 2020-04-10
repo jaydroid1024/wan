@@ -1,6 +1,5 @@
 package com.jaydroid.favorite
 
-import android.os.Bundle
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -9,6 +8,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.jaydroid.base_component.arouter.ARHelper
 import com.jaydroid.base_component.base.mvp.BaseMVPActivity
+import com.jaydroid.base_component.constant.Constants
 import com.jaydroid.base_component.network.bean.wan.Article
 import com.jaydroid.base_component.network.bean.wan.ArticleResponse
 import com.jaydroid.base_component.widget.LinearItemDecoration
@@ -16,6 +16,9 @@ import com.jaydroid.favorite.adapter.FavoriteAdapter
 import com.jaydroid.favorite.contract.FavoriteContract
 import com.jaydroid.favorite.presenter.FavoritePresenter
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.set
 
 @Route(path = ARHelper.PathFavorite.FAVORITE_ACTIVITY_PATH)
 class FavoriteActivity : BaseMVPActivity<FavoriteContract.View, FavoritePresenter>(),
@@ -60,12 +63,21 @@ class FavoriteActivity : BaseMVPActivity<FavoriteContract.View, FavoritePresente
         favoriteAdapter = FavoriteAdapter(R.layout.item_home_recycler)
         favoriteAdapter.onItemClickListener =
             BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
-                val url = dataList[position].link
-                val bundle = Bundle()
-                //                bundle.putString(WebViewActivity.URL, url)
-                //                gotoActivity(mContext as Activity, WebViewActivity().javaClass, bundle)
+                ARHelper.routerTo(
+                    getDetailParamMap(dataList[position]),
+                    ARHelper.PathDetail.DETAIL_ACTIVITY_PATH
+                )
             }
         recyclerView.adapter = favoriteAdapter
+    }
+
+    private fun getDetailParamMap(searchResult: Article): HashMap<String, Any> {
+        val map = HashMap<String, Any>(3)
+        map[Constants.MapKey.ID] = searchResult.id
+        map[Constants.MapKey.TITLE] = searchResult.title
+        map[Constants.MapKey.AUTHOR] = searchResult.author
+        map[Constants.MapKey.LINK] = searchResult.link
+        return map
     }
 
     override fun initData() {
