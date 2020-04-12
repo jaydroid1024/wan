@@ -11,7 +11,6 @@ import com.jaydroid.base_component.base.mvp.BaseMVPActivity
 import com.jaydroid.base_component.network.bean.wan.user.RegisterResponse
 import com.jaydroid.base_component.widget.ClearEditText
 import com.jaydroid.login.R
-import com.jaydroid.login.R2
 import com.jaydroid.login.user.contract.RegisterContract
 import com.jaydroid.login.user.presenter.RegisterPresenter
 
@@ -26,7 +25,8 @@ class RegisterActivity : BaseMVPActivity<RegisterContract.View, RegisterPresente
     private lateinit var registerBtn: Button
 
     override fun getLayoutResId(): Int {
-        return R2.layout.activity_register
+        return R.layout.activity_register
+
     }
 
     override fun createPresenter(): RegisterPresenter {
@@ -34,7 +34,7 @@ class RegisterActivity : BaseMVPActivity<RegisterContract.View, RegisterPresente
     }
 
     override fun initView() {
-        toolbar = findViewById(R2.id.tb_register)
+        toolbar = findViewById(R.id.tb_register)
         setSupportActionBar(toolbar)
         supportActionBar?.elevation = 10f
         supportActionBar?.setTitle("注册")
@@ -44,10 +44,10 @@ class RegisterActivity : BaseMVPActivity<RegisterContract.View, RegisterPresente
                 finish()
             }
         })
-        usernameEditText = findViewById(R2.id.cet_register_username)
-        passwordEditText = findViewById(R2.id.cet_register_password)
-        repasswordEditText = findViewById(R2.id.cet_register_repassword)
-        registerBtn = findViewById(R2.id.btn_register)
+        usernameEditText = findViewById(R.id.cet_register_username)
+        passwordEditText = findViewById(R.id.cet_register_password)
+        repasswordEditText = findViewById(R.id.cet_register_repassword)
+        registerBtn = findViewById(R.id.btn_register)
     }
 
     override fun initData() {

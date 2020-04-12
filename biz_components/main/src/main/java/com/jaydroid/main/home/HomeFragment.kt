@@ -49,7 +49,6 @@ class HomeFragment : BaseMVPFragment<HomeContract.View, HomePresenter>(), HomeCo
         refreshLayout = rootView?.findViewById(R.id.srl_home)
         refreshLayout?.setEnableRefresh(true)
         recyclerView = rootView?.findViewById(R.id.rv_home)
-
         headerView = layoutInflater.inflate(R.layout.layout_home_header, null, false)
         banner = headerView.findViewById(R.id.banner)
     }
@@ -136,11 +135,23 @@ class HomeFragment : BaseMVPFragment<HomeContract.View, HomePresenter>(), HomeCo
         banner.setOnBannerListener(object : OnBannerListener {
             override fun OnBannerClick(position: Int) {
                 if (list != null) {
-
+                    ARHelper.routerTo(
+                        getDetailParamMap(list[position]),
+                        ARHelper.PathDetail.DETAIL_ACTIVITY_PATH
+                    )
                 }
             }
         })
 
+    }
+
+    private fun getDetailParamMap(searchResult: com.jaydroid.base_component.network.bean.wan.Banner): HashMap<String, Any> {
+        val map = HashMap<String, Any>(3)
+        map[Constants.MapKey.ID] = searchResult.id
+        map[Constants.MapKey.TITLE] = searchResult.title
+        map[Constants.MapKey.AUTHOR] = searchResult.desc
+        map[Constants.MapKey.LINK] = searchResult.url
+        return map
     }
 
     override fun onArticles(page: Int, list: List<Article>?) {

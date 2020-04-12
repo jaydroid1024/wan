@@ -25,7 +25,6 @@
         android:layout_marginRight="15dp"
         android:background="@drawable/base_component_shape_bottom_border"
         android:hint="用户名"
-        android:inputType="textPassword"
         app:clearIcon="@drawable/base_component_ic_close_gray"
         app:tipIcon="@drawable/base_component_ic_login_user" />
 

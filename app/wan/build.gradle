@@ -92,9 +92,7 @@ dependencies {
      * 主业务组件
      */
     implementation project(path: ':biz_components:main')
-//    implementation 'com.jaydroid.main:main:1.0.0'
-//    implementation 'com.jaydroid.base_component_wan:base_component_wan:1.0.0'
-
+//    implementation rootProject.ext.dependencies['main'] //远程pom
     /**
      * 登陆组件
      */

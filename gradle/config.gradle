@@ -123,8 +123,10 @@ ext {
 
             //maven components
             "base_lib"                 : 'com.jaydroid.base_lib:base_lib:1.0.0',
-            "base_component"           : 'com.jaydroid.base_component:base_component:1.0.0',
-            "base_component_wan"       : 'com.jaydroid.base_component_wan:base_component_wan:1.0.0',
+            "base_component"           : 'com.jaydroid.base_component:base_component:2.0.0',
+            "base_component_wan"       : 'com.jaydroid.base_component_wan:base_component_wan:2.0.0',
+            "main"                     : "com.jaydroid.main:main:1.0.0",
+            "login"                    : "com.jaydroid.login:login:1.0.0",
 
     ]
 

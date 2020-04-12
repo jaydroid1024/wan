@@ -1,18 +1,4 @@
 apply from: "../../gradle/biz_components.gradle"
-
-
-dependencies {
-
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-
-    /**
-     * 公共业务组件
-     */
-    implementation project(path: ':base_components:base_component')
-//    implementation 'com.jaydroid.base_component:base_component:1.0.0'
-
-}
-
 apply plugin: 'maven'
 uploadArchives {
     //dependencies path: com.jaydroid.login:login:1.0.0
@@ -27,3 +13,17 @@ uploadArchives {
         pom.version = "1.0.0"
     }
 }
+
+
+dependencies {
+
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    /**
+     * 公共业务组件
+     */
+    implementation project(path: ':base_components:base_component')
+//    implementation rootProject.ext.dependencies['base_component']
+
+}
+
+

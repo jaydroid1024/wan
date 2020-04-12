@@ -10,6 +10,13 @@ buildscript {
         mavenCentral()
         maven { url "https://jitpack.io" }
         maven { url MAVEN_LOCAL_REPO_PATH }
+//        maven {
+//            credentials {
+//                username "admin"
+//                password "admin123"
+//            }
+//            url MAVEN_REPO_RELEASE_URL
+//        }
 
     }
     dependencies {
@@ -30,8 +37,17 @@ allprojects {
         jcenter()
         maven { url "https://jitpack.io" }
         maven { url MAVEN_LOCAL_REPO_PATH }
+//        maven {
+//            credentials {
+//                username "admin"
+//                password "admin123"
+//            }
+//            url MAVEN_REPO_RELEASE_URL
+//        }
+        
 
     }
+
 }
 
 task clean(type: Delete) {

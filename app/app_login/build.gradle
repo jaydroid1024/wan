@@ -6,13 +6,14 @@ dependencies {
      * 由于login组件是多项目共享业务组件，所以它的主题样式未定义，需要依靠单个项目的基础组件
      */
     implementation project(path: ':base_components:base_component_wan')
-//    implementation 'com.jaydroid.base_component_wan:base_component_wan:1.0.0'
+//    implementation rootProject.ext.dependencies['base_component_wan'] //远程pom
 
     /**
      * 主页业务组件
      */
     implementation project(path: ':biz_components:login')
-//    implementation 'com.jaydroid.login:login:1.0.0'
+//    implementation rootProject.ext.dependencies['login'] //远程pom
+
 
     /**
      * 二维码基础业务组件

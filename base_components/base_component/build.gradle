@@ -13,7 +13,7 @@ uploadArchives {
         // 项目名称
         pom.artifactId = "base_component"
         // 版本号
-        pom.version = "1.0.0"
+        pom.version = "2.0.0"
     }
 }
 
@@ -64,7 +64,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         release {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -76,12 +76,14 @@ android {
 
 }
 
+
 dependencies {
     /**
      * 基础功能组件
      */
-    api project(path: ':base_libs:base_lib')
-//    api rootProject.ext.dependencies['base_lib']
+    api project(path: ':base_libs:base_lib') //本地module
+//    api rootProject.ext.dependencies['base_lib'] //远程pom
+
 
     //初始的依赖
     implementation fileTree(dir: 'libs', include: ['*.jar'])
