@@ -1,4 +1,4 @@
-package com.jaydroid.login.user.activity
+package com.jaydroid.user.activity
 
 import android.text.SpannableString
 import android.text.TextUtils
@@ -18,10 +18,10 @@ import com.jaydroid.base_component.network.bean.wan.user.User
 import com.jaydroid.base_component.widget.ClearEditText
 import com.jaydroid.base_component.widget.LoginView
 import com.jaydroid.base_lib.utils.L
-import com.jaydroid.login.R
-import com.jaydroid.login.R2
-import com.jaydroid.login.user.contract.LoginContract
-import com.jaydroid.login.user.presenter.LoginPresenter
+import com.jaydroid.user.R
+import com.jaydroid.user.R2
+import com.jaydroid.user.contract.LoginContract
+import com.jaydroid.user.presenter.LoginPresenter
 
 @Route(path = ARHelper.PathUser.LOGIN_ACTIVITY_PATH)
 class LoginActivity : BaseMVPActivity<LoginContract.View, LoginPresenter>(),

@@ -1,4 +1,4 @@
-package com.jaydroid.login.user.service
+package com.jaydroid.user.service
 
 import android.content.Context
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -23,7 +23,6 @@ class UserServiceIml : UserService {
     override fun init(context: Context?) {
         this.context = context
     }
-
 
     override fun getUserInfo(): User? {
         return if (SPUtils.contains(context, Constants.SP.ACCOUNT_LOGIN)) {

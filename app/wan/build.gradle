@@ -96,7 +96,7 @@ dependencies {
     /**
      * 登陆组件
      */
-    implementation project(path: ':biz_components:login')
+    implementation project(path: ':biz_components:user')
 
     /**
      * 设置业务组件

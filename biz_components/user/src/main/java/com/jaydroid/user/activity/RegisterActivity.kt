@@ -1,4 +1,4 @@
-package com.jaydroid.login.user.activity
+package com.jaydroid.user.activity
 
 import android.text.TextUtils
 import android.view.View
@@ -10,9 +10,9 @@ import com.jaydroid.base_component.arouter.ARHelper
 import com.jaydroid.base_component.base.mvp.BaseMVPActivity
 import com.jaydroid.base_component.network.bean.wan.user.RegisterResponse
 import com.jaydroid.base_component.widget.ClearEditText
-import com.jaydroid.login.R
-import com.jaydroid.login.user.contract.RegisterContract
-import com.jaydroid.login.user.presenter.RegisterPresenter
+import com.jaydroid.user.R
+import com.jaydroid.user.contract.RegisterContract
+import com.jaydroid.user.presenter.RegisterPresenter
 
 @Route(path = ARHelper.PathUser.REGISTER_ACTIVITY_PATH)
 class RegisterActivity : BaseMVPActivity<RegisterContract.View, RegisterPresenter>(),

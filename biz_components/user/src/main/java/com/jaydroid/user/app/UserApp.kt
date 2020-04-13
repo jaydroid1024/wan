@@ -1,4 +1,4 @@
-package com.jaydroid.login.user.app
+package com.jaydroid.user.app
 
 import android.app.Application
 import android.content.Context

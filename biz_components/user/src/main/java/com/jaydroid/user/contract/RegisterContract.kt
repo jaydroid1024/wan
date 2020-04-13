@@ -1,4 +1,4 @@
-package com.jaydroid.login.user.contract
+package com.jaydroid.user.contract
 
 import com.jaydroid.base_component.base.mvp.IView
 import com.jaydroid.base_component.network.bean.wan.user.RegisterResponse

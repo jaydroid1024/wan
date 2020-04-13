@@ -7,7 +7,7 @@
     android:background="@android:color/white"
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
-    tools:context=".user.activity.LoginActivity">
+    tools:context="com.jaydroid.user.activity.LoginActivity">
 
     <ImageView
         android:id="@+id/iv_login_close"

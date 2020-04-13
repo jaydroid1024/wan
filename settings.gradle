@@ -33,7 +33,7 @@ include ':app:wan',
  *      - 多项目业务组件只能依赖公共基础业务组件，可以为ProjectA、ProjectB等项目提供业务能力，
  */
 
-include ':biz_components:login',
+include ':biz_components:user',
         ':biz_components:setting',
         ':biz_components:main',
         ':biz_components:favorite',

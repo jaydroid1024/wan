@@ -11,7 +11,7 @@ dependencies {
     /**
      * 主页业务组件
      */
-    implementation project(path: ':biz_components:login')
+    implementation project(path: ':biz_components:user')
 //    implementation rootProject.ext.dependencies['login'] //远程pom
 
 
