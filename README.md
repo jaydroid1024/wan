@@ -4,12 +4,13 @@
 
 Demo地址：[WanDroid组件化测试项目](https://github.com/Jay-Droid/WanDroid)
 
+![Demo项目结构](https://tva1.sinaimg.cn/large/007S8ZIlly1gdrxp58dq8j30gi1w4wkv.jpg)
 
 # 1. 组件划分
 
 ### 测试Demo组件化架构图
 
-![Demo Architecture](https://github.com/Jay-Droid/WanDroid/blob/master/resource/component_%20architecture_wandroid.png)
+![Demo Architecture](https://tva1.sinaimg.cn/large/007S8ZIlly1gdrxp1hwv0j30rl0kewhr.jpg)
 
 ### 各个层次详细说明
 #### 1.宿主壳和调试壳\app
