@@ -19,7 +19,10 @@ import com.jaydroid.base_component.network.bean.wan.user.User
 import io.reactivex.Observable
 
 /**
- * Created by Jay on 2018/9/27.
+ * BaseNetwork
+ * @author wangxuejie
+ * @version 1.0
+ * @date 2019-12-24 17:18
  */
 
 class DefaultNetwork(context: Context) : AuthAbstractNetwork<DefaultApiService>(context) {

@@ -4,16 +4,14 @@
 
 Demo地址：[WanDroid组件化测试项目](https://github.com/Jay-Droid/WanDroid)
 
-![Demo项目结构](https://github.com/Jay-Droid/WanDroid/blob/master/resource/project_struct.png)
-
+![Demo项目结构](https://tva1.sinaimg.cn/large/007S8ZIlly1gdrxp58dq8j30gi1w4wkv.jpg)
 
 
 # 1. 组件划分
 
 ### 测试Demo组件化架构图
 
-![Demo Architecture](https://github.com/Jay-Droid/WanDroid/blob/master/resource/component_%20architecture_wandroid.png)
-
+![Demo Architecture](https://tva1.sinaimg.cn/large/007S8ZIlly1gdrxp1hwv0j30rl0kewhr.jpg)
 ### 各个层次详细说明
 #### 1.宿主壳和调试壳\app
 
@@ -116,7 +114,7 @@ base_component_wan 需要依赖base_component，也就是说base_component_wan�
 
 # 3. 组件开发
 ### 1.单组件调试
-！！！禁止切换为独立模式！组件只允许库模式！
+
 现在组件化很流行的做法是把组件划分为库模式和独立模式，在开发时使用独立模式，在发布时使用库模式。比如说，gradle.properties中定义一个常量值 isPlugin（是否是独立模式，true为是，false为否）然后在各个组件的build.gradle中这么写：
 
 ```

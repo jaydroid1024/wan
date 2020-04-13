@@ -10,7 +10,10 @@ import okhttp3.OkHttpClient
 
 
 /**
- * Created by taufiqotulfaidah on 12/21/17.
+ * BaseNetwork
+ * @author wangxuejie
+ * @version 1.0
+ * @date 2019-12-24 17:18
  */
 
 abstract class AuthAbstractNetwork<T>(context: Context) : AbstractNetwork<T>(context),
@@ -21,6 +24,7 @@ abstract class AuthAbstractNetwork<T>(context: Context) : AbstractNetwork<T>(con
 
     override fun okHttpClientHandler(builder: OkHttpClient.Builder): OkHttpClient.Builder {
         builder.addInterceptor(authInterceptor)
+        //缓存cookie
         builder.cookieJar(
             PersistentCookieJar(
                 SetCookieCache(),

@@ -7,9 +7,11 @@ import okhttp3.Response
 import java.io.IOException
 
 /**
- * Created by taufiqotulfaidah on 12/21/17.
+ * BaseNetwork
+ * @author wangxuejie
+ * @version 1.0
+ * @date 2019-12-24 17:18
  */
-
 class AuthorizationInterceptor(private val listener: HeaderListener?) : Interceptor {
 
     @Throws(IOException::class)
@@ -21,8 +23,8 @@ class AuthorizationInterceptor(private val listener: HeaderListener?) : Intercep
     }
 
     private fun addHeaderAuth(oriRequest: Request): Request {
-        return oriRequest.newBuilder()
-            .build()
+
+        return oriRequest.newBuilder().build()
     }
 
     interface HeaderListener {
