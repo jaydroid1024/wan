@@ -11,6 +11,7 @@ import java.util.concurrent.TimeUnit
 
 /**
  * AbstractNetwork
+ * 对BaseNetwork对第一层扩展，只做一些全局的网络配置，如：超时，日志，安全等
  * @author wangxuejie
  * @version 1.0
  * @date 2019-12-24 17:18

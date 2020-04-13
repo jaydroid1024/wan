@@ -1,10 +1,10 @@
 package com.jaydroid.base_component.network.default_net
 
 import com.jaydroid.base_component.network.bean.github.Repo
-import com.jaydroid.base_component.network.bean.wan.Article
-import com.jaydroid.base_component.network.bean.wan.ArticleResponse
 import com.jaydroid.base_component.network.bean.wan.Banner
 import com.jaydroid.base_component.network.bean.wan.BaseResponse
+import com.jaydroid.base_component.network.bean.wan.article.Article
+import com.jaydroid.base_component.network.bean.wan.article.ArticleResponse
 import com.jaydroid.base_component.network.bean.wan.detail.AddFavoriteResponse
 import com.jaydroid.base_component.network.bean.wan.search.SearchHot
 import com.jaydroid.base_component.network.bean.wan.search.SearchResultResponse
@@ -20,7 +20,7 @@ import retrofit2.http.*
  * Created by Jay on 2018/9/27.
  */
 
-interface DefaultApiService {
+interface WanDroidApiService {
 
     /** =======================================================
     Github 开放API：https://developer.github.com/v3/

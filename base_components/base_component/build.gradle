@@ -78,12 +78,12 @@ android {
 
 
 dependencies {
+
     /**
      * 基础功能组件
      */
     api project(path: ':base_libs:base_lib') //本地module
 //    api rootProject.ext.dependencies['base_lib'] //远程pom
-
 
     //初始的依赖
     implementation fileTree(dir: 'libs', include: ['*.jar'])

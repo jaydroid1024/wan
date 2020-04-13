@@ -7,7 +7,7 @@ import okhttp3.Response
 import java.io.IOException
 
 /**
- * BaseNetwork
+ * AuthorizationInterceptor
  * @author wangxuejie
  * @version 1.0
  * @date 2019-12-24 17:18

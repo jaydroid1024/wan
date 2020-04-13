@@ -2,7 +2,7 @@ package com.jaydroid.favorite.adapter
 
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
-import com.jaydroid.base_component.network.bean.wan.Article
+import com.jaydroid.base_component.network.bean.wan.article.Article
 import com.jaydroid.base_component.utils.format
 import com.jaydroid.favorite.R
 

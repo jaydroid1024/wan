@@ -2,10 +2,10 @@ package com.jaydroid.main.home.presenter
 
 import com.jaydroid.base_component.base.mvp.BaseObserver
 import com.jaydroid.base_component.base.mvp.BasePresenter
-import com.jaydroid.base_component.network.bean.wan.Article
-import com.jaydroid.base_component.network.bean.wan.ArticleResponse
 import com.jaydroid.base_component.network.bean.wan.Banner
 import com.jaydroid.base_component.network.bean.wan.BaseResponse
+import com.jaydroid.base_component.network.bean.wan.article.Article
+import com.jaydroid.base_component.network.bean.wan.article.ArticleResponse
 import com.jaydroid.main.home.contract.HomeContract
 import io.reactivex.Observable
 import io.reactivex.functions.BiFunction

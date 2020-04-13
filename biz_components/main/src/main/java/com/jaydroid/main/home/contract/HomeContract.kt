@@ -1,8 +1,8 @@
 package com.jaydroid.main.home.contract
 
-import com.jaydroid.base_component.network.bean.wan.Banner
-import com.jaydroid.base_component.network.bean.wan.Article
 import com.jaydroid.base_component.base.mvp.IView
+import com.jaydroid.base_component.network.bean.wan.Banner
+import com.jaydroid.base_component.network.bean.wan.article.Article
 
 
 interface HomeContract {

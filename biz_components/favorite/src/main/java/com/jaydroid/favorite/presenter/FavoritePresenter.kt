@@ -2,7 +2,7 @@ package com.jaydroid.favorite.presenter
 
 import com.jaydroid.base_component.base.mvp.BaseObserver
 import com.jaydroid.base_component.base.mvp.BasePresenter
-import com.jaydroid.base_component.network.bean.wan.ArticleResponse
+import com.jaydroid.base_component.network.bean.wan.article.ArticleResponse
 import com.jaydroid.favorite.contract.FavoriteContract
 
 class FavoritePresenter : BasePresenter<FavoriteContract.View>(), FavoriteContract.Presenter {

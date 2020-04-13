@@ -26,7 +26,6 @@ class RegisterActivity : BaseMVPActivity<RegisterContract.View, RegisterPresente
 
     override fun getLayoutResId(): Int {
         return R.layout.activity_register
-
     }
 
     override fun createPresenter(): RegisterPresenter {

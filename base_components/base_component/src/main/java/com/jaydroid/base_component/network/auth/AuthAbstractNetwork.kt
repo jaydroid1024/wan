@@ -10,7 +10,9 @@ import okhttp3.OkHttpClient
 
 
 /**
- * BaseNetwork
+ * AuthAbstractNetwork
+ * 身份信息验证层
+ * 对BaseNetwork对第二层扩展，只做一些和公共业务相关等配置，如：缓存cookie,token处理等
  * @author wangxuejie
  * @version 1.0
  * @date 2019-12-24 17:18

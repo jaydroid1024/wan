@@ -1,7 +1,7 @@
 package com.jaydroid.favorite.contract
 
 import com.jaydroid.base_component.base.mvp.IView
-import com.jaydroid.base_component.network.bean.wan.ArticleResponse
+import com.jaydroid.base_component.network.bean.wan.article.ArticleResponse
 
 interface FavoriteContract {
 

@@ -2,12 +2,13 @@ package com.jaydroid.base_lib.net
 
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 /**
  * BaseNetwork
+ * 网络框架基础类：Retrofit+OkHttp+Gson
+ * 一般情况下不可直接修改此类，遵循开闭原则只对此类扩展
  * @author wangxuejie
  * @version 1.0
  * @date 2019-12-24 17:18
@@ -21,18 +22,13 @@ abstract class BaseNetwork<T> {
     protected abstract val restClass: Class<T>
 
     private fun initNetworkInterface() {
-        val loggingInterceptor = HttpLoggingInterceptor()
-        loggingInterceptor.apply {
-            this.level = (HttpLoggingInterceptor.Level.NONE)
-        }
-        val client =
-            this.okHttpClientHandler(OkHttpClient.Builder()).addInterceptor(loggingInterceptor)
-                .build()
-        val gson = this.gsonHandler(GsonBuilder().setPrettyPrinting())
-            .setDateFormat("yyyy-MM-dd'T'hh:mm:ssZ").create()
+        val client = this.okHttpClientHandler(OkHttpClient.Builder()).build()
+        val gson = this.gsonHandler(GsonBuilder().setPrettyPrinting()).create()
         val retrofitBuilder = Retrofit.Builder().baseUrl(this.baseUrl)
         val retrofit = this.retrofitHandler(retrofitBuilder)
-            .addConverterFactory(GsonConverterFactory.create(gson)).client(client).build()
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .client(client)
+            .build()
         RetrofitHelper.init(retrofit)
         this.networkService = retrofit.create(this.restClass)
     }

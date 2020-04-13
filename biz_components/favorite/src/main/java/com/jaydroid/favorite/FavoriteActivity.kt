@@ -9,8 +9,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.jaydroid.base_component.arouter.ARHelper
 import com.jaydroid.base_component.base.mvp.BaseMVPActivity
 import com.jaydroid.base_component.constant.Constants
-import com.jaydroid.base_component.network.bean.wan.Article
-import com.jaydroid.base_component.network.bean.wan.ArticleResponse
+import com.jaydroid.base_component.network.bean.wan.article.Article
+import com.jaydroid.base_component.network.bean.wan.article.ArticleResponse
 import com.jaydroid.base_component.widget.LinearItemDecoration
 import com.jaydroid.favorite.adapter.FavoriteAdapter
 import com.jaydroid.favorite.contract.FavoriteContract

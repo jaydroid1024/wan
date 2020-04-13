@@ -2,7 +2,7 @@ package com.jaydroid.base_component.base.mvp
 
 import com.jaydroid.base_component.network.bean.wan.BaseResponse
 import com.jaydroid.base_component.network.default_net.DefaultNetFactory
-import com.jaydroid.base_component.network.default_net.DefaultNetwork
+import com.jaydroid.base_component.network.default_net.WanDroidNetwork
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -31,7 +31,7 @@ open class BasePresenter<V : IView> : IPresenter<V> {
         disposable.dispose()
     }
 
-    fun getDefaultNet(): DefaultNetwork {
+    fun getDefaultNet(): WanDroidNetwork {
         return DefaultNetFactory.getDefaultNet()
     }
 

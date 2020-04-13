@@ -15,7 +15,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.jaydroid.base_component.arouter.ARHelper
 import com.jaydroid.base_component.base.mvp.BaseMVPFragment
 import com.jaydroid.base_component.constant.Constants
-import com.jaydroid.base_component.network.bean.wan.Article
+import com.jaydroid.base_component.network.bean.wan.article.Article
 import com.jaydroid.base_component.widget.LinearItemDecoration
 import com.jaydroid.main.R
 import com.jaydroid.main.home.adapter.HomeRecyclerAdapter

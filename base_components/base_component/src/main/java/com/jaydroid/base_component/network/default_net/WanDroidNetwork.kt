@@ -6,10 +6,10 @@ import com.jaydroid.base_component.app.BaseComponentApp
 import com.jaydroid.base_component.arouter.ARHelper
 import com.jaydroid.base_component.arouter.service.user.UserService
 import com.jaydroid.base_component.network.auth.AuthAbstractNetwork
-import com.jaydroid.base_component.network.bean.wan.Article
-import com.jaydroid.base_component.network.bean.wan.ArticleResponse
 import com.jaydroid.base_component.network.bean.wan.Banner
 import com.jaydroid.base_component.network.bean.wan.BaseResponse
+import com.jaydroid.base_component.network.bean.wan.article.Article
+import com.jaydroid.base_component.network.bean.wan.article.ArticleResponse
 import com.jaydroid.base_component.network.bean.wan.detail.AddFavoriteResponse
 import com.jaydroid.base_component.network.bean.wan.search.SearchHot
 import com.jaydroid.base_component.network.bean.wan.search.SearchResultResponse
@@ -19,13 +19,14 @@ import com.jaydroid.base_component.network.bean.wan.user.User
 import io.reactivex.Observable
 
 /**
- * BaseNetwork
+ * DefaultNetwork：玩Android API 网络请求默认类
+ * 真正做业务网络处理的子类，一个baseUrl对应一类网络请求，项目中存在多baseUrl需要新建该类实现
  * @author wangxuejie
  * @version 1.0
  * @date 2019-12-24 17:18
  */
 
-class DefaultNetwork(context: Context) : AuthAbstractNetwork<DefaultApiService>(context) {
+class WanDroidNetwork(context: Context) : AuthAbstractNetwork<WanDroidApiService>(context) {
     var userService: UserService? = null
 
     init {
@@ -36,8 +37,8 @@ class DefaultNetwork(context: Context) : AuthAbstractNetwork<DefaultApiService>(
     override val baseUrl: String
         get() = BuildConfig.BASE_URL
 
-    override val restClass: Class<DefaultApiService>
-        get() = DefaultApiService::class.java
+    override val restClass: Class<WanDroidApiService>
+        get() = WanDroidApiService::class.java
 
 
     fun login(name: String, pwd: String): Observable<BaseResponse<User>> {

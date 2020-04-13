@@ -4,14 +4,13 @@
 
 Demo地址：[WanDroid组件化测试项目](https://github.com/Jay-Droid/WanDroid)
 
-![Demo项目结构](https://tva1.sinaimg.cn/large/007S8ZIlly1gdrxp58dq8j30gi1w4wkv.jpg)
-
 
 # 1. 组件划分
 
 ### 测试Demo组件化架构图
 
-![Demo Architecture](https://tva1.sinaimg.cn/large/007S8ZIlly1gdrxp1hwv0j30rl0kewhr.jpg)
+![Demo Architecture](https://github.com/Jay-Droid/WanDroid/blob/master/resource/component_%20architecture_wandroid.png)
+
 ### 各个层次详细说明
 #### 1.宿主壳和调试壳\app
 
@@ -64,7 +63,7 @@ Demo地址：[WanDroid组件化测试项目](https://github.com/Jay-Droid/WanDro
 - 3.基础业务组件\base_components
 - 4.基础功能组件\base_libs
 
-  ​      
+      
 ### 2. 为新功能创建新组件
 `新功能的确定:`
 新组件功能不能与已有的组件功能100%相同，否则这不是新功能。 其次，新组件功能可以与已有组件功能交互，但不能有重合。 最后，新组件功能的划分要保持粒度一致。一个组件一个 Activity是允许的，只要划分的粒度和其他组件的粒度保持一致。组件间独立，架构不一样是允许的。
@@ -114,7 +113,6 @@ base_component_wan 需要依赖base_component，也就是说base_component_wan�
 
 # 3. 组件开发
 ### 1.单组件调试
-
 现在组件化很流行的做法是把组件划分为库模式和独立模式，在开发时使用独立模式，在发布时使用库模式。比如说，gradle.properties中定义一个常量值 isPlugin（是否是独立模式，true为是，false为否）然后在各个组件的build.gradle中这么写：
 
 ```
@@ -166,31 +164,6 @@ if (isPlugin.toBoolean()) {
 使用参考 [BaseComponentApp.kt](https://github.com/Jay-Droid/WanDroid/blob/master/base_components/base_component/src/main/java/com/jaydroid/base_component/app/BaseComponentApp.kt)
 
 优先级从高到底顺序初始化，建议下层组件都用高优先级
-```
-@StringDef(
-    PriorityLevel.LOW,
-    PriorityLevel.MEDIUM,
-    PriorityLevel.HIGH
-)
-//表示注解所存活的时间在运行时,而不会存在 .class 文件中
-@Retention(AnnotationRetention.SOURCE)
-annotation class PriorityLevel {
-    companion object {
-        /**
-         * 低优先级
-         */
-        const val LOW = "LOW"
-        /**
-         * 中优先级
-         */
-        const val MEDIUM = "MEDIUM"
-        /**
-         * 高优先级
-         */
-        const val HIGH = "HIGH"
-    }
-}
-```
 
 
 ### 4.组件耦合
@@ -214,6 +187,19 @@ ARouter如果找不到组件默认也会有错误提示
 - api: 长依赖。我的依赖，以及我的依赖的依赖，都是我的依赖。
 - runtimeOnly:不合群依赖。写代码和编译时不会参与，只在生成 APK 时被打包进去。
 - compileOnly:假装依赖。只在写代码和编译时有效，不会参与打包。
+
+举个例子：
+假设 A 依赖 B，B 依赖 C。
+如果 B 对 C 使用 implementation 依赖，则 A 无法调用 C 的代码
+如果 B 对 C 使用 api 依赖，则 A 可以调用 C 的代码
+如果 B 对 C 使用 compileOnly 依赖，则 A 无法调用 C 的代码，且 C 的代码不会被打包到 APK 中
+如果 B 对 C 使用 runtimeOnly 依赖，则 A、B 无法调用 C 的代码，但 C 的代码会被打包到 APK 中
+
+B 对 C 使用 implementation 依赖 , B 中有类Son 继承于 C中的类Parent
+在 A 中使用类 Son 时会报错找不到类 Parent，解决办法只能让 A 再依赖 C，所以应该尽量避免使用继承
+
+BC 是二进制(aar依赖)， B 的 POM 中对 C 的依赖是 runtime
+在 Gradle 4.4 中，A 依然可以调用 C 的代码，这个问题在 Gradle 5.0 后被修复
 
 依赖使用规范：
 
@@ -252,9 +238,54 @@ tools:ignore="ResourceName">
 </resources>
 ```
 
+### 8.AndroidManifest合并冲突问题
+自定义 Application 需要声明在 AndroidManifest.xml 中。
+其次，每个 Module 都有该清单文件，但是最终的 APK 文件只能包含一个。
+因此，在构建应用时，Gradle 构建会将所有清单文件合并到一个封装到 APK 的清单文件中。
+合并的优先级是: App Module(值 A) > Library Module(值 B)值 A 合并值 B，会产生冲突错误：
+在高优先级的 App Module 中使用tools:replace="android:name"直接用值 A 替换了值B 
+
+### 8.ButterKnife 在library中使用的问题
+因为Android ADT14开始，library的R资源不再是final类型的了，所以在library中你不能使用R.id.xx，需要使用findViewById()来代替;也不能使用switch(R.id.xx),需要使用if…else来代替。
+
+解决方案：
+
+在lib中使用ButterKnife需要引入`butterknife-gradle-plugin` 这个插件
+
+```
+buildscript {
+  repositories {
+    mavenCentral()
+    google()
+   }
+  dependencies {
+    classpath 'com.jakewharton:butterknife-gradle-plugin:10.2.1'
+  }
+}
+```
+
+然后在需要的module中引用这个插件
+
+```
+apply plugin: 'com.android.library'
+apply plugin: 'com.jakewharton.butterknife'
+```
+
+最后在所有使用butterknife注释中使用R2而不是R。
+
+
+```
+class ExampleActivity extends Activity {
+  @BindView(R2.id.user) EditText username;
+  @BindView(R2.id.pass) EditText password;
+...
+}
+```
+
 
 
 # 4. 组件复用与发布
+
 ## 1. 公共组件如何实现多项目共享
 
 ### 方案一：将moudle放在本地指定目录实现多项目复用
@@ -335,8 +366,10 @@ maven {  url MAVEN_LOCAL_REPO_PATH }
 
 # 4. 其它问题
 ## 1，其它流程上点问题
+- Tinker的在组件化改造中的影响
+- 由于组件在组件化改造阶段频繁更新，所以，将组件发布到Maven仓库暂时不考虑，待组件稳定时考虑搭建公司Maven私服以及本地modul和aar依赖切换逻辑
+- 
 
-//todo
 
 ## 2，具体项目实施问题
 
