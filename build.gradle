@@ -8,7 +8,7 @@ buildscript {
         jcenter()
         mavenCentral()
         maven { url "https://jitpack.io" }
-        maven { url MAVEN_LOCAL_REPO_PATH }
+//        maven { url MAVEN_LOCAL_REPO_PATH }
 //        maven {
 //            credentials {
 //                username "admin"
@@ -35,7 +35,7 @@ allprojects {
         mavenCentral()
         jcenter()
         maven { url "https://jitpack.io" }
-        maven { url MAVEN_LOCAL_REPO_PATH }
+//        maven { url MAVEN_LOCAL_REPO_PATH }
 //        maven {
 //            credentials {
 //                username "admin"

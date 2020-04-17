@@ -90,10 +90,10 @@ dependencies {
     implementation rootProject.ext.kotlinStdlibJdk7
     implementation rootProject.ext.appcompat
     implementation rootProject.ext.coreKtx
+    implementation rootProject.ext.constraintLayout
     testImplementation rootProject.ext.junit
     androidTestImplementation rootProject.ext.junitX
     androidTestImplementation rootProject.ext.espressoCore
-    androidTestImplementation rootProject.ext.constraintlayout
 
     //persistentcookiejar
     api rootProject.ext.persistentcookiejar
