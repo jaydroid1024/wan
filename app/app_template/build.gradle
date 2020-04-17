@@ -1,4 +1,4 @@
-apply from: "../../gradle/app_components.gradle"
+apply from: "../../buildgradle/app_components.gradle"
 
 
 dependencies {

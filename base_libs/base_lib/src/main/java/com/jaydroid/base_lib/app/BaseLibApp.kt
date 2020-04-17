@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.content.res.Configuration
 import android.util.Log
+import com.facebook.stetho.Stetho
 import com.jaydroid.base_lib.app.appdelegate.IAppLife
 import com.jaydroid.base_lib.app.appdelegate.PriorityLevel
 
@@ -23,7 +24,17 @@ class BaseLibApp : IAppLife {
 
     override fun onCreate(application: Application) {
         Log.d(TAG, "onCreate")
+        app = application
+        initStetho()
+        //网络库测试类,需要依赖lib_net
+//        NetTest().testNet()
+    }
 
+    /**
+     * 初始化Stetho
+     */
+    private fun initStetho() {
+        Stetho.initializeWithDefaults(getApp())
     }
 
     override fun onTerminate(application: Application) {
@@ -47,7 +58,10 @@ class BaseLibApp : IAppLife {
     }
 
     companion object {
-
         private const val TAG = "BaseLibApp"
+        private lateinit var app: Application
+        fun getApp(): Application {
+            return app
+        }
     }
 }

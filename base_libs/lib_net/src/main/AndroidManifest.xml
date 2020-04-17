@@ -1,2 +1,1 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.jay.lib_net" />
+<manifest package="com.jaydroid.lib_net" />

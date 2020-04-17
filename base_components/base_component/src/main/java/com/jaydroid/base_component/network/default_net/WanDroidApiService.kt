@@ -86,6 +86,7 @@ interface WanDroidApiService {
     fun getSearchHot(): Observable<BaseResponse<ArrayList<SearchHot>>>
 
     @POST("article/query/{page}/json")
+    @Headers("Domain-Name: search")
     @FormUrlEncoded
     fun getSearchResult(@Path("page") page: Int, @Field("k") keyword: String): Observable<BaseResponse<SearchResultResponse>>
 

@@ -4,14 +4,14 @@ import android.content.Context
 import com.franmontiel.persistentcookiejar.PersistentCookieJar
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
-import com.jaydroid.base_lib.net.AbstractNetwork
+import com.jaydroid.net.AbstractNetwork
 import okhttp3.Headers
 import okhttp3.OkHttpClient
 
 
 /**
  * AuthAbstractNetwork
- * 身份信息验证层
+ * 处理身份验证authentication
  * 对BaseNetwork对第二层扩展，只做一些和公共业务相关等配置，如：缓存cookie,token处理等
  * @author wangxuejie
  * @version 1.0
@@ -24,7 +24,7 @@ abstract class AuthAbstractNetwork<T>(context: Context) : AbstractNetwork<T>(con
     private val authInterceptor: AuthorizationInterceptor
         get() = AuthorizationInterceptor(this)
 
-    override fun okHttpClientHandler(builder: OkHttpClient.Builder): OkHttpClient.Builder {
+    override fun okHttpClientBuilderHandler(builder: OkHttpClient.Builder): OkHttpClient.Builder {
         builder.addInterceptor(authInterceptor)
         //缓存cookie
         builder.cookieJar(
@@ -33,7 +33,7 @@ abstract class AuthAbstractNetwork<T>(context: Context) : AbstractNetwork<T>(con
                 SharedPrefsCookiePersistor(context)
             )
         )
-        return super.okHttpClientHandler(builder)
+        return super.okHttpClientBuilderHandler(builder)
     }
 
     override fun onHeaderUpdated(headers: Headers) {

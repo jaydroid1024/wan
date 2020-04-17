@@ -18,19 +18,20 @@ uploadArchives {
 }
 
 android {
+
     //给 Module 内的资源名增加前缀, 避免资源名冲突
     resourcePrefix "${project.name.toLowerCase().replaceAll("-", "_")}_"
 
-    compileSdkVersion rootProject.ext.android["compileSdkVersion"]
-    buildToolsVersion rootProject.ext.android["buildToolsVersion"]
-
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
     defaultConfig {
-        minSdkVersion rootProject.ext.android["minSdkVersion"]
-        targetSdkVersion rootProject.ext.android["targetSdkVersion"]
-        versionCode rootProject.ext.android["versionCode"]
-        versionName rootProject.ext.android["versionName"]
-
-        testInstrumentationRunner rootProject.ext.dependencies["androidJUnitRunner"]
+        minSdkVersion rootProject.ext.minSdk
+        targetSdkVersion rootProject.ext.targetSdk
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
+        //Instrumentation Test class
+        testInstrumentationRunner rootProject.ext.androidJUnitRunner
+        //consumerProguardFiles  打包库Module发布AAR时配置的混淆文件，如果没有配置这个属性，在其他项目引用AndroidLib 项目且开启minifyEnabled时或许会报错，因为主项目不会自主引入依赖库的ProguardFile文件，必须在主项目中配置consumerProguardFiles节点，这样主项目就会引入依赖库的gradle文件中的（默认为release变体）下ProguardFile。
         consumerProguardFiles 'consumer-rules.pro'
         //Arouter
         kapt {

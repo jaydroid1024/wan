@@ -1,6 +1,5 @@
 //使用config.gradle统一管理项目的依赖库
-apply from: "gradle/config.gradle"
-println("mavenProps----------" + mavenRepo)
+apply from: "buildgradle/config.gradle"
 
 buildscript {
     ext.kotlin_version = '1.3.61'
@@ -23,8 +22,8 @@ buildscript {
 
         classpath 'com.android.tools.build:gradle:3.5.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath 'com.jakewharton:butterknife-gradle-plugin:10.2.1'
         classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
+        classpath 'com.jakewharton:butterknife-gradle-plugin:10.2.1'
 
 
     }

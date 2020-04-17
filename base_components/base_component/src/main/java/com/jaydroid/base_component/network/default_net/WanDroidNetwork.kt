@@ -37,12 +37,12 @@ class WanDroidNetwork(context: Context) : AuthAbstractNetwork<WanDroidApiService
     override val baseUrl: String
         get() = BuildConfig.BASE_URL
 
-    override val restClass: Class<WanDroidApiService>
+    override val apiServiceClass: Class<WanDroidApiService>
         get() = WanDroidApiService::class.java
 
 
     fun login(name: String, pwd: String): Observable<BaseResponse<User>> {
-        return getNetworkService()
+        return getApiService()
             .login(name, pwd)
             .compose(RxUtil.applyObservableTransformer())
             .doOnNext {
@@ -51,7 +51,7 @@ class WanDroidNetwork(context: Context) : AuthAbstractNetwork<WanDroidApiService
     }
 
     fun logout(): Observable<BaseResponse<LogoutResult>> {
-        return getNetworkService()
+        return getApiService()
             .logout()
             .compose(RxUtil.applyObservableTransformer())
             .doOnNext {
@@ -67,39 +67,39 @@ class WanDroidNetwork(context: Context) : AuthAbstractNetwork<WanDroidApiService
         pwd: String,
         rPwd: String
     ): Observable<BaseResponse<RegisterResponse>> {
-        return getNetworkService()
+        return getApiService()
             .register(name, pwd, rPwd)
             .compose(RxUtil.applyObservableTransformer())
     }
 
     fun getBanner(): Observable<BaseResponse<List<Banner>>> {
-        return getNetworkService()
+        return getApiService()
             .getBanner()
             .compose(RxUtil.applyObservableTransformer())
     }
 
     fun getTopArticle(): Observable<BaseResponse<List<Article>>>? {
-        return getNetworkService()
+        return getApiService()
             .getTopArticle()
             .compose(RxUtil.applyObservableTransformer())
 
     }
 
     fun getArticles(page: Int): Observable<BaseResponse<ArticleResponse>>? {
-        return getNetworkService()
+        return getApiService()
             .getArticles(page)
             .compose(RxUtil.applyObservableTransformer())
     }
 
 
     fun getArticleFavorites(page: Int): Observable<BaseResponse<ArticleResponse>> {
-        return getNetworkService()
+        return getApiService()
             .getArticleFavorites(page)
             .compose(RxUtil.applyObservableTransformer())
     }
 
     fun getSearchHot(): Observable<BaseResponse<ArrayList<SearchHot>>> {
-        return getNetworkService()
+        return getApiService()
             .getSearchHot()
             .compose(RxUtil.applyObservableTransformer())
 
@@ -109,7 +109,7 @@ class WanDroidNetwork(context: Context) : AuthAbstractNetwork<WanDroidApiService
         page: Int,
         keyword: String
     ): Observable<BaseResponse<SearchResultResponse>> {
-        return getNetworkService()
+        return getApiService()
             .getSearchResult(page, keyword)
             .compose(RxUtil.applyObservableTransformer())
     }
@@ -119,13 +119,13 @@ class WanDroidNetwork(context: Context) : AuthAbstractNetwork<WanDroidApiService
         author: String,
         link: String
     ): Observable<BaseResponse<AddFavoriteResponse>> {
-        return getNetworkService()
+        return getApiService()
             .addFavorite(title, author, link)
             .compose(RxUtil.applyObservableTransformer())
     }
 
     fun cancelFavorite(id: Int): Observable<BaseResponse<AddFavoriteResponse>> {
-        return getNetworkService()
+        return getApiService()
             .cancelFavorite(id)
             .compose(RxUtil.applyObservableTransformer())
     }

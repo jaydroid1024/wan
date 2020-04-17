@@ -1,9 +1,11 @@
 package com.jaydroid.search.presenter
 
+import com.jaydroid.base_component.BuildConfig
 import com.jaydroid.base_component.base.mvp.BaseObserver
 import com.jaydroid.base_component.base.mvp.BasePresenter
 import com.jaydroid.base_component.network.bean.wan.search.SearchResultResponse
 import com.jaydroid.search.contract.SearchResultContract
+import me.jessyan.retrofiturlmanager.RetrofitUrlManager
 
 class SearchResultPresenter : BasePresenter<SearchResultContract.View>(),
     SearchResultContract.Presenter {
@@ -12,7 +14,9 @@ class SearchResultPresenter : BasePresenter<SearchResultContract.View>(),
         if (keyword == null) {
             return
         }
-        addSubscribe(getDefaultNet().getSearchResult(page, keyword!!),
+        RetrofitUrlManager.getInstance().putDomain("search", BuildConfig.BASE_URL)
+        addSubscribe(
+            getDefaultNet().getSearchResult(page, keyword),
             object : BaseObserver<SearchResultResponse>(getView()) {
                 override fun onSuccess(data: SearchResultResponse?) {
                     if (this@SearchResultPresenter.isViewAttached()) {

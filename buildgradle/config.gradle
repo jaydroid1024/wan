@@ -1,0 +1,560 @@
+// 根据exext属性是ExtensionAware类型的一个特殊的属性，本质是一个Map类型的变量，而 ExtentionAware接口的实现类为Project, Settings, Task, SourceSet等，ExtentionAware可以在运行时扩充属性，而这里的ext，就是里面的一个特殊的属性而已。
+ext {
+    android = [
+            compileSdkVersion: 29,
+            buildToolsVersion: "29.0.2",
+            minSdkVersion    : 21,
+            targetSdkVersion : 29,
+            versionCode      : 1,
+            versionName      : "1.0.0"
+    ]
+
+    androidArray = [
+            compileSdkVersion = 28,
+            buildToolsVersion = '28.0.3',
+            minSdk = 19,
+            targetSdk = 28,
+            versionCode = 1,
+            versionName = "1.0.0"
+    ]
+
+
+    java = [
+            javaSourceCompatibility = JavaVersion.VERSION_1_8,
+            javaTargetCompatibility = JavaVersion.VERSION_1_8
+    ]
+
+    version = [
+            androidSupportSdkVersion: "28.0.0",
+            retrofitSdkVersion      : "2.7.0",
+            dagger2SdkVersion       : "2.19",
+            glideSdkVersion         : "4.8.0",
+            butterknifeSdkVersion   : "10.2.1",
+            rxlifecycleSdkVersion   : "1.0",
+            rxlifecycle2SdkVersion  : "2.2.2",
+            espressoSdkVersion      : "3.0.1",
+            canarySdkVersion        : "1.5.4",
+            circleImageviewVersion  : "2.1.0",
+            kotlinVersion           : "1.3.50"
+    ]
+
+    //ArrayList
+    dependenciesArray = [
+            gradleaaa = "com.android.tools.build:gradle:3.5.2",
+            gradle = "com.android.tools.build:gradle:3.5.2"
+    ]
+    //LinkedHashMap
+    dependenciesMap = [
+            "appcompat": "androidx.appcompat:appcompat:1.1.0",
+            "appcompat": "androidx.appcompat:appcompat:1.1.0"
+    ]
+    dependenciesArray.each {
+        println("dependenciesArray:${it.getClass()}")
+
+    }
+    dependenciesMap.each {
+        println("dependenciesMap:${it.getClass()}")
+    }
+    println("gradleaaa:${gradleaaa.getClass()}")
+    println("dependenciesArray:${dependenciesArray.getClass()}")
+    println("dependenciesMap:${dependenciesMap.getClass()}")
+
+    dependencies = [
+
+            //AndroidX
+            "appcompat"                : "androidx.appcompat:appcompat:1.1.0",
+            "core-ktx"                 : "androidx.core:core-ktx:1.1.0",
+            "constraintlayout"         : "androidx.constraintlayout:constraintlayout:1.1.3",
+
+            //support
+            "appcompat-v7"             : "com.android.support:appcompat-v7:${version["androidSupportSdkVersion"]}",
+            "design"                   : "com.android.support:design:${version["androidSupportSdkVersion"]}",
+            "support-v4"               : "com.android.support:support-v4:${version["androidSupportSdkVersion"]}",
+            "cardview-v7"              : "com.android.support:cardview-v7:${version["androidSupportSdkVersion"]}",
+            "annotations"              : "com.android.support:support-annotations:${version["androidSupportSdkVersion"]}",
+            "recyclerview-v7"          : "com.android.support:recyclerview-v7:${version["androidSupportSdkVersion"]}",
+
+            //network
+            "retrofit"                 : "com.squareup.retrofit2:retrofit:${version["retrofitSdkVersion"]}",
+            "retrofit-converter-gson"  : "com.squareup.retrofit2:converter-gson:${version["retrofitSdkVersion"]}",
+            "retrofit-adapter-rxjava2" : "com.squareup.retrofit2:adapter-rxjava2:${version["retrofitSdkVersion"]}",
+            "okhttp3"                  : "com.squareup.okhttp3:okhttp:4.2.1",
+            "logging-interceptor"      : "com.squareup.okhttp3:logging-interceptor:4.2.1",
+            "okhttp-urlconnection"     : "com.squareup.okhttp:okhttp-urlconnection:2.0.0",
+            "chuck"                    : "com.readystatesoftware.chuck:library:1.1.0",
+            "chuck-no-op"              : "com.readystatesoftware.chuck:library-no-op:1.1.0",
+            "glide"                    : "com.github.bumptech.glide:glide:${version["glideSdkVersion"]}",
+            "glide-compiler"           : "com.github.bumptech.glide:compiler:${version["glideSdkVersion"]}",
+            "glide-loader-okhttp3"     : "com.github.bumptech.glide:okhttp3-integration:${version["glideSdkVersion"]}",
+            "picasso"                  : "com.squareup.picasso:picasso:2.5.2",
+            "persistentcookiejar"      : "com.github.franmontiel:PersistentCookieJar:v1.0.1",
+
+            //view
+            "autolayout"               : "com.zhy:autolayout:1.4.5",
+            "butterknife"              : "com.jakewharton:butterknife:${version["butterknifeSdkVersion"]}",
+            "butterknife-compiler"     : "com.jakewharton:butterknife-compiler:${version["butterknifeSdkVersion"]}",
+            "pickerview"               : "com.contrarywind:Android-PickerView:3.2.5",
+            "photoview"                : "com.github.chrisbanes.photoview:library:1.2.3",
+            "numberprogressbar"        : "com.daimajia.numberprogressbar:library:1.2@aar",
+            "nineoldandroids"          : "com.nineoldandroids:library:2.4.0",
+            "paginate"                 : "com.github.markomilos:paginate:0.5.1",
+            "vlayout"                  : "com.alibaba.android:vlayout:1.1.0@aar",
+            "lottie"                   : "com.airbnb.android:lottie:2.7.0",
+            "statusbar-util"           : "com.jaeger.statusbarutil:library:1.5.1",
+            "autosize"                 : "me.jessyan:autosize:1.1.1",
+            "recycler-adapter-helper"  : "com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.45-androidx",
+            "smart-refresh-layout"     : "com.scwang.smartrefresh:SmartRefreshLayout:1.1.0",
+            "banner"                   : "com.youth.banner:banner:1.4.10",
+            "circleimageview"          : "de.hdodenhof:circleimageview:${version["circleImageviewVersion"]}",
+
+            //rx2
+            "rxandroid2"               : "io.reactivex.rxjava2:rxandroid:2.1.0",
+            "rxjava2"                  : "io.reactivex.rxjava2:rxjava:2.2.3",
+            "rxlifecycle2"             : "com.trello.rxlifecycle2:rxlifecycle:${version["rxlifecycle2SdkVersion"]}",
+            "rxlifecycle2-android"     : "com.trello.rxlifecycle2:rxlifecycle-android:${version["rxlifecycle2SdkVersion"]}",
+            "rxlifecycle2-components"  : "com.trello.rxlifecycle2:rxlifecycle-components:${version["rxlifecycle2SdkVersion"]}",
+            "rxcache2"                 : "com.github.VictorAlbertos.RxCache:runtime:1.8.3-2.x",
+            "rxpermissions2"           : "com.github.tbruyelle:rxpermissions:0.10.2",
+            "rxerrorhandler2"          : "me.jessyan:rxerrorhandler:2.1.1",
+
+
+            //kotlin
+            "kotlin-stdlib-jdk7"       : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${version["kotlinVersion"]}",
+
+            //tools
+            "dagger2"                  : "com.google.dagger:dagger:${version["dagger2SdkVersion"]}",
+            "dagger2-android"          : "com.google.dagger:dagger-android:${version["dagger2SdkVersion"]}",
+            "dagger2-android-support"  : "com.google.dagger:dagger-android-support:${version["dagger2SdkVersion"]}",
+            "dagger2-compiler"         : "com.google.dagger:dagger-compiler:${version["dagger2SdkVersion"]}",
+            "dagger2-android-processor": "com.google.dagger:dagger-android-processor:${version["dagger2SdkVersion"]}",
+            "androideventbus"          : "org.simple:androideventbus:1.0.5.1",
+            "eventbus"                 : "org.greenrobot:eventbus:3.1.1",
+            "otto"                     : "com.squareup:otto:1.3.8",
+            "gson"                     : "com.google.code.gson:gson:2.8.5",
+            "multidex"                 : "com.android.support:multidex:1.0.3",
+            "javax.annotation"         : "javax.annotation:jsr250-api:1.0",
+            "arouter"                  : "com.alibaba:arouter-api:1.5.0",
+            "arouter-compiler"         : "com.alibaba:arouter-compiler:1.2.2",
+            "progressmanager"          : "me.jessyan:progressmanager:1.5.0",
+            "retrofit-url-manager"     : "me.jessyan:retrofit-url-manager:1.4.0",
+            "lifecyclemodel"           : "me.jessyan:lifecyclemodel:1.0.1",
+
+            //test
+            "junit"                    : "junit:junit:4.12",
+            "junit-androidx"           : "androidx.test.ext:junit:1.1.1",
+            "androidJUnitRunner"       : "android.support.test.runner.AndroidJUnitRunner",
+            "runner"                   : "com.android.support.test:runner:1.0.1",
+            "espresso-core-androidx"   : "androidx.test.espresso:espresso-core:3.2.0",
+            "espresso-core"            : "com.android.support.test.espresso:espresso-core:${version["espressoSdkVersion"]}",
+            "espresso-contrib"         : "com.android.support.test.espresso:espresso-contrib:${version["espressoSdkVersion"]}",
+            "espresso-intents"         : "com.android.support.test.espresso:espresso-intents:${version["espressoSdkVersion"]}",
+            "mockito-core"             : "org.mockito:mockito-core:1.+",
+            "timber"                   : "com.jakewharton.timber:timber:4.7.1",
+            "logger"                   : "com.orhanobut:logger:2.2.0",
+            "canary-debug"             : "com.squareup.leakcanary:leakcanary-android:${version["canarySdkVersion"]}",
+            "canary-release"           : "com.squareup.leakcanary:leakcanary-android-no-op:${version["canarySdkVersion"]}",
+            "umeng-analytics"          : "com.umeng.analytics:analytics:6.0.1",
+
+            //sdk
+            "wechat"                   : "com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+",
+
+            //maven components
+            "base_lib"                 : 'com.jaydroid.base_lib:base_lib:1.0.0',
+            "base_component"           : 'com.jaydroid.base_component:base_component:2.0.0',
+            "base_component_wan"       : 'com.jaydroid.base_component_wan:base_component_wan:2.0.0',
+            "main"                     : "com.jaydroid.main:main:1.0.0",
+            "login"                    : "com.jaydroid.login:login:1.0.0",
+
+    ]
+    //三方依赖库多个依赖路径引入同一个版本号时需要提取版本号
+    versionArray = [
+            stethoVersion = '1.5.1',
+            retrofitVersion = '2.8.1',
+            okhttpVersion = '4.5.0',
+            glideVersion = '4.11.0',
+            chuckVersion = '1.1.0',
+            chuckerVersion = '3.2.0',
+            butterknifeVersion = '10.2.1',
+            immersionbarVersion = '3.0.0',
+
+    ]
+
+    //引入三方依赖库时考虑该库到稳定性，可维护性，需要标明引入到github地址并归类放置
+    dependenciesArray = [
+            /** ========================================================= */
+            /** =================== android/androidX ==================== */
+            /** ========================================================= */
+            kotlinStdlibJdk7 = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
+            appcompat = 'androidx.appcompat:appcompat:1.1.0',
+            coreKtx = 'androidx.core:core-ktx:1.2.0',
+            junit = 'junit:junit:4.12',
+            junitX = 'androidx.test.ext:junit:1.1.1',
+            espressoCore = 'androidx.test.espresso:espresso-core:3.2.0',
+            androidJUnitRunner = "android.support.test.runner.AndroidJUnitRunner",
+            constraintlayout = "androidx.constraintlayout:constraintlayout:1.1.3",
+
+
+            /** ========================================================= */
+            /** ========================== tools ======================== */
+            /** ========================================================= */
+            //stetho 调试工具 https://github.com/facebook/stetho
+            stetho = "com.facebook.stetho:stetho:$stethoVersion",
+            //stetho 网络调试 https://github.com/facebook/stetho
+            stethoOkhttp3 = "com.facebook.stetho:stetho-okhttp3:$stethoVersion",
+            //stetho 网络调试 https://github.com/facebook/stetho
+            stethoUrlconnection = "com.facebook.stetho:stetho-urlconnection:$stethoVersion",
+
+            //Chuck Okhttp日志打印工具 https://github.com/jgilfelt/chuck
+            chuckDebug = "com.readystatesoftware.chuck:library:$chuckVersion",
+            //Chuck Okhttp日志打印工具 https://github.com/jgilfelt/chuck
+            chuckRelease = "com.readystatesoftware.chuck:library-no-op:$chuckVersion",
+            //Chucker Okhttp日志和Android异常信息打印工具 https://github.com/ChuckerTeam/chucker
+            ChuckerDebug = "com.github.ChuckerTeam.Chucker:library:$chuckerVersion",
+            //Chucker Okhttp日志和Android异常信息打印工具 https://github.com/ChuckerTeam/chucker
+            ChuckerRelease = "com.github.ChuckerTeam.Chucker:library-no-op:$chuckerVersion",
+
+            //logger https://github.com/orhanobut/logger
+            logger = "com.orhanobut:logger:2.2.0",
+
+            //arouter api https://github.com/alibaba/ARouter
+            arouterApi = "com.alibaba:arouter-api:1.5.0",
+            //arouter compiler https://github.com/alibaba/ARouter
+            arouterCompiler = "com.alibaba:arouter-compiler:1.2.2",
+
+            //butterknife https://github.com/JakeWharton/butterknife
+            butterknife = "com.jakewharton:butterknife:$butterknifeVersion",
+            //butterknifeCompiler https://github.com/JakeWharton/butterknife
+            butterknifeCompiler = "com.jakewharton:butterknife-compiler:$butterknifeVersion",
+
+            //eventbus https://github.com/greenrobot/EventBus
+            eventbus = 'org.greenrobot:eventbus:3.2.0',
+            //greendao https://github.com/greenrobot/greenDAO
+            greendao = 'org.greenrobot:greendao:3.2.2',
+
+            //gson https://github.com/google/gson
+            gson = 'com.google.code.gson:gson:2.8.6',
+
+
+            /** ========================================================= */
+            /** ========================= network ======================= */
+            /** ========================================================= */
+            //retrofit https://github.com/square/retrofit
+            retrofit = "com.squareup.retrofit2:retrofit:$retrofitVersion",
+            //retrofit converter-gson https://github.com/square/retrofit/blob/master/retrofit-converters/gson/README.md
+            retrofitConverterGson = "com.squareup.retrofit2:converter-gson:$retrofitVersion",
+            //retrofit adapter-rxjava https://github.com/square/retrofit/tree/master/retrofit-adapters/rxjava2
+            retrofitAdapterRxjava = "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion",
+            // Retrofit 同时支持多个 BaseUrl 以及动态改变 BaseUrl(已知问题：不同url 的https证书问题) https://github.com/JessYanCoding/RetrofitUrlManager
+            retrofitUrlManager = "me.jessyan:retrofit-url-manager:1.4.0",
+
+            //okhttp https://github.com/square/okhttp
+            okhttp = "com.squareup.okhttp3:okhttp:$okhttpVersion",
+            //okhttp logging-interceptor https://github.com/square/okhttp/blob/master/okhttp-logging-interceptor/README.md
+            okhttpLoggingInterceptor = "com.squareup.okhttp3:logging-interceptor:$okhttpVersion",
+            // PersistentCookieJar https://github.com/franmontiel/PersistentCookieJar
+            persistentcookiejar = "com.github.franmontiel:PersistentCookieJar:v1.0.1",
+
+            //rxjava https://github.com/ReactiveX/RxJava  todo rxjava:3.x.x
+            rxjava = 'io.reactivex.rxjava2:rxjava:2.2.10',
+            //rxandroid https://github.com/ReactiveX/RxAndroid todo rxandroid:3.x.x
+            rxandroid = 'io.reactivex.rxjava2:rxandroid:2.1.1',
+
+            //glide 图片加载 https://github.com/bumptech/glide
+            glide = "com.github.bumptech.glide:glide:$glideVersion",
+            //glide图片加载注解 https://github.com/bumptech/glide
+            glideAnnotationProcessor = "com.github.bumptech.glide:compiler:$glideVersion",
+
+
+            /** ========================================================= */
+            /** ========================== UI相关 ======================== */
+            /** ========================================================= */
+            // statusbarUtil https://github.com/laobie/StatusBarUtil
+            statusbarUtil = "com.jaeger.statusbarutil:library:1.5.1",
+
+            // 基础依赖包，必须要依赖 https://github.com/gyf-dev/ImmersionBar
+            immersionbar = "com.gyf.immersionbar:immersionbar:$immersionbarVersion",
+            // fragment快速实现（可选） https://github.com/gyf-dev/ImmersionBar
+            immersionbarComponents = "com.gyf.immersionbar:immersionbar-components:$immersionbarVersion",
+            // kotlin扩展（可选） https://github.com/gyf-dev/ImmersionBar
+            immersionbarKtx = "com.gyf.immersionbar:immersionbar-ktx:$immersionbarVersion",
+
+
+            /** ========================================================= */
+            /** ========================== other ======================== */
+            /** ========================================================= */
+
+            //androidx迁移比对表：https://developer.android.google.cn/jetpack/androidx/migrate?hl=zh_cn#migrate
+            //support-v4
+            supportV4 = 'androidx.legacy:legacy-support-v4:1.0.0',
+            //appcompat-v7
+            appcompatV7 = 'androidx.appcompat:appcompat:1.0.0',
+            //androidx-test
+            androidXTest = 'androidx.test.ext:junit:1.1.1',
+            //androidx-test-espresso
+            androidXTestEsp = 'androidx.test.espresso:espresso-core:3.2.0',
+            //junit
+            junit = 'junit:junit:4.12',
+            //core-ktx
+            coreKtx = 'androidx.core:core-ktx:1.1.0',
+            //design
+            design = 'com.google.android.material:material:1.0.0-rc01',
+            //constraint-layout
+            constraintLayout = 'androidx.constraintlayout:constraintlayout:1.1.3',
+            // recyclerview-v7
+            recyclerviewV7 = 'androidx.recyclerview:recyclerview:1.0.0',
+            //multidex
+            multidex = 'androidx.multidex:multidex:2.0.0',
+
+            //butterknife
+            butterknife = 'com.jakewharton:butterknife:10.2.0',
+            //butterknifeCompiler
+            butterknifeCompiler = 'com.jakewharton:butterknife-compiler:10.2.0',
+
+            //eventbus
+            eventbus = 'org.greenrobot:eventbus:3.1.1',
+            //greendao
+            greendao = 'org.greenrobot:greendao:3.2.2',
+            //gson
+            gson = 'com.google.code.gson:gson:2.8.5',
+            //easypermissions
+            easypermissions = "pub.devrel:easypermissions:1.1.1",
+            //rxpermissions
+            rxpermissions = "com.github.tbruyelle:rxpermissions:0.10.2",
+            //frabic crash
+            crashlyticsNdk = 'com.crashlytics.sdk.android:crashlytics-ndk:2.1.0',
+            answers = 'com.crashlytics.sdk.android:answers:1.4.7',
+            //leakcanary
+            leakcanaryDebug = 'com.squareup.leakcanary:leakcanary-android:1.5.2',
+            leakcanaryRelease = 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.2',
+
+            //七牛云
+            qiniu = 'com.qiniu:qiniu-android-sdk:7.5.0',
+            //zxing
+            zxing = 'com.google.zxing:core:3.3.0',
+            //barcode scanner
+            zxingBarcodeScanner = 'me.dm7.barcodescanner:zxing:1.9.13',
+            zbarBarcodeScanner = 'me.dm7.barcodescanner:zbar:1.9.8',
+            //rxandroidble
+            rxandroidble = 'com.polidea.rxandroidble:rxandroidble:1.3.3',
+            //智齿客服
+            sobot = 'com.sobot.chat:sobotsdk:2.3.2',
+            //微信不包含统计功能 （com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+包含统计功能）
+            wechat = 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+',
+            //retrofit_url_manager
+            retrofitUrlManager = "me.jessyan:retrofit-url-manager:1.4.0",
+            //图片压缩工具
+            luban = "top.zibin:Luban:1.1.8",
+            //键盘弹起监听工具
+            keyboardListener = "net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:2.3.0",
+
+            /** ========================================================= */
+            /** ======================== VIEW =========================== */
+            /** ========================================================= */
+            //多级联动
+            pickerView = 'com.contrarywind:Android-PickerView:3.2.6',
+            wheelPicker = 'cn.aigestudio.wheelpicker:WheelPicker:1.1.2',
+            //流式布局
+            flowLayout = 'com.zhy:flowlayout-lib:1.0.3',
+            //下拉刷新上拉加载
+            smartRefreshLayout = 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1',
+            //倒计时
+            countdownView = 'com.github.iwgang:countdownview:2.1.6',
+            //signature-pad 签字板
+            signaturePad = 'com.github.gcacace:signature-pad:1.2.1',
+            //mqtt client
+            mqttClient = 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.0',
+            //mqtt service
+            mqttService = 'org.eclipse.paho:org.eclipse.paho.android.service:1.1.1',
+
+            //kotlin
+            kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version",
+            ankoSqlite = "org.jetbrains.anko:anko-sqlite:0.10.5",
+            //日期滚轮对话框
+            datePicker = 'com.github.gzu-liyujiang.AndroidPicker:WheelPicker:1.5.6.20181018',
+            //日期滚轮
+            pickerView = 'com.contrarywind:Android-PickerView:4.1.8',
+            //popup window
+            basePopupWindow = 'com.github.razerdp:BasePopup:2.2.0',
+            //Glide图片变换库
+            glideTransformations = 'jp.wasabeef:glide-transformations:4.0.1',
+            //友盟基础组件,分享核心库
+            umCommon = 'com.umeng.umsdk:common:2.2.5',
+            umAnalytics = 'com.umeng.umsdk:analytics:8.1.6',
+            //分享核心库
+            umShareCore = 'com.umeng.umsdk:share-core:6.9.8',
+            umShareBoard = 'com.umeng.umsdk:share-board:6.9.8',
+            //友盟分享平台模块
+            umShareWX = 'com.umeng.umsdk:share-wx:6.9.8',
+            //PushSDK必须依赖utdid库，所以需要加入对应依赖
+            umsdkUtdid = "com.umeng.umsdk:utdid:1.1.5.3",
+            //PushSDK
+            umsdkPush = "com.umeng.umsdk:push:6.0.1",
+            //基础依赖包，必须要依赖
+            immersionbarBase = 'com.gyf.immersionbar:immersionbar:3.0.0-beta02',
+            //fragment快速实现（可选）
+            immersionbarComp = 'com.gyf.immersionbar:immersionbar-components:3.0.0-beta02',
+            //kotlin扩展（可选）
+            immersionbarKtx = 'com.gyf.immersionbar:immersionbar-ktx:3.0.0-beta02',
+            //tinker热修复：tinker的核心库
+            tinkerLib = 'com.tencent.tinker:tinker-android-lib:1.9.14',
+            //tinker热修复：可选，用于生成application类
+            tinkerAnno = 'com.tencent.tinker:tinker-android-anno:1.9.14',
+            //知乎图库选择器
+            matisse = "com.zhihu.android:matisse:0.5.2-beta2",
+            //图片缩放控件
+            photoView = 'com.github.chrisbanes:PhotoView:1.2.5',
+            //伯渡库 https://github.com/sunjianz/xfh
+            xfh = 'com.github.sunjianz:xfh:v2.7.3',
+            bdIdCardCamera = 'com.github.wildma:IDCardCamera:1.1.0',
+            bdZxing = 'cn.yipianfengye.android:zxing-library:2.2',
+            jsbridge = 'com.github.lzyzsd:jsbridge:1.0.4',
+            //deeplink
+            linkedme = 'cc.linkedme.deeplinks:link-page:1.1.6',
+            //click filter
+            aspectjrt = 'org.aspectj:aspectjrt:1.8.9',
+            switchButton = 'com.github.zcweng:switch-button:0.0.3@aar',
+            //GSYVideoPlayer
+            gsyVideoPlayer = 'com.shuyu:GSYVideoPlayer:7.1.2',
+
+            /** ========================================================= */
+            /** ======================== 信鸽 =========================== */
+            /** ========================================================= */
+            // 信鸽基础包，不包含厂商通道
+            xinGe = 'com.tencent.xinge:xinge:4.3.5-release',
+            // jp包
+            tencentJP = 'com.tencent.jg:jg:1.1',
+            // wup包
+            tencentWUP = 'com.tencent.wup:wup:1.0.0.E-Release',
+            // mid包，minSdkVersion 14
+            tencentMID = 'com.tencent.mid:mid:4.0.7-Release',
+            // 小米Push
+            tencentXiaoMi = 'com.tencent.xinge:mipush:4.3.2-xiaomi-release',
+            // 华为Push
+            tencentHuaWei = 'com.tencent.xinge:xghw:4.3.2-huawei-release',
+            //firebase
+            firebaseCore = 'com.google.firebase:firebase-core:17.2.1',
+            firebaseAnaly = 'com.google.firebase:firebase-analytics:17.2.1',
+            firebaseCrashlytics = 'com.google.firebase:firebase-crashlytics:17.0.0-beta01',
+            //ExoPlayer
+            exoplayer = 'com.google.android.exoplayer:exoplayer:2.11.1'
+    ]
+
+
+    /* ========================================================= */
+    /* ==========================签名信息======================== */
+    /* ========================================================= */
+    println("/* ========================签名信息======================= */")
+
+    def rootDir = rootDir.path
+    println("rootDir:$rootDir")
+    //签名信息
+    def keyProps = getKeyProperties()
+    println("keyProps" + keyProps.toString())
+    sign = [
+            //debug sign
+            aliasDebug    : keyProps["aliasDebug"],
+            passDebug     : keyProps["passDebug"],
+            storeDebug    : file(keyProps["storeDebug"]),
+            storePassDebug: keyProps["storePassDebug"],
+            //release sign
+            alias         : keyProps["alias"],
+            pass          : keyProps["pass"],
+            store         : file(keyProps["store"]),
+            storePass     : keyProps["storePass"]
+    ]
+
+    /* ========================================================= */
+    /* ========================环境变量信息======================= */
+    /* ========================================================= */
+    println("/* ========================环境变量信息======================= */")
+    def debugEnvironmentProps = getEnvironmentProperties(getEnvironmentPropertyType())
+    def liveEnvironmentProps = getEnvironmentProperties("live")
+    println("debugEnvironmentProps:$debugEnvironmentProps")
+    println("liveEnvironmentProps:$liveEnvironmentProps")
+    println("propertyType:${getEnvironmentPropertyType()}")
+    environment = [
+            // 测试环境 Properties dev local
+            debugEnvironmentProps: debugEnvironmentProps,
+            // 线上环境 Properties live
+            liveEnvironmentProps : liveEnvironmentProps
+    ]
+
+    /* ========================================================= */
+    /* ======================组件Maven仓库信息==================== */
+    /* ========================================================= */
+    println("/* ========================组件Maven仓库信息======================= */")
+    //签名信息
+    def mavenProps = getMavenProperties()
+    println("mavenProps" + mavenProps.toString())
+    mavenRepo = [
+            //MavenProperties
+            mavenProps    : mavenProps,
+            //local
+            repoPathLocal : mavenProps["repoPathLocal"],
+            //remote
+            repoPathRemote: mavenProps["repoPathRemote"]
+    ]
+
+}
+
+/**
+ * 获取属性总配置文件
+ * @return Properties实例 config
+ */
+Properties getConfigProperties() {
+    def CONFIG_PATH = "./buildsystem/config.properties"
+    return getProperties(CONFIG_PATH)
+}
+
+/**
+ * 获取属性配置文件公共方法
+ * @param propPath Properties配置文件路径
+ * @return Properties实例
+ */
+Properties getProperties(String propPath) {
+    Properties props = new Properties()
+    props.load(new FileInputStream(file(propPath)))
+    return props
+}
+
+/**
+ * 获取签名配置文件
+ * @return Properties实例  签名
+ */
+Properties getKeyProperties() {
+    Properties configProperties = getConfigProperties()
+    // 使用assert确保存在该属性否则报错，避免错误打包
+    assert configProperties['keystore.props.file']
+    return getProperties(configProperties.getProperty("keystore.props.file"))
+}
+
+/**
+ * 获取Maven仓库配置文件
+ * @return Properties实例  Maven
+ */
+Properties getMavenProperties() {
+    Properties configProperties = getConfigProperties()
+    // 使用assert确保存在该属性否则报错，避免错误打包
+    assert configProperties['maven.props.file']
+    return getProperties(configProperties.getProperty("maven.props.file"))
+}
+
+/**
+ * 获取当前指定的环境类型，缺省dev
+ * @return
+ */
+String getEnvironmentPropertyType() {
+    Properties localProperties = getConfigProperties()
+    return localProperties.getProperty("propertyType", "dev")
+}
+
+//根据环境类型获取环境配置文件
+Properties getEnvironmentProperties(String propertyType) {
+    Properties localProperties = getConfigProperties()
+    String environmentPath = "${propertyType}.props.file"
+    // 使用assert确保存在该属性否则报错，避免错误打包
+    assert localProperties[environmentPath]
+    return getProperties(localProperties.getProperty(environmentPath))
+}
+
+

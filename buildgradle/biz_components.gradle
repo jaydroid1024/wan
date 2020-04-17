@@ -1,0 +1,72 @@
+//****************************************
+//******  常规业务组件公共gradle配置  *******
+//****************************************
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+//Now make sure you use R2 instead of R inside all Butter Knife annotations.
+apply plugin: 'com.jakewharton.butterknife'
+apply plugin: 'maven'
+
+android {
+
+    //给 Module 内的资源名增加前缀, 避免资源名冲突
+    resourcePrefix "${project.name.toLowerCase().replaceAll("-", "_")}_"
+
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdk
+        targetSdkVersion rootProject.ext.targetSdk
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
+        //Instrumentation Test class
+        testInstrumentationRunner rootProject.ext.androidJUnitRunner
+        //consumerProguardFiles  打包库Module发布AAR时配置的混淆文件，如果没有配置这个属性，在其他项目引用AndroidLib 项目且开启minifyEnabled时或许会报错，因为主项目不会自主引入依赖库的ProguardFile文件，必须在主项目中配置consumerProguardFiles节点，这样主项目就会引入依赖库的gradle文件中的（默认为release变体）下ProguardFile。
+        consumerProguardFiles 'consumer-rules.pro'
+
+        kapt {
+            arguments {
+                arg("AROUTER_MODULE_NAME", project.getName())
+            }
+        }
+
+    }
+    buildTypes {
+        debug {
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        release {
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+            minifyEnabled false
+            zipAlignEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
+
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation rootProject.ext.dependencies['kotlin-stdlib-jdk7']
+    implementation rootProject.ext.dependencies['appcompat']
+    implementation rootProject.ext.dependencies['core-ktx']
+    implementation rootProject.ext.dependencies['constraintlayout']
+    testImplementation rootProject.ext.dependencies['junit']
+    androidTestImplementation rootProject.ext.dependencies['junit-androidx']
+    androidTestImplementation rootProject.ext.dependencies['espresso-core-androidx']
+    //需要所有使用 ARouter 的组件都添加依赖
+    kapt rootProject.ext.dependencies['arouter-compiler']
+    kapt rootProject.ext.dependencies['butterknife-compiler']
+
+}

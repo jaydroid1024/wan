@@ -1,4 +1,4 @@
-apply from: "../../gradle/biz_components.gradle"
+apply from: "../../buildgradle/biz_components.gradle"
 apply plugin: 'maven'
 uploadArchives {
     //dependencies path: com.jaydroid.login:login:1.0.0
