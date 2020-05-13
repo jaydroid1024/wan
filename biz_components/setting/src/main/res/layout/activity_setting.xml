@@ -26,4 +26,6 @@
         android:textColor="@android:color/white"
         android:textSize="18sp" />
 
+    <include layout="@layout/base_component_layout_test" />
+
 </LinearLayout>

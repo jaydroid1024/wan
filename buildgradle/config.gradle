@@ -176,6 +176,7 @@ ext {
             chuckerVersion = '3.2.0',
             butterknifeVersion = '10.2.1',
             immersionbarVersion = '3.0.0',
+            tinkerVersion = '1.9.14',
 
     ]
 
@@ -280,163 +281,14 @@ ext {
 
 
             /** ========================================================= */
-            /** ========================== other ======================== */
+            /** ========================== 三方SDK ======================== */
             /** ========================================================= */
-
-            //androidx迁移比对表：https://developer.android.google.cn/jetpack/androidx/migrate?hl=zh_cn#migrate
-            //support-v4
-            supportV4 = 'androidx.legacy:legacy-support-v4:1.0.0',
-            //appcompat-v7
-            appcompatV7 = 'androidx.appcompat:appcompat:1.0.0',
-            //androidx-test
-            androidXTest = 'androidx.test.ext:junit:1.1.1',
-            //androidx-test-espresso
-            androidXTestEsp = 'androidx.test.espresso:espresso-core:3.2.0',
-            //junit
-            junit = 'junit:junit:4.12',
-            //core-ktx
-            coreKtx = 'androidx.core:core-ktx:1.1.0',
-            //design
-            design = 'com.google.android.material:material:1.0.0-rc01',
-            //constraint-layout
-            constraintLayout = 'androidx.constraintlayout:constraintlayout:1.1.3',
-            // recyclerview-v7
-            recyclerviewV7 = 'androidx.recyclerview:recyclerview:1.0.0',
-            //multidex
-            multidex = 'androidx.multidex:multidex:2.0.0',
-
-            //butterknife
-            butterknife = 'com.jakewharton:butterknife:10.2.0',
-            //butterknifeCompiler
-            butterknifeCompiler = 'com.jakewharton:butterknife-compiler:10.2.0',
-
-            //eventbus
-            eventbus = 'org.greenrobot:eventbus:3.1.1',
-            //greendao
-            greendao = 'org.greenrobot:greendao:3.2.2',
-            //gson
-            gson = 'com.google.code.gson:gson:2.8.5',
-            //easypermissions
-            easypermissions = "pub.devrel:easypermissions:1.1.1",
-            //rxpermissions
-            rxpermissions = "com.github.tbruyelle:rxpermissions:0.10.2",
-            //frabic crash
-            crashlyticsNdk = 'com.crashlytics.sdk.android:crashlytics-ndk:2.1.0',
-            answers = 'com.crashlytics.sdk.android:answers:1.4.7',
-            //leakcanary
-            leakcanaryDebug = 'com.squareup.leakcanary:leakcanary-android:1.5.2',
-            leakcanaryRelease = 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.2',
-
-            //七牛云
-            qiniu = 'com.qiniu:qiniu-android-sdk:7.5.0',
-            //zxing
-            zxing = 'com.google.zxing:core:3.3.0',
-            //barcode scanner
-            zxingBarcodeScanner = 'me.dm7.barcodescanner:zxing:1.9.13',
-            zbarBarcodeScanner = 'me.dm7.barcodescanner:zbar:1.9.8',
-            //rxandroidble
-            rxandroidble = 'com.polidea.rxandroidble:rxandroidble:1.3.3',
-            //智齿客服
-            sobot = 'com.sobot.chat:sobotsdk:2.3.2',
-            //微信不包含统计功能 （com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+包含统计功能）
-            wechat = 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+',
-            //retrofit_url_manager
-            retrofitUrlManager = "me.jessyan:retrofit-url-manager:1.4.0",
-            //图片压缩工具
-            luban = "top.zibin:Luban:1.1.8",
-            //键盘弹起监听工具
-            keyboardListener = "net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:2.3.0",
-
-            /** ========================================================= */
-            /** ======================== VIEW =========================== */
-            /** ========================================================= */
-            //多级联动
-            pickerView = 'com.contrarywind:Android-PickerView:3.2.6',
-            wheelPicker = 'cn.aigestudio.wheelpicker:WheelPicker:1.1.2',
-            //流式布局
-            flowLayout = 'com.zhy:flowlayout-lib:1.0.3',
-            //下拉刷新上拉加载
-            smartRefreshLayout = 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1',
-            //倒计时
-            countdownView = 'com.github.iwgang:countdownview:2.1.6',
-            //signature-pad 签字板
-            signaturePad = 'com.github.gcacace:signature-pad:1.2.1',
-            //mqtt client
-            mqttClient = 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.0',
-            //mqtt service
-            mqttService = 'org.eclipse.paho:org.eclipse.paho.android.service:1.1.1',
-
-            //kotlin
-            kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version",
-            ankoSqlite = "org.jetbrains.anko:anko-sqlite:0.10.5",
-            //日期滚轮对话框
-            datePicker = 'com.github.gzu-liyujiang.AndroidPicker:WheelPicker:1.5.6.20181018',
-            //日期滚轮
-            pickerView = 'com.contrarywind:Android-PickerView:4.1.8',
-            //popup window
-            basePopupWindow = 'com.github.razerdp:BasePopup:2.2.0',
-            //Glide图片变换库
-            glideTransformations = 'jp.wasabeef:glide-transformations:4.0.1',
-            //友盟基础组件,分享核心库
-            umCommon = 'com.umeng.umsdk:common:2.2.5',
-            umAnalytics = 'com.umeng.umsdk:analytics:8.1.6',
-            //分享核心库
-            umShareCore = 'com.umeng.umsdk:share-core:6.9.8',
-            umShareBoard = 'com.umeng.umsdk:share-board:6.9.8',
-            //友盟分享平台模块
-            umShareWX = 'com.umeng.umsdk:share-wx:6.9.8',
-            //PushSDK必须依赖utdid库，所以需要加入对应依赖
-            umsdkUtdid = "com.umeng.umsdk:utdid:1.1.5.3",
-            //PushSDK
-            umsdkPush = "com.umeng.umsdk:push:6.0.1",
-            //基础依赖包，必须要依赖
-            immersionbarBase = 'com.gyf.immersionbar:immersionbar:3.0.0-beta02',
-            //fragment快速实现（可选）
-            immersionbarComp = 'com.gyf.immersionbar:immersionbar-components:3.0.0-beta02',
-            //kotlin扩展（可选）
-            immersionbarKtx = 'com.gyf.immersionbar:immersionbar-ktx:3.0.0-beta02',
             //tinker热修复：tinker的核心库
-            tinkerLib = 'com.tencent.tinker:tinker-android-lib:1.9.14',
+            tinkerLib = "com.tencent.tinker:tinker-android-lib:$tinkerVersion",
+            tinkerLoader = "com.tencent.tinker:tinker-android-loader:$tinkerVersion",
             //tinker热修复：可选，用于生成application类
-            tinkerAnno = 'com.tencent.tinker:tinker-android-anno:1.9.14',
-            //知乎图库选择器
-            matisse = "com.zhihu.android:matisse:0.5.2-beta2",
-            //图片缩放控件
-            photoView = 'com.github.chrisbanes:PhotoView:1.2.5',
-            //伯渡库 https://github.com/sunjianz/xfh
-            xfh = 'com.github.sunjianz:xfh:v2.7.3',
-            bdIdCardCamera = 'com.github.wildma:IDCardCamera:1.1.0',
-            bdZxing = 'cn.yipianfengye.android:zxing-library:2.2',
-            jsbridge = 'com.github.lzyzsd:jsbridge:1.0.4',
-            //deeplink
-            linkedme = 'cc.linkedme.deeplinks:link-page:1.1.6',
-            //click filter
-            aspectjrt = 'org.aspectj:aspectjrt:1.8.9',
-            switchButton = 'com.github.zcweng:switch-button:0.0.3@aar',
-            //GSYVideoPlayer
-            gsyVideoPlayer = 'com.shuyu:GSYVideoPlayer:7.1.2',
+            tinkerAnno = "com.tencent.tinker:tinker-android-anno:$tinkerVersion",
 
-            /** ========================================================= */
-            /** ======================== 信鸽 =========================== */
-            /** ========================================================= */
-            // 信鸽基础包，不包含厂商通道
-            xinGe = 'com.tencent.xinge:xinge:4.3.5-release',
-            // jp包
-            tencentJP = 'com.tencent.jg:jg:1.1',
-            // wup包
-            tencentWUP = 'com.tencent.wup:wup:1.0.0.E-Release',
-            // mid包，minSdkVersion 14
-            tencentMID = 'com.tencent.mid:mid:4.0.7-Release',
-            // 小米Push
-            tencentXiaoMi = 'com.tencent.xinge:mipush:4.3.2-xiaomi-release',
-            // 华为Push
-            tencentHuaWei = 'com.tencent.xinge:xghw:4.3.2-huawei-release',
-            //firebase
-            firebaseCore = 'com.google.firebase:firebase-core:17.2.1',
-            firebaseAnaly = 'com.google.firebase:firebase-analytics:17.2.1',
-            firebaseCrashlytics = 'com.google.firebase:firebase-crashlytics:17.0.0-beta01',
-            //ExoPlayer
-            exoplayer = 'com.google.android.exoplayer:exoplayer:2.11.1'
     ]
 
 

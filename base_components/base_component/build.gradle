@@ -77,16 +77,14 @@ android {
 
 }
 
-
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    /** =========================== 组件依赖 ========================= */
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    /** =========================== 组件依赖 =========================  */
     //基础功能组件
-    api project(path: ':base_libs:base_lib') //本地module
-//    api rootProject.ext.dependencies['base_lib'] //远程pom
-
-
-    /** =========================== 远程依赖 ========================= */
+    api project(path: ':base_libs:base_lib')
+    //本地module
+    //    api rootProject.ext.dependencies['base_lib'] //远程pom
+    /** =========================== 远程依赖 =========================  */
     implementation rootProject.ext.kotlinStdlibJdk7
     implementation rootProject.ext.appcompat
     implementation rootProject.ext.coreKtx
@@ -94,7 +92,6 @@ dependencies {
     testImplementation rootProject.ext.junit
     androidTestImplementation rootProject.ext.junitX
     androidTestImplementation rootProject.ext.espressoCore
-
     //persistentcookiejar
     api rootProject.ext.persistentcookiejar
     //statusbarUtil
@@ -103,10 +100,12 @@ dependencies {
     api rootProject.ext.eventbus
     //butterknife
     api rootProject.ext.butterknife
-    kapt rootProject.ext.butterknifeCompiler //需要所有使用 butterknife 的 model 都添加依赖
+    kapt rootProject.ext.butterknifeCompiler
+    //需要所有使用 butterknife 的 model 都添加依赖
     //Arouter
     api rootProject.ext.arouterApi
-    kapt rootProject.ext.arouterCompiler //需要所有使用 ARouter 的 model 都添加依赖
+    //需要所有使用 ARouter 的 model 都添加依赖
+    kapt rootProject.ext.arouterCompiler
 
 }
 

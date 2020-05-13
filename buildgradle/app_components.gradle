@@ -24,6 +24,9 @@ android {
             }
         }
 
+        /* Enabling multidex support.当DEX中的方法数超过最大值65536时,需要使用,否则打包apk会失败*/
+        multiDexEnabled true
+
     }
     buildTypes {
         debug {
@@ -53,6 +56,7 @@ android {
     }
 }
 
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation rootProject.ext.kotlinStdlibJdk7
@@ -62,9 +66,9 @@ dependencies {
     androidTestImplementation rootProject.ext.junitX
     androidTestImplementation rootProject.ext.espressoCore
     implementation rootProject.ext.constraintLayout
-    //arouter-compiler 的注解依赖需要所有使用 ARouter 的 model 都添加依赖
-    kapt rootProject.ext.dependencies['arouter-compiler']
-    kapt rootProject.ext.dependencies['butterknife-compiler']
+    //需要所有使用 ARouter 的组件都添加依赖
+    kapt rootProject.ext.arouterApi
+    kapt rootProject.ext.arouterCompiler
 
 
 }
