@@ -168,6 +168,7 @@ ext {
     ]
     //三方依赖库多个依赖路径引入同一个版本号时需要提取版本号
     versionArray = [
+            kotlinVersion = '1.3.71',
             stethoVersion = '1.5.1',
             retrofitVersion = '2.8.1',
             okhttpVersion = '4.5.0',
@@ -185,7 +186,7 @@ ext {
             /** ========================================================= */
             /** =================== android/androidX ==================== */
             /** ========================================================= */
-            kotlinStdlibJdk7 = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
+            kotlinStdlibJdk7 = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion",
             appcompat = 'androidx.appcompat:appcompat:1.1.0',
             coreKtx = 'androidx.core:core-ktx:1.2.0',
             junit = 'junit:junit:4.12',
@@ -347,7 +348,18 @@ ext {
             repoPathRemote: mavenProps["repoPathRemote"]
     ]
 
+
 }
+
+
+//static def addRepos(RepositoryHandler handler) {
+//    handler.google()
+//    handler.jcenter()
+//    handler.mavenCentral()
+//    handler.maven { url "https://jitpack.io" }
+//    handler.maven { url "https://maven.google.com" }
+//    handler.maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+//}
 
 /**
  * 获取属性总配置文件

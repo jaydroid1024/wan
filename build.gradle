@@ -1,8 +1,7 @@
-//使用config.gradle统一管理项目的依赖库
-apply from: "buildgradle/config.gradle"
-
 buildscript {
-    ext.kotlin_version = '1.3.71'
+    //使用config.gradle统一管理项目的依赖库
+    apply from: "buildgradle/config.gradle"
+
     repositories {
         google()
         jcenter()
@@ -20,12 +19,10 @@ buildscript {
 
     }
     dependencies {
-
         classpath 'com.android.tools.build:gradle:3.6.3'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+        classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlinVersion"
         classpath 'com.jakewharton:butterknife-gradle-plugin:10.2.1'
-//        classpath 'com.google.gms:google-services:4.3.3'
 
 
     }
