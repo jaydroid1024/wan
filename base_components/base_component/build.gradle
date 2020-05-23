@@ -2,20 +2,6 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-apply plugin: 'maven'
-uploadArchives {
-    //dependencies path: com.jaydroid.base_component:base_component:1.0.0
-    repositories.mavenDeployer {
-        // 本地路径
-        repository(url: MAVEN_LOCAL_REPO_PATH)
-        // 唯一标识
-        pom.groupId = "com.jaydroid.base_component"
-        // 项目名称
-        pom.artifactId = "base_component"
-        // 版本号
-        pom.version = "2.0.0"
-    }
-}
 
 android {
 
@@ -35,10 +21,6 @@ android {
         consumerProguardFiles 'consumer-rules.pro'
 
         //Arouter
-        /**
-         * ARouter:path必须以'/'开头，并且包含多于2 '/'的内容!
-         * ARouter:默认会用你申明的path的第一个/后面的字符用作group，不同组件之间的group不能相同
-         */
         kapt {
             arguments {
                 arg("AROUTER_MODULE_NAME", project.getName())
@@ -47,14 +29,12 @@ android {
     }
 
     buildTypes.each {
-
         Properties props
         if (it.name == "debug") {
             props = rootProject.ext.environment['debugEnvironmentProps']
         } else {
             props = rootProject.ext.environment['liveEnvironmentProps']
         }
-
         it.buildConfigField("String", "BASE_URL", String.format(Locale.getDefault(), "\"%s\"", props["base_url"]))
 
     }
@@ -78,30 +58,24 @@ android {
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-    /** =========================== 组件依赖 =========================  */
     //基础功能组件
-    api project(path: ':base_libs:base_lib')
-    //本地module
-    //    api rootProject.ext.dependencies['base_lib'] //远程pom
-    /** =========================== 远程依赖 =========================  */
-    implementation rootProject.ext.kotlinStdlibJdk7
-    implementation rootProject.ext.appcompat
-    implementation rootProject.ext.coreKtx
-    implementation rootProject.ext.constraintLayout
+    api project(path: ':base_libs:lib_base')
+
+    api fileTree(include: ['*.jar'], dir: 'libs')
+    api rootProject.ext.kotlinStdlibJdk8
+    api rootProject.ext.appcompat
+    api rootProject.ext.coreKtx
+    api rootProject.ext.constraintLayout
     testImplementation rootProject.ext.junit
     androidTestImplementation rootProject.ext.junitX
     androidTestImplementation rootProject.ext.espressoCore
+
     //persistentcookiejar
     api rootProject.ext.persistentcookiejar
     //statusbarUtil
     api rootProject.ext.statusbarUtil
     //eventbus
     api rootProject.ext.eventbus
-    //butterknife
-    api rootProject.ext.butterknife
-    kapt rootProject.ext.butterknifeCompiler
-    //需要所有使用 butterknife 的 model 都添加依赖
     //Arouter
     api rootProject.ext.arouterApi
     //需要所有使用 ARouter 的 model 都添加依赖

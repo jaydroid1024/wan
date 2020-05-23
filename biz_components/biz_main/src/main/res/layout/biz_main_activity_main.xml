@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/dl_drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <!--主布局-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@android:color/white">
+
+            <ImageView
+                android:id="@+id/iv_main_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:src="@drawable/biz_main_ic_menu" />
+
+            <ImageView
+                android:id="@+id/iv_main_search"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:src="@drawable/biz_main_ic_search" />
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tl_main_tab"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_toStartOf="@id/iv_main_search"
+                android:layout_toLeftOf="@id/iv_main_search"
+                android:layout_toEndOf="@id/iv_main_menu"
+                android:layout_toRightOf="@id/iv_main_menu"
+                app:tabGravity="center"
+                app:tabIndicatorFullWidth="false"
+                app:tabIndicatorHeight="0dp"
+                app:tabMode="fixed"
+                app:tabRippleColor="@android:color/transparent"
+                app:tabTextColor="#ff5c5c5c">
+
+            </com.google.android.material.tabs.TabLayout>
+
+        </RelativeLayout>
+
+        <com.jaydroid.main.main.widgets.MainViewPager
+            android:id="@+id/vp_main_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+
+    <!--左侧侧边栏，需要在主布局之后，否则 navigationview 中的 menu 点击事件不生效 -->
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nv_left_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/biz_main_layout_navigation_header"
+        app:menu="@menu/biz_main_menu_navigation" />
+
+
+</androidx.drawerlayout.widget.DrawerLayout>
+
+
+
+
+

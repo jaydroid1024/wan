@@ -143,9 +143,34 @@
     <color name="darkblue">#00008B</color><!--暗蓝色 -->
     <color name="navy">#000080</color><!--海军色 -->
     <color name="black">#000000</color><!--黑色 -->
+    <color name="black_50">#80000000</color><!--黑色 -->
     <color name="grassgreen">#99cc33</color><!--草绿色 -->
     <color name="gray_cc">#cccccc</color><!--灰色cc -->
     <color name="gray_8f">#8f8f8f</color><!--灰色8f -->
 
+<!--
+透明度	16进制表示
+100%    00
+95%	    0D
+90%	    1A
+85%	    26
+80%	    33
+75%	    40
+70%	    4D
+65%	    59
+60%	    66
+55%	    73
+50%	    80
+45%	    8C
+40%	    99
+35%	    A6
+30%	    B3
+25%	    BF
+20%	    CC
+15%	    D9
+10%	    E6
+5 %	    F2
+0 %	    FF
+-->
 
 </resources>

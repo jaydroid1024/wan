@@ -11,7 +11,7 @@
         因此，在构建应用时，Gradle 构建会将所有清单文件合并到一个封装到 APK 的清单文件中。
         合并的优先级是: App Module(值 A) > Library Module(值 B)
         值 A 合并值 B，会产生冲突错误：
-        在高优先级的 App Module 中使用 tools:replace="android:name"
+        在高优先级的 App Module 中使用 tools:replace="android:name" 多个用"," 隔开
         直接用值 A 替换了值 B -->
     <application
         android:name="com.jaydroid.base_component_wan.application.WanApp"

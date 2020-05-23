@@ -55,7 +55,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation rootProject.ext.kotlinStdlibJdk7
+    implementation rootProject.ext.kotlinStdlibJdk8
     implementation rootProject.ext.appcompat
     implementation rootProject.ext.coreKtx
     testImplementation rootProject.ext.junit
@@ -63,7 +63,6 @@ dependencies {
     androidTestImplementation rootProject.ext.espressoCore
     implementation rootProject.ext.constraintLayout
     //需要所有使用 ARouter 的组件都添加依赖
-    kapt rootProject.ext.butterknifeCompiler
     kapt rootProject.ext.arouterCompiler
 
 }

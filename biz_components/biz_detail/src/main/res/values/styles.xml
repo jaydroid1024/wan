@@ -1,0 +1,16 @@
+<resources>
+
+
+    <style name="biz_detail_web_dialog_fragment_style" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+    </style>
+
+    <style name="biz_detail_web_dialog_fragment_animation" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/base_component_anim_top_enter</item>
+        <item name="android:windowExitAnimation">@anim/base_component_anim_top_exit</item>
+    </style>
+
+</resources>

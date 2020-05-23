@@ -143,6 +143,24 @@ object ARHelper {
     }
 
     /**
+     * detail组件
+     */
+    object PathWan {
+
+        /**
+         * group name
+         */
+        private const val DETAIL = "/wan"
+
+        /**
+         * 文章详情页面
+         */
+        const val WAN_ACTIVITY_PATH = "$DETAIL/wanandroid/activity"
+
+
+    }
+
+    /**
      * 获取通用服务
      */
     fun <T> getService(service: Class<out T>): T? {

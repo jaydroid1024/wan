@@ -5,7 +5,6 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import butterknife.ButterKnife
 import com.jaeger.library.StatusBarUtil
 import com.jaydroid.base_component.R
 import com.jaydroid.base_component.common.annotation.EventBusSubscribe
@@ -18,7 +17,6 @@ abstract class BaseActivity : AppCompatActivity() {
     final override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(getLayoutResId())
-        ButterKnife.bind(this)
         mContext = this
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR//黑色

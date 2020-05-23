@@ -2,20 +2,6 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-apply plugin: 'maven'
-uploadArchives {
-    //dependencies path: com.jaydroid.base_component_wan:base_component_wan:1.0.0
-    repositories.mavenDeployer {
-        // 本地路径
-        repository(url: MAVEN_LOCAL_REPO_PATH)
-        // 唯一标识
-        pom.groupId = "com.jaydroid.base_component_wan"
-        // 项目名称
-        pom.artifactId = "base_component_wan"
-        // 版本号
-        pom.version = "2.0.0"
-    }
-}
 
 android {
 
@@ -83,24 +69,15 @@ android {
 }
 
 dependencies {
+
     /**
      * 公共业务组件
      */
     api project(path: ':base_components:base_component')
-//    api rootProject.ext.dependencies['base_component']
 
-    //初始的依赖
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation rootProject.ext.dependencies['kotlin-stdlib-jdk7']
-    implementation rootProject.ext.dependencies['appcompat']
-    implementation rootProject.ext.dependencies['core-ktx']
-    implementation rootProject.ext.dependencies['constraintlayout']
-    testImplementation rootProject.ext.dependencies['junit']
-    androidTestImplementation rootProject.ext.dependencies['junit-androidx']
-    androidTestImplementation rootProject.ext.dependencies['espresso-core-androidx']
-    //其它依赖
-    //arouter-compiler 的注解依赖需要所有使用 ARouter 的 model 都添加依赖
-    kapt rootProject.ext.dependencies['arouter-compiler']
+    testImplementation rootProject.ext.junit
+    androidTestImplementation rootProject.ext.junitX
+    androidTestImplementation rootProject.ext.espressoCore
 }
 
 
