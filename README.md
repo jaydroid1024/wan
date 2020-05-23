@@ -161,7 +161,7 @@ if (isPlugin.toBoolean()) {
 >注意使用 gradle dependencies 查看依赖树，确定是否和其他组件依赖冲突。
 
 ### 3.组件内的Aplication生命周期注入
-目前是反射实现，实现方式参考Demo中的[ApplicationDelegate.kt](https://github.com/Jay-Droid/WanDroid/blob/master/base_libs/base_lib/src/main/java/com/jaydroid/base_lib/app/appdelegate/ApplicationDelegate.kt)
+目前是反射实现，实现方式参考Demo中的 [ApplicationDelegate.kt](https://github.com/Jay-Droid/WanDroid/blob/master/base_libs/lib_base/src/main/java/com/jaydroid/base_lib/app/appdelegate/ApplicationDelegate.kt)
 以后找到更合适单方法可以替换
 
 使用参考 [BaseComponentApp.kt](https://github.com/Jay-Droid/WanDroid/blob/master/base_components/base_component/src/main/java/com/jaydroid/base_component/app/BaseComponentApp.kt)
