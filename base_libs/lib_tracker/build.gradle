@@ -1,17 +1,4 @@
 apply from: "../../buildgradle/lib_common.gradle"
-uploadArchives {
-    //dependencies path: com.jaydroid.lib_name:lib_name:1.0.0
-    repositories.mavenDeployer {
-        // 本地路径
-        repository(url: MAVEN_LOCAL_REPO_PATH)
-        // 唯一标识
-        pom.groupId = "com.jaydroid.lib"
-        // 项目名称
-        pom.artifactId = "lib"
-        // 版本号
-        pom.version = "1.0.0"
-    }
-}
 
 dependencies {
 

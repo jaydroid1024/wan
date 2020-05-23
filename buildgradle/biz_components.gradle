@@ -5,9 +5,6 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-//Now make sure you use R2 instead of R inside all Butter Knife annotations.
-apply plugin: 'com.jakewharton.butterknife'
-apply plugin: 'maven'
 
 android {
 

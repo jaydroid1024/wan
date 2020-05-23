@@ -335,8 +335,8 @@ ext {
     /* ========================================================= */
     /* ======================组件Maven仓库信息==================== */
     /* ========================================================= */
-    println("/* ========================组件Maven仓库信息======================= */")
-    //签名信息
+    println("\n/* ========================组件Maven仓库信息======================= */")
+    //组件Maven仓库信息
     def mavenProps = getMavenProperties()
     println("mavenProps" + mavenProps.toString())
     mavenRepo = [
@@ -345,21 +345,16 @@ ext {
             //local
             repoPathLocal : mavenProps["repoPathLocal"],
             //remote
-            repoPathRemote: mavenProps["repoPathRemote"]
+            repoPathRemote: mavenProps["repoPathRemote"],
+            //userName
+            userName      : mavenProps["userName"],
+            //password
+            password      : mavenProps["password"]
     ]
 
 
 }
 
-
-//static def addRepos(RepositoryHandler handler) {
-//    handler.google()
-//    handler.jcenter()
-//    handler.mavenCentral()
-//    handler.maven { url "https://jitpack.io" }
-//    handler.maven { url "https://maven.google.com" }
-//    handler.maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
-//}
 
 /**
  * 获取属性总配置文件

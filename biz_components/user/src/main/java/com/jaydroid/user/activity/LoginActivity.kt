@@ -7,7 +7,6 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import butterknife.BindView
 import com.alibaba.android.arouter.facade.Postcard
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.facade.callback.NavigationCallback
@@ -19,7 +18,6 @@ import com.jaydroid.base_component.widget.ClearEditText
 import com.jaydroid.base_component.widget.LoginView
 import com.jaydroid.base_lib.utils.L
 import com.jaydroid.user.R
-import com.jaydroid.user.R2
 import com.jaydroid.user.contract.LoginContract
 import com.jaydroid.user.presenter.LoginPresenter
 
@@ -31,9 +29,7 @@ class LoginActivity : BaseMVPActivity<LoginContract.View, LoginPresenter>(),
     private lateinit var passwordEditText: ClearEditText
     private lateinit var loginView: LoginView
     private lateinit var registerTxtView: TextView
-
-    @BindView(R2.id.iv_login_close)
-    lateinit var closeImgView: ImageView
+    private lateinit var closeImgView: ImageView
 
     override fun getLayoutResId(): Int {
         return R.layout.activity_login
@@ -46,6 +42,7 @@ class LoginActivity : BaseMVPActivity<LoginContract.View, LoginPresenter>(),
     override fun initView() {
         usernameEditText = findViewById(R.id.cet_login_username)
         passwordEditText = findViewById(R.id.cet_login_password)
+        closeImgView = findViewById(R.id.iv_login_close)
         loginView = findViewById(R.id.lv_login)
         registerTxtView = findViewById(R.id.tv_user_register)
 

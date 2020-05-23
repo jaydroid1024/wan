@@ -1,34 +1,4 @@
 apply from: "../../buildgradle/lib_common.gradle"
-uploadArchives {
-    //dependencies path: `com.jaydroid.base_lib:base_lib:1.0.0`
-    repositories.mavenDeployer {
-        // 本地路径
-//        repository(url: MAVEN_LOCAL_REPO_PATH)
-        //远程仓库路径
-        repository(url: MAVEN_REPO_RELEASE_URL) {
-            //你Nexus的账户密码
-            authentication(userName: 'admin', password: 'admin123')
-            /**
-             nexus 路径：
-             cd /Users/xuejiewang/AndroidStudioProjects/nexus-3.22.0-02-mac/nexus-3.22.0-02/bin
-             nexus 命令：
-             ./nexus start
-             ./nexus restart
-             ./nexus status
-             ./nexus stop
-             nexus 地址：
-             http://localhost:8081/
-             */
-        }
-        // 唯一标识
-        pom.groupId = "com.jaydroid.base_lib"
-        // 项目名称
-        pom.artifactId = "base_lib"
-        // 版本号
-        pom.version = "3.0.0"
-    }
-}
-
 
 dependencies {
     //logger
