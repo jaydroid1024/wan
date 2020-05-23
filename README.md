@@ -4,8 +4,8 @@
 
 Demo地址：[WanDroid组件化测试项目](https://github.com/Jay-Droid/WanDroid)
 
-
-<img src="resource/wan_droid_1.0.gif"/>
+### Demo 演示
+![Demo Gif](https://tva1.sinaimg.cn/large/007S8ZIlly1gf2x5pgz6lg30b40ii4qq.gif)
 
 
 # 1. 组件划分
