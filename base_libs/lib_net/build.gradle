@@ -28,7 +28,7 @@ dependencies {
  * 每个发布的组件需要单独配置的信息
  */
 // 唯一标识
-group "com.qlife.${project.name}"
+group "com.jay.${project.name}"
 // 版本号
 version "1.0.0"
 // maven publish 公共 gradle 插件

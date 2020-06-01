@@ -58,8 +58,6 @@ include ':biz_components:biz_user',
  * 单项目基础组件需要依赖公共基础业务组件，单项目基础组是针对单项目的，公共基础业务组件是针对多项目的，隔离多项目之间的基础数据
  */
 include ':base_components:base_component',
-        ':base_components:base_qrcode',
-        ':base_components:base_share',
         ':base_components:base_component_wan'
 
 /**
@@ -74,5 +72,4 @@ include ':base_components:base_component',
  */
 
 include ':base_libs:lib_base',
-        ':base_libs:lib_tracker',
         ':base_libs:lib_net'
