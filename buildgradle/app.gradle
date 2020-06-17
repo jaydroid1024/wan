@@ -17,7 +17,7 @@ android {
         versionName rootProject.ext.versionName
         //Instrumentation Test class
         testInstrumentationRunner rootProject.ext.androidJUnitRunner
-        applicationId "com.component.${project.name.toLowerCase()}"
+        applicationId "com.component.${project.name.toLowerCase().replaceAll("-", "_")}"
         kapt {
             arguments {
                 arg("AROUTER_MODULE_NAME", project.getName())

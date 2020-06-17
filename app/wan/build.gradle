@@ -89,31 +89,6 @@ android {
 dependencies {
 
     /**
-     * 主业务组件
-     */
-    implementation project(path: ':biz:biz-main')
-
-    /**
-     * 登陆组件
-     */
-    runtimeOnly project(path: ':biz:biz-user')
-
-    /**
-     * 设置业务组件
-     */
-    runtimeOnly project(path: ':biz:biz-setting')
-
-    /**
-     * 收藏业务组件
-     */
-    runtimeOnly project(path: ':biz:biz-favorite')
-
-    /**
-     * 搜索业务组件
-     */
-    runtimeOnly project(path: ':biz:biz-search')
-
-    /**
      * 文章详情业务组件
      */
     runtimeOnly project(path: ':biz:biz-detail')

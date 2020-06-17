@@ -16,12 +16,7 @@ rootProject.name = 'WanDroid'
  * 根据你的需要选择集成你的业务组件，不同的业务组件就组成了不同的APP。
  */
 include ':app:wan',
-        ':app:app-main',
-        ':app:app-setting',
-        ':app:app-favorite',
-        ':app:app-search',
-        ':app:app-detail',
-        ':app:app-login'
+        ':app:app-detail'
 
 /**
  * 2.常规业务组件\biz
@@ -36,12 +31,7 @@ include ':app:wan',
  *      - 多项目业务组件只能依赖公共基础业务组件，可以为ProjectA、ProjectB等项目提供业务能力，
  */
 
-include ':biz:biz-user',
-        ':biz:biz-setting',
-        ':biz:biz-main',
-        ':biz:biz-favorite',
-        ':biz:biz-search',
-        ':biz:biz-detail'
+include':biz:biz-detail'
 /**
  * 3.基础业务组件\base_components
  *
