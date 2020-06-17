@@ -73,7 +73,7 @@ dependencies {
     /**
      * 公共业务组件
      */
-    api project(path: ':base:base_component')
+    api project(path: ':base:base-common')
 
     testImplementation rootProject.ext.junit
     androidTestImplementation rootProject.ext.junitX

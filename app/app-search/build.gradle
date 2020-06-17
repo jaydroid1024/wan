@@ -6,12 +6,11 @@ dependencies {
     /**
      * 单项目公共业务组件
      */
-    implementation project(path: ':base:base_component_wan')
+    implementation project(path: ':base:base-wan')
 
     /**
      * 登陆业务组件
      */
-    implementation project(path: ':biz:biz_detail')
-
+    implementation project(path: ':biz:biz-search')
 
 }

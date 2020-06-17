@@ -91,37 +91,37 @@ dependencies {
     /**
      * 主业务组件
      */
-    implementation project(path: ':biz:biz_main')
+    implementation project(path: ':biz:biz-main')
 
     /**
      * 登陆组件
      */
-    runtimeOnly project(path: ':biz:biz_user')
+    runtimeOnly project(path: ':biz:biz-user')
 
     /**
      * 设置业务组件
      */
-    runtimeOnly project(path: ':biz:biz_setting')
+    runtimeOnly project(path: ':biz:biz-setting')
 
     /**
      * 收藏业务组件
      */
-    runtimeOnly project(path: ':biz:biz_favorite')
+    runtimeOnly project(path: ':biz:biz-favorite')
 
     /**
      * 搜索业务组件
      */
-    runtimeOnly project(path: ':biz:biz_search')
+    runtimeOnly project(path: ':biz:biz-search')
 
     /**
      * 文章详情业务组件
      */
-    runtimeOnly project(path: ':biz:biz_detail')
+    runtimeOnly project(path: ':biz:biz-detail')
 
     /**
      * WanAndroid 主业务组件
      */
-    implementation project(path: ':base:base_component_wan')
+    implementation project(path: ':base:base-wan')
 
     implementation rootProject.ext.appcompat
     implementation rootProject.ext.coreKtx

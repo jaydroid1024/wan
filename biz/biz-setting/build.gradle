@@ -6,7 +6,7 @@ dependencies {
     /**
      * 单项目公共业务组件
      */
-    implementation project(path: ':base:base_component_wan')
+    implementation project(path: ':base:base-wan')
 
 
 }

@@ -59,7 +59,7 @@ android {
 
 dependencies {
     //基础功能组件
-    api project(path: ':lib:lib_base')
+    api project(path: ':lib:lib-common')
 
     api fileTree(include: ['*.jar'], dir: 'libs')
     api rootProject.ext.kotlinStdlibJdk8

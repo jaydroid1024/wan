@@ -16,12 +16,12 @@ rootProject.name = 'WanDroid'
  * 根据你的需要选择集成你的业务组件，不同的业务组件就组成了不同的APP。
  */
 include ':app:wan',
-        ':app:app_main',
-        ':app:app_setting',
-        ':app:app_favorite',
-        ':app:app_search',
-        ':app:app_detail',
-        ':app:app_login'
+        ':app:app-main',
+        ':app:app-setting',
+        ':app:app-favorite',
+        ':app:app-search',
+        ':app:app-detail',
+        ':app:app-login'
 
 /**
  * 2.常规业务组件\biz
@@ -36,12 +36,12 @@ include ':app:wan',
  *      - 多项目业务组件只能依赖公共基础业务组件，可以为ProjectA、ProjectB等项目提供业务能力，
  */
 
-include ':biz:biz_user',
-        ':biz:biz_setting',
-        ':biz:biz_main',
-        ':biz:biz_favorite',
-        ':biz:biz_search',
-        ':biz:biz_detail'
+include ':biz:biz-user',
+        ':biz:biz-setting',
+        ':biz:biz-main',
+        ':biz:biz-favorite',
+        ':biz:biz-search',
+        ':biz:biz-detail'
 /**
  * 3.基础业务组件\base_components
  *
@@ -57,8 +57,8 @@ include ':biz:biz_user',
  *          - 公共基础业务组件只能存放一些所有项目中都需要的基础通用业务，可以为ProjectA、ProjectB等项目提供基础通用的业务能力，
  * 单项目基础组件需要依赖公共基础业务组件，单项目基础组是针对单项目的，公共基础业务组件是针对多项目的，隔离多项目之间的基础数据
  */
-include ':base:base_component',
-        ':base:base_component_wan'
+include ':base:base-common',
+        ':base:base-wan'
 
 /**
  * 4.基础功能组件\lib
@@ -71,5 +71,5 @@ include ':base:base_component',
  * 例如网络服务组件，它封装了网络的请求能力
  */
 
-include ':lib:lib_base',
-        ':lib:lib_net'
+include ':lib:lib-common',
+        ':lib:lib-net'
