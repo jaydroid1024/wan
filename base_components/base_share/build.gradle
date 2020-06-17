@@ -1,6 +1,0 @@
-apply from: "../../buildgradle/biz_components.gradle"
-
-
-dependencies {
-
-}

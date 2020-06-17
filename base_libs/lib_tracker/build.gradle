@@ -1,6 +1,0 @@
-apply from: "../../buildgradle/lib_common.gradle"
-
-dependencies {
-
-
-}

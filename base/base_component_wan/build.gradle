@@ -1,0 +1,83 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+
+    //给 Module 内的资源名增加前缀, 避免资源名冲突
+    resourcePrefix "${project.name.toLowerCase().replaceAll("-", "_")}_"
+
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdk
+        targetSdkVersion rootProject.ext.targetSdk
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
+        //Instrumentation Test class
+        testInstrumentationRunner rootProject.ext.androidJUnitRunner
+        //consumerProguardFiles  打包库Module发布AAR时配置的混淆文件，如果没有配置这个属性，在其他项目引用AndroidLib 项目且开启minifyEnabled时或许会报错，因为主项目不会自主引入依赖库的ProguardFile文件，必须在主项目中配置consumerProguardFiles节点，这样主项目就会引入依赖库的gradle文件中的（默认为release变体）下ProguardFile。
+        consumerProguardFiles 'consumer-rules.pro'
+        //Arouter
+        kapt {
+            arguments {
+                arg("AROUTER_MODULE_NAME", project.getName())
+            }
+        }
+    }
+
+
+    buildTypes {
+        //打包命令：
+        // ./gradlew :app:wan:assembleDebug
+        // ./gradlew :app:wan:assembleRelease
+
+        debug {
+
+            buildConfigField "boolean", "LOG_DEBUG", "true"  // 显示Log
+            // Zipalign优化 true
+            zipAlignEnabled false
+            // 移除无用的resource文件 true  Resource shrinker cannot be used for libraries.
+//            shrinkResources true
+            // 启用Android插件压缩器
+            // useProguard true
+            // 代码压缩/是否进行混淆 true
+            minifyEnabled false
+            // 前一部分代表系统默认的android程序的混淆文件，该文件已经包含了基本的混淆声明,后一部分是我们项目里的自定义的混淆文件
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+        }
+        release {
+            buildConfigField "boolean", "LOG_DEBUG", "false"  // 显示Log
+            // Zipalign优化
+            zipAlignEnabled false
+            // 移除无用的resource文件 true  Resource shrinker cannot be used for libraries.
+//            shrinkResources true
+            // 代码压缩/是否进行混淆
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+}
+
+dependencies {
+
+    /**
+     * 公共业务组件
+     */
+    api project(path: ':base:base_component')
+
+    testImplementation rootProject.ext.junit
+    androidTestImplementation rootProject.ext.junitX
+    androidTestImplementation rootProject.ext.espressoCore
+}
+
+

@@ -1,0 +1,18 @@
+apply from: "../../buildgradle/lib.gradle"
+
+dependencies {
+
+    /**
+     * 网络
+     */
+    api project(path: ':lib:lib_net')
+
+    //logger
+    api rootProject.ext.logger
+
+    //glide
+    api rootProject.ext.glide
+
+}
+
+

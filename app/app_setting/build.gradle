@@ -1,0 +1,16 @@
+apply from: "../../buildgradle/app.gradle"
+
+
+dependencies {
+
+    /**
+     * 单项目公共业务组件
+     */
+    implementation project(path: ':base:base_component_wan')
+
+    /**
+     * 设置业务组件
+     */
+    implementation project(path: ':biz:biz_setting')
+
+}

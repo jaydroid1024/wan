@@ -1,0 +1,12 @@
+apply from: "../../buildgradle/biz.gradle"
+
+
+dependencies {
+    /**
+     * 公共业务组件
+     */
+    implementation project(path: ':base:base_component')
+
+}
+
+

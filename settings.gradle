@@ -10,21 +10,21 @@ rootProject.name = 'WanDroid'
  */
 
 /**
- * 1.宿主壳和调试壳\apps
+ * 1.宿主壳和调试壳\app
  *
  * 壳工程依赖了需要集成的业务组件，它可能只有一些配置文件，没有任何代码逻辑。
  * 根据你的需要选择集成你的业务组件，不同的业务组件就组成了不同的APP。
  */
-include ':apps:wan',
-        ':apps:app_main',
-        ':apps:app_setting',
-        ':apps:app_favorite',
-        ':apps:app_search',
-        ':apps:app_detail',
-        ':apps:app_login'
+include ':app:wan',
+        ':app:app_main',
+        ':app:app_setting',
+        ':app:app_favorite',
+        ':app:app_search',
+        ':app:app_detail',
+        ':app:app_login'
 
 /**
- * 2.常规业务组件\biz_components
+ * 2.常规业务组件\biz
  *
  * 常规业务组件就是我们真正的业务组件了。我们通常按照功能模块来划分业务组件，
  * 常规业务组件按需依赖基础业务组件和基础功能组件，也可以不依赖下层的组件，该层的组件就是我们真正的业务组件了。
@@ -36,12 +36,12 @@ include ':apps:wan',
  *      - 多项目业务组件只能依赖公共基础业务组件，可以为ProjectA、ProjectB等项目提供业务能力，
  */
 
-include ':biz_components:biz_user',
-        ':biz_components:biz_setting',
-        ':biz_components:biz_main',
-        ':biz_components:biz_favorite',
-        ':biz_components:biz_search',
-        ':biz_components:biz_detail'
+include ':biz:biz_user',
+        ':biz:biz_setting',
+        ':biz:biz_main',
+        ':biz:biz_favorite',
+        ':biz:biz_search',
+        ':biz:biz_detail'
 /**
  * 3.基础业务组件\base_components
  *
@@ -57,11 +57,11 @@ include ':biz_components:biz_user',
  *          - 公共基础业务组件只能存放一些所有项目中都需要的基础通用业务，可以为ProjectA、ProjectB等项目提供基础通用的业务能力，
  * 单项目基础组件需要依赖公共基础业务组件，单项目基础组是针对单项目的，公共基础业务组件是针对多项目的，隔离多项目之间的基础数据
  */
-include ':base_components:base_component',
-        ':base_components:base_component_wan'
+include ':base:base_component',
+        ':base:base_component_wan'
 
 /**
- * 4.基础功能组件\base_libs
+ * 4.基础功能组件\lib
  *
  * 这个层的组件都是最基础的功能，通常它不包含任何业务逻辑，也可以说这些组件是一些通用的工具类和一些第三方库。或者说只有足够优秀的代码才能下沉到基础层。
  *
@@ -71,5 +71,5 @@ include ':base_components:base_component',
  * 例如网络服务组件，它封装了网络的请求能力
  */
 
-include ':base_libs:lib_base',
-        ':base_libs:lib_net'
+include ':lib:lib_base',
+        ':lib:lib_net'
