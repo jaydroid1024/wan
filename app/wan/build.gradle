@@ -131,5 +131,14 @@ dependencies {
     //需要所有使用 ARouter 的组件都添加依赖
     kapt rootProject.ext.arouterCompiler
 
+    implementation rootProject.ext.firebaseCore
+    implementation rootProject.ext.firebaseAnaly
+    implementation(rootProject.ext.firebaseCrashlytics) {
+        transitive = true
+    }
+    implementation(rootProject.ext.firebaseCrashlyticsNdk) {
+        transitive = true
+    }
+
 
 }

@@ -8,6 +8,7 @@ buildscript {
         mavenCentral()
         maven { url "https://jitpack.io" }
         maven { url "https://maven.google.com" }
+        jcenter { url "http://jcenter.bintray.com" }
 
     }
     dependencies {
@@ -24,6 +25,9 @@ allprojects {
         mavenCentral()
         maven { url "https://jitpack.io" }
         maven { url "https://maven.google.com" }
+        jcenter { url "http://jcenter.bintray.com" }
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+
 
         //本地Maven仓库地址
         def MAVEN_LOCAL_REPO_PATH = rootProject.ext.mavenRepo['repoPathLocal']
