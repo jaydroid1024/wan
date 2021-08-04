@@ -47,8 +47,8 @@ class LoginActivity : BaseMVPActivity<LoginContract.View, LoginPresenter>(),
         registerTxtView = findViewById(R.id.tv_user_register)
 
         //todo debug
-        usernameEditText.setText("18369679781")
-        passwordEditText.setText("a11111111")
+        usernameEditText.setText("mvvm")
+        passwordEditText.setText("123456")
     }
 
     override fun initData() {

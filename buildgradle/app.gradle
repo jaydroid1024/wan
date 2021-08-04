@@ -63,7 +63,7 @@ dependencies {
     implementation rootProject.ext.appcompat
     implementation rootProject.ext.coreKtx
     //需要所有使用 ARouter 的组件都添加依赖
-    kapt rootProject.ext.arouterApi
+    implementation rootProject.ext.arouterApi
     kapt rootProject.ext.arouterCompiler
 
 }

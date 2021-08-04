@@ -10,6 +10,7 @@ import org.greenrobot.eventbus.EventBus
 class LoginPresenter : BasePresenter<LoginContract.View>(), LoginContract.Presenter {
 
     override fun login(username: String, password: String) {
+
         addSubscribe(
             getDefaultNet().login(username, password),
             object : BaseObserver<User>(getView()) {
