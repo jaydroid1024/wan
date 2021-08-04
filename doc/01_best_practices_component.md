@@ -4,11 +4,11 @@
 
 Demo地址：[WanDroid组件化测试项目](https://github.com/Jay-Droid/WanDroid)
 
-### Demo 演示
+# Demo 演示
 ![Demo Gif](https://tva1.sinaimg.cn/large/007S8ZIlly1gf2x5pgz6lg30b40ii4qq.gif)
 
 
-# 1. 组件划分
+## 1. 组件划分
 
 ### 测试Demo组件化架构图
 
@@ -54,7 +54,7 @@ Demo地址：[WanDroid组件化测试项目](https://github.com/Jay-Droid/WanDro
 - 例如网络服务组件，它封装了网络的请求能力
 
 
-# 2. 组件创建
+## 2. 组件创建
 创建一个组件，有两个来源：
 - 一是拆分而来创建的新组件，
 - 二是为新功能创建一个新组件。
@@ -114,7 +114,7 @@ base_component_wan 需要依赖base_component，也就是说base_component_wan�
 
 
 
-# 3. 组件开发
+## 3. 组件开发
 ### 1.单组件调试
 现在组件化很流行的做法是把组件划分为库模式和独立模式，在开发时使用独立模式，在发布时使用库模式。比如说，gradle.properties中定义一个常量值 isPlugin（是否是独立模式，true为是，false为否）然后在各个组件的build.gradle中这么写：
 
@@ -287,7 +287,7 @@ class ExampleActivity extends Activity {
 
 
 
-# 4. 组件复用与发布
+## 4. 组件复用与发布
 
 ## 1. 公共组件如何实现多项目共享
 
@@ -349,9 +349,9 @@ uploadArchives {
 //TODO 第二步 在项目的build.gradle中添加Maven仓库地址
 /*
 1，在gradle.properties配置各自的本地Maven仓库地址
-#本地Maven仓库地址
+##本地Maven仓库地址
 MAVEN_LOCAL_REPO_PATH=file:///Users/Shared/Maven/MavenLocalRepo/
-#远程Maven仓库的URL
+##远程Maven仓库的URL
 MAVEN_REPO_RELEASE_URL=http://localhost:8081/repository/maven-releases/
 2，引用本地Maven仓库地址
 maven {  url MAVEN_LOCAL_REPO_PATH }
@@ -367,7 +367,7 @@ maven {  url MAVEN_LOCAL_REPO_PATH }
 
 ```
 
-# 4. 其它问题
+## 4. 其它问题
 ## 1，其它流程上点问题
 - Tinker的在组件化改造中的影响
 - 由于组件在组件化改造阶段频繁更新，所以，将组件发布到Maven仓库暂时不考虑，待组件稳定时考虑搭建公司Maven私服以及本地modul和aar依赖切换逻辑
