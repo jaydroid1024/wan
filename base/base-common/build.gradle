@@ -1,6 +1,5 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
@@ -80,6 +79,9 @@ dependencies {
     api rootProject.ext.arouterApi
     //需要所有使用 ARouter 的 model 都添加依赖
     kapt rootProject.ext.arouterCompiler
+
+    implementation rootProject.ext.jdispatcherApi
+    kapt rootProject.ext.jdispatcherCompiler
 
 }
 

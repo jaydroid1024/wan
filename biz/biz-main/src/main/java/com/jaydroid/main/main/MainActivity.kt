@@ -156,8 +156,7 @@ class MainActivity : BaseMVPActivity<MainContract.View, MainPresenter>(), MainCo
 //            iv_avatar_background.setImageBitmap(blur(mContext, bitmap, 22))
 //            iv_nav_avatar.setImageDrawable(getDrawable(R.drawable.tian))
             val user = presenter.userService?.getUserInfo()
-            val username: String
-            username = if (user != null) {
+            val username: String = if (user != null) {
                 user.username
             } else {
                 ""

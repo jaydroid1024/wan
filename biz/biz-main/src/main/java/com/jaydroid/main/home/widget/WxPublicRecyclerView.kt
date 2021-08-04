@@ -1,4 +1,4 @@
-package  home.widget
+package  com.jaydroid.main.home.widget
 
 import android.content.Context
 import android.util.AttributeSet

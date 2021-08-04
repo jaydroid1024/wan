@@ -3,8 +3,15 @@
 //****************************************
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'com.alibaba.arouter'
+//配置 jdispatcher 插件
+apply plugin: 'jdispatcher'
+dispatcher {
+    appCanonicalName = "com.jaydroid.base_component_wan.application.WanApp"
+    buildIncremental = false //todo 增量编译还有问题
+    buildDebug = true //打印详细日志信息
+}
 
 android {
 
@@ -15,45 +22,76 @@ android {
         targetSdkVersion rootProject.ext.targetSdk
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
-        //Instrumentation Test class
-        testInstrumentationRunner rootProject.ext.androidJUnitRunner
-        applicationId "com.component.${project.name.toLowerCase()}"
+        applicationId "com.jaydroid.wanandroid"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+
+        //ARouter Compile options
         kapt {
             arguments {
                 arg("AROUTER_MODULE_NAME", project.getName())
             }
         }
-
-        /* Enabling multidex support.当DEX中的方法数超过最大值65536时,需要使用,否则打包apk会失败*/
-        multiDexEnabled true
-
     }
-    buildTypes {
-        debug {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
 
+    signingConfigs {
+        debug {
+            keyAlias rootProject.ext.sign["aliasDebug"]
+            keyPassword rootProject.ext.sign["passDebug"]
+            storeFile rootProject.ext.sign["storeDebug"]
+            storePassword rootProject.ext.sign["storePassDebug"]
+        }
         release {
-            minifyEnabled false
-            shrinkResources false
+            keyAlias rootProject.ext.sign["alias"]
+            keyPassword rootProject.ext.sign["pass"]
+            storeFile rootProject.ext.sign["store"]
+            storePassword rootProject.ext.sign["storePass"]
+        }
+    }
+
+
+    buildTypes {
+        //打包命令：
+        // ./gradlew :app:wan:assembleDebug
+        // ./gradlew :app:wan:assembleRelease
+
+        debug {
+            // Zipalign优化 true
             zipAlignEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            // 移除无用的resource文件 true
+            shrinkResources false
+            // 启用Android插件压缩器
+            // useProguard true
+            // 代码压缩/是否进行混淆 true
+            minifyEnabled false
+            // 签名信息
+            signingConfig signingConfigs.debug
+            // 前一部分代表系统默认的android程序的混淆文件，该文件已经包含了基本的混淆声明,后一部分是我们项目里的自定义的混淆文件
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+        }
+        release {
+            // Zipalign优化
+            zipAlignEnabled true
+            // 移除无用的resource文件
+            shrinkResources true
+            // 代码压缩/是否进行混淆
+            minifyEnabled true
+            // 签名信息
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 
     compileOptions {
-        targetCompatibility JavaVersion.VERSION_1_8
-        sourceCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility rootProject.ext.javaSourceCompatibility
+        targetCompatibility rootProject.ext.javaSourceCompatibility
     }
 
-
-    //解决主工程和组件的 AndroidManifest 文件合并问题
-    sourceSets {
-        main {
-            manifest.srcFile './AndroidManifest.xml'
-        }
+    kotlinOptions {
+        jvmTarget = rootProject.ext.kotlinOptionsJvmTarget
     }
+
 }
 
 

@@ -3,6 +3,20 @@
 // ExtentionAware可以在运行时扩充属性，而这里的ext，就是里面的一个特殊的属性而已。
 ext {
 
+    configs = [
+            /* todo 构建时是选择哪一个组件 ???
+                0:全量构建
+                1:首页业务组件
+                2:用户业务组件
+                3:设置业务组件
+                4:收藏业务组件
+                5:搜索业务组件
+                6:详情业务组件
+             */
+            buildWith = 0,
+    ]
+
+
     android = [
             compileSdkVersion = 28,
             buildToolsVersion = '28.0.3',
@@ -17,7 +31,12 @@ ext {
             javaSourceCompatibility = JavaVersion.VERSION_1_8,
             javaTargetCompatibility = JavaVersion.VERSION_1_8
     ]
-    
+
+    kotlin = [
+            kotlinVersion = '1.4.32',
+            kotlinOptionsJvmTarget = '1.8'
+    ]
+
 
     //三方依赖库多个依赖路径引入同一个版本号时需要提取版本号
     version = [
@@ -31,6 +50,7 @@ ext {
             butterknifeVersion = '10.2.1',
             immersionbarVersion = '3.0.0',
             tinkerVersion = '1.9.14',
+            jDispatcherVersion = '0.0.7'
 
     ]
 
@@ -100,6 +120,11 @@ ext {
 
             //gson https://github.com/google/gson
             gson = 'com.google.code.gson:gson:2.8.6',
+
+
+            jdispatcherApi = "com.github.jaydroid1024.JDispatcher:jdispatcher-api:$jDispatcherVersion",
+            jdispatcherCompiler = "com.github.jaydroid1024.JDispatcher:jdispatcher-compiler:$jDispatcherVersion",
+            jdispatcherPlugin = "com.github.jaydroid1024.JDispatcher:jdispatcher-plugin:$jDispatcherVersion",
 
 
             /** ========================================================= */

@@ -6,6 +6,7 @@ import com.jaydroid.base_component.network.bean.wan.article.Article
 
 
 interface HomeContract {
+
     interface View : IView {
 
         fun onBanner(list: List<Banner>?)

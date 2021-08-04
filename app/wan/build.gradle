@@ -1,135 +1,84 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
+apply from: "../../buildgradle/app.gradle"
+
 
 android {
 
-    compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
-    defaultConfig {
-        minSdkVersion rootProject.ext.minSdk
-        targetSdkVersion rootProject.ext.targetSdk
-        versionCode rootProject.ext.versionCode
-        versionName rootProject.ext.versionName
-        applicationId "com.jaydroid.wanandroid"
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
-        kapt {
-            arguments {
-                arg("AROUTER_MODULE_NAME", project.getName())
+    sourceSets {
+        main {
+            def buildWith = rootProject.ext.buildWith
+            println "buildWith in sourceSets: " + buildWith
+            switch (buildWith) {
+                case 0:
+                    //合并到宿主中
+                    manifest.srcFile 'src/main/AndroidManifest.xml'
+                    resources {
+                        //正式版本时.剔除debug文件夹下的所有调式文件
+                        exclude 'src/debug/*'
+                    }
+                    break
+                case 1:
+                    //单独运行
+                    manifest.srcFile 'src/debug/main/AndroidManifest.xml'
+                    break
+                case 2:
+                    manifest.srcFile 'src/debug/login/AndroidManifest.xml'
+                    break
+                case 3:
+                    manifest.srcFile 'src/debug/setting/AndroidManifest.xml'
+                    break
+                case 4:
+                    manifest.srcFile 'src/debug/favorite/AndroidManifest.xml'
+                    break
+                case 5:
+                    manifest.srcFile 'src/debug/search/AndroidManifest.xml'
+                    break
+                case 6:
+                    manifest.srcFile 'src/debug/detail/AndroidManifest.xml'
+                    break
             }
         }
-
-//        javaCompileOptions {
-//            javaCompileOptions {
-//                annotationProcessorOptions {
-//                    arguments = [AROUTER_MODULE_NAME: project.getName(), AROUTER_GENERATE_DOC: "enable"]
-//                }
-//            }
-//        }
     }
 
-    signingConfigs {
-
-        debug {
-            keyAlias rootProject.ext.sign["aliasDebug"]
-            keyPassword rootProject.ext.sign["passDebug"]
-            storeFile rootProject.ext.sign["storeDebug"]
-            storePassword rootProject.ext.sign["storePassDebug"]
-        }
-        release {
-            keyAlias rootProject.ext.sign["alias"]
-            keyPassword rootProject.ext.sign["pass"]
-            storeFile rootProject.ext.sign["store"]
-            storePassword rootProject.ext.sign["storePass"]
-        }
-    }
-
-    buildTypes {
-        //打包命令：
-        // ./gradlew :app:wan:assembleDebug
-        // ./gradlew :app:wan:assembleRelease
-
-        debug {
-            // Zipalign优化 true
-            zipAlignEnabled false
-            // 移除无用的resource文件 true
-            shrinkResources false
-            // 启用Android插件压缩器
-            // useProguard true
-            // 代码压缩/是否进行混淆 true
-            minifyEnabled false
-            // 签名信息
-            signingConfig signingConfigs.debug
-            // 前一部分代表系统默认的android程序的混淆文件，该文件已经包含了基本的混淆声明,后一部分是我们项目里的自定义的混淆文件
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-
-        }
-        release {
-            // Zipalign优化
-            zipAlignEnabled true
-            // 移除无用的resource文件
-            shrinkResources true
-            // 代码压缩/是否进行混淆
-            minifyEnabled true
-            // 签名信息
-            signingConfig signingConfigs.release
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
 }
+
 
 dependencies {
 
-    /**
-     * 主业务组件
-     */
-    implementation project(path: ':biz:biz-main')
+    def buildWith = rootProject.ext.buildWith
+    println "buildWith in dependencies: " + buildWith
 
-    /**
-     * 登陆组件
-     */
-    runtimeOnly project(path: ':biz:biz-user')
+    if (buildWith == 0 || buildWith == 1) {
+        //首页业务组件
+        implementation project(path: ':biz:biz-main')
+    }
+    if (buildWith == 0 || buildWith == 2) {
+        //用户业务组件
+        implementation project(path: ':biz:biz-user')
+    }
+    if (buildWith == 0 || buildWith == 3) {
+        //设置业务组件
+        implementation project(path: ':biz:biz-setting')
+    }
+    if (buildWith == 0 || buildWith == 4) {
+        //收藏业务组件
+        implementation project(path: ':biz:biz-favorite')
+    }
+    if (buildWith == 0 || buildWith == 5) {
+        //搜索业务组件
+        implementation project(path: ':biz:biz-search')
+    }
+    if (buildWith == 0 || buildWith == 6) {
+        //文章详情业务组件
+        implementation project(path: ':biz:biz-detail')
+    }
+    if (buildWith == 0 || buildWith == 7) {
 
-    /**
-     * 设置业务组件
-     */
-    runtimeOnly project(path: ':biz:biz-setting')
+    }
+    if (buildWith == 0 || buildWith == 8) {
 
-    /**
-     * 收藏业务组件
-     */
-    runtimeOnly project(path: ':biz:biz-favorite')
+    }
 
-    /**
-     * 搜索业务组件
-     */
-    runtimeOnly project(path: ':biz:biz-search')
-
-    /**
-     * 文章详情业务组件
-     */
-    runtimeOnly project(path: ':biz:biz-detail')
-
-    /**
-     * WanAndroid 主业务组件
-     */
+    // WanAndroid 公共基础组件
     implementation project(path: ':base:base-wan')
-
-    implementation rootProject.ext.appcompat
-    implementation rootProject.ext.coreKtx
-    testImplementation rootProject.ext.junit
-    androidTestImplementation rootProject.ext.junitX
-    androidTestImplementation rootProject.ext.espressoCore
-    //需要所有使用 ARouter 的组件都添加依赖
-    kapt rootProject.ext.arouterCompiler
-
 
 }

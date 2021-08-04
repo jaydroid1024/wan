@@ -5,7 +5,6 @@
     <application>
         <activity android:name="com.jaydroid.user.activity.LoginActivity" />
         <activity android:name="com.jaydroid.user.activity.RegisterActivity" />
-
         <!--appLife-->
         <meta-data
             android:name="com.jaydroid.user.app.UserApp"
