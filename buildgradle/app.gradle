@@ -52,8 +52,8 @@ android {
 
     buildTypes {
         //打包命令：
-        // ./gradlew :app:wan:assembleDebug
-        // ./gradlew :app:wan:assembleRelease
+        // ./gradlew :ja-app:wan:assembleDebug
+        // ./gradlew :ja-app:wan:assembleRelease
 
         debug {
             // Zipalign优化 true

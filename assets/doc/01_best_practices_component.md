@@ -78,8 +78,8 @@ Demo地址：[WanDroid组件化测试项目](https://github.com/Jay-Droid/WanDro
 1. 复制一份\app\app_template 重命名为新宿主壳的名字 如: app_login
 1. 修改app_login\AndroidManifest.xml 文件指定启动Activity，配置权限等
 1. 修改app_login\build.gradle文件指定要调试的组件以及其它需要等配置信息，引入公共等gradle配置文件 `apply from: "../../app.gradle" `
-1. 在settings.gradle文件中添加引用路径： `include ':app:app_login' `
-1. 添加要调试的组件依赖 `implementation project(path: ':biz:login')`
+1. 在settings.gradle文件中添加引用路径： `include ':ja-app:app_login' `
+1. 添加要调试的组件依赖 `implementation project(path: ':jb-biz:login')`
 如果业务组件发布为了aar改成远程依赖即可，同步代码，运行单个组件调试
 
 >  如果其它项目也需要这个调试壳，目前只能通过代码复制，后期考虑通过创建模版实现
@@ -88,7 +88,7 @@ Demo地址：[WanDroid组件化测试项目](https://github.com/Jay-Droid/WanDro
 
 1. 点击 biz 目录右键\New\Module 选择Android Library 新建一个组件 如：login
 1. 修改 biz\login\build.gradle 文件 添加需要依赖的下层依赖库或者其它第三方依赖,引入公共等gradle配置文件 `apply from: "../../biz.gradle" `
-1. 在settings.gradle文件中修改引用路径：`include ':biz:login'`
+1. 在settings.gradle文件中修改引用路径：`include ':jb-biz:login'`
 1. 同步代码，添加组件功能，需要考虑是否多个项目会依赖该组件，ButterKnife在组件中的使用问题等等
 1. 组件开发完成，可以考虑发布aar，本地依赖或远程依赖，具体查看发布流程
 
@@ -108,7 +108,7 @@ base_component_wan 需要依赖base_component，也就是说base_component_wan�
 
 1. 点击 lib 目录右键\New\Module 选择Android Library 新建一个组件 如：base_lib
 1. 修改 lib\base_lib\build.gradle 文件 添加需要依赖其它第三方依赖
-1. 在settings.gradle文件中修改引用路径：`include ':lib:base_lib'`
+1. 在settings.gradle文件中修改引用路径：`include ':jd-lib:base_lib'`
 1. 同步代码，添加组件功能
 1. 组件开发完成，可以考虑发布aar，本地依赖或远程依赖，具体查看发布流程
 

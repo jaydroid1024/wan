@@ -5,7 +5,7 @@ dependencies {
     /**
      * 网络
      */
-    api project(path: ':lib:lib-net')
+    api project(path: ':jd-lib:lib-net')
 
     //logger
     api rootProject.ext.logger

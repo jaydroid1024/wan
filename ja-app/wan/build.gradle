@@ -49,27 +49,27 @@ dependencies {
 
     if (buildWith == 0 || buildWith == 1) {
         //首页业务组件
-        implementation project(path: ':biz:biz-main')
+        implementation project(path: ':jb-biz:biz-main')
     }
     if (buildWith == 0 || buildWith == 2) {
         //用户业务组件
-        implementation project(path: ':biz:biz-user')
+        implementation project(path: ':jb-biz:biz-user')
     }
     if (buildWith == 0 || buildWith == 3) {
         //设置业务组件
-        implementation project(path: ':biz:biz-setting')
+        implementation project(path: ':jb-biz:biz-setting')
     }
     if (buildWith == 0 || buildWith == 4) {
         //收藏业务组件
-        implementation project(path: ':biz:biz-favorite')
+        implementation project(path: ':jb-biz:biz-favorite')
     }
     if (buildWith == 0 || buildWith == 5) {
         //搜索业务组件
-        implementation project(path: ':biz:biz-search')
+        implementation project(path: ':jb-biz:biz-search')
     }
     if (buildWith == 0 || buildWith == 6) {
         //文章详情业务组件
-        implementation project(path: ':biz:biz-detail')
+        implementation project(path: ':jb-biz:biz-detail')
     }
     if (buildWith == 0 || buildWith == 7) {
 
@@ -79,6 +79,6 @@ dependencies {
     }
 
     // WanAndroid 公共基础组件
-    implementation project(path: ':base:base-wan')
+    implementation project(path: ':jc-base:base-wan')
 
 }

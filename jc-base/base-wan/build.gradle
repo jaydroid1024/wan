@@ -27,8 +27,8 @@ android {
 
     buildTypes {
         //打包命令：
-        // ./gradlew :app:wan:assembleDebug
-        // ./gradlew :app:wan:assembleRelease
+        // ./gradlew :ja-app:wan:assembleDebug
+        // ./gradlew :ja-app:wan:assembleRelease
 
         debug {
 
@@ -70,7 +70,7 @@ dependencies {
     /**
      * 公共业务组件
      */
-    api project(path: ':base:base-common')
+    api project(path: ':jc-base:base-common')
 
     testImplementation rootProject.ext.junit
     androidTestImplementation rootProject.ext.junitX
