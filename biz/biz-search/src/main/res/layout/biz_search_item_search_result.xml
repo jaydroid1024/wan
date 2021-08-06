@@ -10,7 +10,7 @@
     android:paddingRight="15dp"
     android:paddingBottom="10dp">
 
-    <com.jaydroid.base_component.widget.RoundImageView
+    <com.jay.base_component.widget.RoundImageView
         android:id="@+id/iv_search_result_image"
         android:layout_width="120dp"
         android:layout_height="80dp"

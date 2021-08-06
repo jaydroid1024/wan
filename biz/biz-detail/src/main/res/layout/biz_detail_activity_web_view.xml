@@ -16,7 +16,7 @@
         app:contentInsetStart="0dp"
         app:contentInsetStartWithNavigation="0dp" />
 
-    <com.jaydroid.base_component.widget.XWebView
+    <com.jay.base_component.widget.XWebView
         android:id="@+id/pwv_webview"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

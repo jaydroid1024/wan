@@ -36,7 +36,7 @@
             android:paddingRight="15dp"
             android:src="@drawable/base_component_ic_back" />
 
-        <com.jaydroid.base_component.widget.ClearEditText
+        <com.jay.base_component.widget.ClearEditText
             android:id="@+id/et_search_input"
             android:layout_width="match_parent"
             android:layout_height="38dp"

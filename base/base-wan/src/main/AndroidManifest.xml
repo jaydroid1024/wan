@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.jaydroid.base_component_wan">
+    package="com.jay.base_component_wan">
     <!--NetworkSecurityConfig: No Network Security Config specified, using platform default-->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -14,7 +14,7 @@
         在高优先级的 App Module 中使用 tools:replace="android:name" 多个用"," 隔开
         直接用值 A 替换了值 B -->
     <application
-        android:name="com.jaydroid.base_component_wan.application.WanApp"
+        android:name="com.jay.base_component_wan.application.WanApp"
         android:allowBackup="true"
         android:icon="@mipmap/base_component_wan_ic_launcher"
         android:label="@string/base_component_wan_app_name"

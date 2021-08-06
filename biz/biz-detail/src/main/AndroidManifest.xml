@@ -1,8 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.jaydroid.detail">
+    package="com.jay.detail">
 
     <application>
-        <activity android:name=".web.WebViewActivity" />
+        <activity android:name="com.jay.detail.web.WebViewActivity" />
 
     </application>
 </manifest>

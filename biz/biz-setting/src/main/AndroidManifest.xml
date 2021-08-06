@@ -1,8 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.jaydroid.setting">
+    package="com.jay.setting">
 
     <application>
-        <activity android:name="com.jaydroid.setting.SettingActivity" />
+        <activity android:name="com.jay.setting.SettingActivity" />
 
 
     </application>

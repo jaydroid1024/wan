@@ -158,9 +158,9 @@
 ##################  项目代码  #############
 ##############################################
 # 保留所有IAppLife不被混淆
--keep public class * extends com.jaydroid.base_lib.app.appdelegate.IAppLife
+-keep public class * extends com.jay.base_lib.app.appdelegate.IAppLife
 # 保留实体类和成员不被混淆
--keep class com.jaydroid.base_component.network.bean.** {
+-keep class com.jay.base_component.network.bean.** {
     *;
 }
 

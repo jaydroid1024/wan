@@ -1,10 +1,10 @@
-// 根据exext属性是ExtensionAware类型的一个特殊的属性，本质是一个Map类型的变量，
+// ext属性是ExtensionAware类型的一个特殊的属性，本质是一个Map类型的变量，
 // 而 ExtentionAware接口的实现类为Project, Settings, Task, SourceSet等，
-// ExtentionAware可以在运行时扩充属性，而这里的ext，就是里面的一个特殊的属性而已。
+// ExtentionAware 可以在运行时扩充属性，而这里的ext，就是里面的一个特殊的属性而已。
 ext {
 
     configs = [
-            /* todo 构建时是选择哪一个组件 ???
+            /* todo 构建时是选择哪一个组件，一键完成单组件调试和组件集成的切换
                 0:全量构建
                 1:首页业务组件
                 2:用户业务组件
@@ -18,12 +18,17 @@ ext {
 
 
     android = [
-            compileSdkVersion = 28,
-            buildToolsVersion = '28.0.3',
+            compileSdkVersion = 30,
+            buildToolsVersion = '30.0.3',
             minSdk = 21,
-            targetSdk = 29,
+            targetSdk = 30,
             versionCode = 1,
-            versionName = "1.0.0"
+            versionName = "1.0.0",
+
+            // Application ID
+            prodApplicationId = 'id.tix.android',
+            apiaryApplicationId = 'id.tix.android.apiary',
+            devApplicationId = 'id.tix.android.dev',
     ]
 
 
@@ -33,7 +38,7 @@ ext {
     ]
 
     kotlin = [
-            kotlinVersion = '1.4.32',
+            kotlinVersion = '1.5.10',
             kotlinOptionsJvmTarget = '1.8'
     ]
 
@@ -50,7 +55,8 @@ ext {
             butterknifeVersion = '10.2.1',
             immersionbarVersion = '3.0.0',
             tinkerVersion = '1.9.14',
-            jDispatcherVersion = '0.0.7'
+            jDispatcherVersion = '0.0.7',
+            epoxyVersion = '4.6.2'
 
     ]
 
@@ -177,6 +183,11 @@ ext {
             banner = "com.youth.banner:banner:1.4.10",
             //
             lottie = "com.airbnb.android:lottie:2.7.0",
+
+            //https://github.com/airbnb/epoxy
+            epoxy = "com.airbnb.android:epoxy:$epoxyVersion",
+            // Add the annotation processor if you are using Epoxy's annotations (recommended)
+            epoxyProcessor = "com.airbnb.android:epoxy-processor:$epoxyVersion",
 
 
             /** ========================================================= */

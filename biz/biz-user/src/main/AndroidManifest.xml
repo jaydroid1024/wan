@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.jaydroid.user">
+    package="com.jay.user">
 
     <application>
-        <activity android:name="com.jaydroid.user.activity.LoginActivity" />
-        <activity android:name="com.jaydroid.user.activity.RegisterActivity" />
+        <activity android:name="com.jay.user.activity.LoginActivity" />
+        <activity android:name="com.jay.user.activity.RegisterActivity" />
         <!--appLife-->
         <meta-data
-            android:name="com.jaydroid.user.app.UserApp"
+            android:name="com.jay.user.app.UserApp"
             android:value="IModuleConfig" />
 
     </application>

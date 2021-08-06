@@ -15,7 +15,7 @@
         android:textColor="@color/black"
         android:textSize="18sp" />
 
-    <com.jaydroid.base_component.widget.flowlayout.FlowLayout
+    <com.jay.base_component.widget.flowlayout.FlowLayout
         android:id="@+id/fl_flow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

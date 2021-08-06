@@ -1,8 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.jaydroid.favorite">
+    package="com.jay.favorite">
 
     <application>
-        <activity android:name=".FavoriteActivity" />
+        <activity android:name="com.jay.favorite.FavoriteActivity" />
 
     </application>
 </manifest>

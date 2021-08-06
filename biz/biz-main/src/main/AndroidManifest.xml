@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.jaydroid.main">
+    package="com.jay.main">
 
     <application>
         <activity
-            android:name="com.jaydroid.main.main.MainActivity"
+            android:name="com.jay.main.main.MainActivity"
             android:launchMode="singleInstance" />
         <activity
-            android:name="com.jaydroid.main.main.SplashActivity"
+            android:name="com.jay.main.main.SplashActivity"
             android:theme="@style/base_component_full_screen_style">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

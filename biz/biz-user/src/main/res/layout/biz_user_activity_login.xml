@@ -7,7 +7,7 @@
     android:background="@android:color/white"
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
-    tools:context="com.jaydroid.user.activity.LoginActivity">
+    tools:context="com.jay.user.activity.LoginActivity">
 
     <ImageView
         android:id="@+id/iv_login_close"
@@ -30,7 +30,7 @@
             android:scaleType="centerInside"
             android:src="@drawable/base_component_img_android" />
 
-        <com.jaydroid.base_component.widget.ClearEditText
+        <com.jay.base_component.widget.ClearEditText
             android:id="@+id/cet_login_username"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -40,7 +40,7 @@
             app:clearIcon="@drawable/base_component_ic_close_gray"
             app:tipIcon="@drawable/base_component_ic_login_user" />
 
-        <com.jaydroid.base_component.widget.ClearEditText
+        <com.jay.base_component.widget.ClearEditText
             android:id="@+id/cet_login_password"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -52,7 +52,7 @@
             app:tipIcon="@drawable/base_component_ic_login_password" />
 
 
-        <com.jaydroid.base_component.widget.LoginView
+        <com.jay.base_component.widget.LoginView
             android:id="@+id/lv_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

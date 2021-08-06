@@ -58,7 +58,7 @@
 
         </RelativeLayout>
 
-        <com.jaydroid.main.main.widgets.MainViewPager
+        <com.jay.main.main.widgets.MainViewPager
             android:id="@+id/vp_main_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

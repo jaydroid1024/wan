@@ -19,7 +19,7 @@
         android:orientation="horizontal"
         android:paddingLeft="20dp">
 
-        <com.jaydroid.base_component.widget.RoundImageView
+        <com.jay.base_component.widget.RoundImageView
             android:id="@+id/iv_nav_avatar"
             android:layout_width="80dp"
             android:layout_height="80dp"
