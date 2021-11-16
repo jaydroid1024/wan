@@ -1,0 +1,13 @@
+apply from: "../../buildgradle/base/lib.gradle"
+
+dependencies {
+
+    implementation rootProject.ext.gson
+    implementation rootProject.ext.arouterApi
+    kapt rootProject.ext.arouterCompiler
+
+    implementation rootProject.ext.jdispatcherApi
+    kapt rootProject.ext.jdispatcherCompiler
+
+}
+

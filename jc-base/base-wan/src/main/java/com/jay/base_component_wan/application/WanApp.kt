@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.res.Configuration
 import android.util.Log
 import com.alibaba.android.arouter.launcher.ARouter
+import com.jay.android.dispatcher.launcher.JDispatcher
 import com.jay.base_lib.BuildConfig
 import com.jay.base_lib.app.appdelegate.ApplicationDelegate
 
@@ -23,15 +24,30 @@ class WanApp : Application() {
      */
     private var applicationDelegate: ApplicationDelegate? = null
 
+    override fun attachBaseContext(base: Context) {
+        super.attachBaseContext(base)
+        Log.d(TAG, "attachBaseContext")
+        Log.d("JDispatcher", "attachBaseContext")
+        //appInit的替代方案
+        applicationDelegate = ApplicationDelegate(base)
+        applicationDelegate?.attachBaseContext(base)
+    }
+
+
     /**
      * 创建应用程序时回调，回调时机早于任何 Activity。
      */
     override fun onCreate() {
         Log.d(TAG, "onCreate")
+        Log.d("JDispatcher", "onCreate")
         super.onCreate()
         instance = this
         initRouter()
         applicationDelegate?.onCreate(this)
+        JDispatcher.instance
+//            .withDispatchExtraParam(dispatchExtraParam ?: hashMapOf()) //为所有组件分发环境配置信息
+            .withDebugAble(true)//调试模式：打印更多日志，实时刷新等
+            .onCreate(this)//分发 onCreate
     }
 
     /**
@@ -51,13 +67,7 @@ class WanApp : Application() {
         ARouter.init(instance)
     }
 
-    override fun attachBaseContext(base: Context) {
-        super.attachBaseContext(base)
-        Log.d(TAG, "attachBaseContext")
-        //appInit的替代方案
-        applicationDelegate = ApplicationDelegate(base)
-        applicationDelegate?.attachBaseContext(base)
-    }
+
 
     /**
      * 在模拟环境中程序终止时会被调用，终止应用程序时调用，不能保证一定会被调用。

@@ -1,12 +1,7 @@
-apply from: "../../buildgradle/biz.gradle"
-
+apply from: "../../buildgradle/base/biz.gradle"
 
 dependencies {
-    /**
-     * 公共业务组件
-     */
     implementation project(path: ':jc-base:base-common')
-
 }
 
 

@@ -1,0 +1,10 @@
+apply from: "../../buildgradle/base/lib.gradle"
+
+
+dependencies {
+    implementation rootProject.ext.kotlinReflect
+    implementation rootProject.ext.rxjava
+    implementation rootProject.ext.rxandroid
+
+
+}

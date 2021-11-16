@@ -4,6 +4,7 @@
     package="com.jay.wan">
 
     <application
+        android:name=".application.WanApp"
         android:label="app-main"
         tools:replace="android:label">
 

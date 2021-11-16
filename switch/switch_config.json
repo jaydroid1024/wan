@@ -1,0 +1,178 @@
+[
+    {
+        "group": "com.qlife.android",
+        "moduleDir": "/Users/xuejiewang/AndroidStudioProjects/QLife/qlife-android/qlife-base-android/base/base-dev-tools",
+        "name": "base-dev-tools",
+        "needSubstitute": true,
+        "useModule": true,
+        "version": "1.0.3"
+    },
+    {
+        "group": "com.flashman.android",
+        "moduleDir": "/Users/xuejiewang/AndroidStudioProjects/QLife/qlife-android/aoao-base-flashman-android/base/base-flashman",
+        "name": "base-flashman",
+        "needSubstitute": true,
+        "useModule": true,
+        "version": "1.0.2"
+    },
+    {
+        "group": "com.flashman.android",
+        "moduleDir": "/Users/xuejiewang/AndroidStudioProjects/QLife/qlife-android/aoao-base-flashman-android/base/base-flashman-api",
+        "name": "base-flashman-api",
+        "needSubstitute": true,
+        "useModule": true,
+        "version": "1.0.2"
+    },
+    {
+        "group": "com.flashman.android",
+        "moduleDir": "/Users/xuejiewang/AndroidStudioProjects/QLife/qlife-android/aoao-base-flashman-android/base/base-bean-aoao",
+        "name": "base-bean-aoao",
+        "needSubstitute": true,
+        "useModule": true,
+        "version": "1.0.2"
+    },
+    {
+        "group": "com.flashman.android",
+        "moduleDir": "/Users/xuejiewang/AndroidStudioProjects/QLife/qlife-android/aoao-base-flashman-android/base/base-mqtt-aoao",
+        "name": "base-mqtt-aoao",
+        "needSubstitute": true,
+        "useModule": true,
+        "version": "1.0.2"
+    },
+    {
+        "group": "com.flashman.android",
+        "moduleDir": "/Users/xuejiewang/AndroidStudioProjects/QLife/qlife-android/aoao-biz-android/biz/biz-user",
+        "name": "biz-user",
+        "needSubstitute": true,
+        "useModule": true,
+        "version": "1.0.2"
+    },
+    {
+        "group": "com.flashman.android",
+        "moduleDir": "/Users/xuejiewang/AndroidStudioProjects/QLife/qlife-android/aoao-biz-android/biz/biz-home",
+        "name": "biz-home",
+        "needSubstitute": true,
+        "useModule": true,
+        "version": "1.0.2"
+    },
+    {
+        "group": "com.flashman.android",
+        "moduleDir": "/Users/xuejiewang/AndroidStudioProjects/QLife/qlife-android/aoao-biz-android/biz/biz-help",
+        "name": "biz-help",
+        "needSubstitute": true,
+        "useModule": true,
+        "version": "1.0.2"
+    },
+    {
+        "group": "com.flashman.android",
+        "moduleDir": "/Users/xuejiewang/AndroidStudioProjects/QLife/qlife-android/aoao-biz-android/biz/biz-setting",
+        "name": "biz-setting",
+        "needSubstitute": true,
+        "useModule": true,
+        "version": "1.0.2"
+    },
+    {
+        "group": "com.flashman.android",
+        "moduleDir": "/Users/xuejiewang/AndroidStudioProjects/QLife/qlife-android/aoao-biz-android/biz/biz-dispatch",
+        "name": "biz-dispatch",
+        "needSubstitute": true,
+        "useModule": true,
+        "version": "1.0.2"
+    },
+    {
+        "group": "com.flashman.android",
+        "moduleDir": "/Users/xuejiewang/AndroidStudioProjects/QLife/qlife-android/aoao-biz-android/biz/biz-real-name",
+        "name": "biz-real-name",
+        "needSubstitute": true,
+        "useModule": true,
+        "version": "1.0.2"
+    },
+    {
+        "group": "com.flashman.android",
+        "moduleDir": "/Users/xuejiewang/AndroidStudioProjects/QLife/qlife-android/aoao-biz-android/biz/biz-person",
+        "name": "biz-person",
+        "needSubstitute": true,
+        "useModule": true,
+        "version": "1.0.2"
+    },
+    {
+        "group": "com.flashman.android",
+        "moduleDir": "/Users/xuejiewang/AndroidStudioProjects/QLife/qlife-android/aoao-biz-android/biz/biz-work",
+        "name": "biz-work",
+        "needSubstitute": true,
+        "useModule": true,
+        "version": "1.0.2"
+    },
+    {
+        "group": "com.flashman.android",
+        "moduleDir": "/Users/xuejiewang/AndroidStudioProjects/QLife/qlife-android/aoao-biz-android/biz/biz-vaccine",
+        "name": "biz-vaccine",
+        "needSubstitute": true,
+        "useModule": true,
+        "version": "1.0.2"
+    },
+    {
+        "group": "com.flashman.android",
+        "moduleDir": "/Users/xuejiewang/AndroidStudioProjects/QLife/qlife-android/aoao-biz-android/biz/biz-problem",
+        "name": "biz-problem",
+        "needSubstitute": true,
+        "useModule": true,
+        "version": "1.0.2"
+    },
+    {
+        "group": "com.flashman.android",
+        "moduleDir": "/Users/xuejiewang/AndroidStudioProjects/QLife/qlife-android/aoao-biz-android/biz/biz-history",
+        "name": "biz-history",
+        "needSubstitute": true,
+        "useModule": true,
+        "version": "1.0.2"
+    },
+    {
+        "group": "com.flashman.android",
+        "moduleDir": "/Users/xuejiewang/AndroidStudioProjects/QLife/qlife-android/aoao-biz-android/biz/biz-statistics",
+        "name": "biz-statistics",
+        "needSubstitute": true,
+        "useModule": true,
+        "version": "1.0.2"
+    },
+    {
+        "group": "com.flashman.android",
+        "moduleDir": "/Users/xuejiewang/AndroidStudioProjects/QLife/qlife-android/aoao-biz-android/biz/biz-change-phone",
+        "name": "biz-change-phone",
+        "needSubstitute": true,
+        "useModule": true,
+        "version": "1.0.2"
+    },
+    {
+        "group": "com.flashman.android",
+        "moduleDir": "/Users/xuejiewang/AndroidStudioProjects/QLife/qlife-android/aoao-biz-android/biz/biz-study",
+        "name": "biz-study",
+        "needSubstitute": true,
+        "useModule": true,
+        "version": "1.0.2"
+    },
+    {
+        "group": "com.flashman.android",
+        "moduleDir": "/Users/xuejiewang/AndroidStudioProjects/QLife/qlife-android/aoao-biz-android/biz/biz-monitor",
+        "name": "biz-monitor",
+        "needSubstitute": true,
+        "useModule": true,
+        "version": "1.0.2"
+    },
+    {
+        "group": "com.flashman.android",
+        "moduleDir": "/Users/xuejiewang/AndroidStudioProjects/QLife/qlife-android/aoao-biz-android/biz/biz-manage",
+        "name": "biz-manage",
+        "needSubstitute": true,
+        "useModule": true,
+        "version": "1.0.2"
+    },
+    {
+        "group": "com.flashman.android",
+        "moduleDir": "/Users/xuejiewang/AndroidStudioProjects/QLife/qlife-android/aoao-biz-android/biz/biz-map-tool",
+        "name": "biz-map-tool",
+        "needSubstitute": true,
+        "useModule": true,
+        "version": "1.0.2"
+    }
+]

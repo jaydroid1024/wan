@@ -3,20 +3,6 @@
 // ExtentionAware 可以在运行时扩充属性，而这里的ext，就是里面的一个特殊的属性而已。
 ext {
 
-    configs = [
-            /* todo 构建时是选择哪一个组件，一键完成单组件调试和组件集成的切换
-                0:全量构建
-                1:首页业务组件
-                2:用户业务组件
-                3:设置业务组件
-                4:收藏业务组件
-                5:搜索业务组件
-                6:详情业务组件
-             */
-            buildWith = 0,
-    ]
-
-
     android = [
             compileSdkVersion = 30,
             buildToolsVersion = '30.0.3',
@@ -26,9 +12,9 @@ ext {
             versionName = "1.0.0",
 
             // Application ID
-            prodApplicationId = 'id.tix.android',
-            apiaryApplicationId = 'id.tix.android.apiary',
-            devApplicationId = 'id.tix.android.dev',
+            prodApplicationId = 'com.jay.wan.android',
+            apiaryApplicationId = 'com.jay.wan.android.apiary',
+            devApplicationId = 'com.jay.wan.android.dev',
     ]
 
 
@@ -38,7 +24,7 @@ ext {
     ]
 
     kotlin = [
-            kotlinVersion = '1.5.10',
+            kotlinVersion = '1.5.30',
             kotlinOptionsJvmTarget = '1.8'
     ]
 
@@ -56,23 +42,34 @@ ext {
             immersionbarVersion = '3.0.0',
             tinkerVersion = '1.9.14',
             jDispatcherVersion = '0.0.7',
-            epoxyVersion = '4.6.2'
+            epoxyVersion = '4.6.2',
+
+            // Test Libs
+            robolectricVersion = '4.6.1',
+            junitVersion = '4.12',
+            mockitoVersion = '2.0.5-beta',
+            powermockVersion = '1.6.2',
+            leakcanaryVersion = '1.5',
+            androidSupportTestVersion = '0.5'
 
     ]
 
     //引入三方依赖库时考虑该库到稳定性，可维护性，需要标明引入到github地址并归类放置
     dependencies = [
+
             /** ========================================================= */
             /** =================== android/androidX ==================== */
             /** ========================================================= */
             kotlinStdlibJdk7 = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion",
-            appcompat = 'androidx.appcompat:appcompat:1.1.0',
-            coreKtx = 'androidx.core:core-ktx:1.2.0',
+            appcompat = 'androidx.appcompat:appcompat:1.3.1',
+            coreKtx = 'androidx.core:core-ktx:1.6.0',
+            material = 'com.google.android.material:material:1.4.0',
             junit = 'junit:junit:4.12',
             junitX = 'androidx.test.ext:junit:1.1.1',
             espressoCore = 'androidx.test.espresso:espresso-core:3.2.0',
             androidJUnitRunner = "android.support.test.runner.AndroidJUnitRunner",
-            constraintLayout = "androidx.constraintlayout:constraintlayout:1.1.3",
+            constraintLayout = "androidx.constraintlayout:constraintlayout:2.1.0",
+
 
             /** ========================================================= */
             /** ========================= kotlin ======================== */
@@ -215,6 +212,21 @@ ext {
     ]
 
 
+    println("/* ========================环境变量信息======================= */")
+    def debugEnvironmentProps = getEnvironmentProperties(getEnvironmentPropertyType())
+    def liveEnvironmentProps = getEnvironmentProperties("live")
+    println("debugEnvironmentProps:$debugEnvironmentProps")
+    println("liveEnvironmentProps:$liveEnvironmentProps")
+    println("propertyType:${getEnvironmentPropertyType()}")
+
+    environment = [
+            // 测试环境 Properties dev local
+            debugEnvironmentProps: debugEnvironmentProps,
+            // 线上环境 Properties live
+            liveEnvironmentProps : liveEnvironmentProps
+    ]
+
+
     /* ========================================================= */
     /* ==========================签名信息======================== */
     /* ========================================================= */
@@ -238,40 +250,88 @@ ext {
             storePass     : keyProps["storePass"]
     ]
 
-    /* ========================================================= */
-    /* ========================环境变量信息======================= */
-    /* ========================================================= */
-    println("/* ========================环境变量信息======================= */")
-    def debugEnvironmentProps = getEnvironmentProperties(getEnvironmentPropertyType())
-    def liveEnvironmentProps = getEnvironmentProperties("live")
-    println("debugEnvironmentProps:$debugEnvironmentProps")
-    println("liveEnvironmentProps:$liveEnvironmentProps")
-    println("propertyType:${getEnvironmentPropertyType()}")
-    environment = [
-            // 测试环境 Properties dev local
-            debugEnvironmentProps: debugEnvironmentProps,
-            // 线上环境 Properties live
-            liveEnvironmentProps : liveEnvironmentProps
+
+    /** ========================================================= */
+    /** ===================== 组件Maven仓库信息 =================== */
+    /** ========================================================= */
+
+    /** ========================================================= */
+    /** ========================= 组件配置 ======================= */
+    /** ========================================================= */
+    //公共的gradle脚本路径统一定义在这里
+    commonGradlePath = [
+            //maven_publish.gradle 组件发布脚本路径，统一配置日后可以放到线上
+            mavenPublishGradlePath = "../../buildgradle/maven/maven_publish.gradle",
+            mavenPublishGradleWithDebugPath = "../../buildgradle/maven/maven_publish_with_debug.gradle",
+            mavenPublishGradleV2Path = "../../buildgradle/maven/maven_publish_v2.gradle",
+            //lib_common.gradle lib组件公共gradle配置脚本路径，，统一配置日后可以放到线上
+            libCommonGradlePath = "../../buildgradle/base/lib.gradle",
+            //biz_components.gradle biz组件公共gradle配置脚本路径，，统一配置日后可以放到线上
+            bizCommonGradlePath = "../../buildgradle/base/biz.gradle",
+            // 公共的包名前缀统一定义在这里, 组件索引前缀，添加android标记以区别其它项目
+            groupCommonPrefix = "com.jay.android",
     ]
 
-    /* ========================================================= */
-    /* ======================组件Maven仓库信息==================== */
-    /* ========================================================= */
+    //maven 组件依赖版本号
+    versionCommponentArray = [
+
+            //发布时指定的版本
+            publishVersion = "1.0.0",
+
+    ]
+
+
+    //todo 发布类型：组件Maven仓库 release 和 snapshot 的控制开关
+    // 这个变量全局控制依赖的地址和上传Maven的Url
+    // true: xxx.xxx.1.0.0
+    // false: xxx.xxx.1.0.0-SNAPSHOT
+    def isUploadToRelease = true
+
+    //todo 依赖类型：依赖Maven组件类型的控制开关
+    // false: 依赖本地module运行
+    // true: 依赖远程aar运行
+    def dependenceTypeIsModule = false
+
+    //Maven 仓库环境类型统一定义在这里
+    mavenRepositoryType = [
+            // 开发人员本地的仓库
+            local     : "local",
+            // 开发人员本地搭建的仓库
+            dev       : "dev",
+            // 远程服务上的仓库
+            production: "production"
+    ]
+    //todo 仓库类型：指定组件Maven仓库远程仓库服务地址
+    // local 开发人员本地的仓库
+    // dev 目前是自己电脑本地部署的服务
+    // production 公司服务器上（默认）
+    // Note: 每次切换仓库需要clean
+    def currentMavenRepositoryType = mavenRepositoryType['production']
+
+
     println("\n/* ========================组件Maven仓库信息======================= */")
     //组件Maven仓库信息
+    println("currentMavenRepositoryType:${currentMavenRepositoryType.toString()}")
+    println("dependenceTypeIsModule:${dependenceTypeIsModule.toString()}")
+    println("isUploadToRelease:${isUploadToRelease.toString()}")
+    //根据指定的仓库类型获取对应仓库地址
     def mavenProps = getMavenProperties()
     println("mavenProps" + mavenProps.toString())
     mavenRepo = [
-            //MavenProperties
-            mavenProps    : mavenProps,
-            //local
-            repoPathLocal : mavenProps["repoPathLocal"],
-            //remote
-            repoPathRemote: mavenProps["repoPathRemote"],
+            //依赖Maven组件类型的控制开关
+            dependenceTypeIsModule    : dependenceTypeIsModule,
+            //组件上传和下载release 和 snapshot 的控制开关
+            isUploadToRelease         : isUploadToRelease,
+            //指定组件Maven仓库远程仓库服务地址
+            currentMavenRepositoryType: currentMavenRepositoryType,
+            //remote-release
+            mavenRepoUrlRelease       : mavenProps["mavenRepoUrlRelease"],
+            //remote-snapshot
+            mavenRepoUrlSnapshots     : mavenProps["mavenRepoUrlSnapshots"],
             //userName
-            userName      : mavenProps["userName"],
+            userName                  : mavenProps["userName"],
             //password
-            password      : mavenProps["password"]
+            password                  : mavenProps["password"]
     ]
 
 

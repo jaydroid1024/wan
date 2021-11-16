@@ -1,26 +1,29 @@
-apply from: "../../buildgradle/lib.gradle"
+apply from: "../../buildgradle/base/lib.gradle"
+
 
 dependencies {
     //stetho
-    api rootProject.ext.stetho
-    api rootProject.ext.stethoOkhttp3
+    implementation rootProject.ext.stetho
+    implementation rootProject.ext.stethoOkhttp3
     //Chuck
-    debugApi rootProject.ext.chuckDebug
-    releaseApi rootProject.ext.chuckRelease
+    debugImplementation rootProject.ext.chuckDebug
+    releaseImplementation rootProject.ext.chuckRelease
     //retrofit
     api rootProject.ext.retrofit
-    api rootProject.ext.retrofitConverterGson
-    api rootProject.ext.retrofitAdapterRxjava
-    api rootProject.ext.retrofitUrlManager
+    implementation rootProject.ext.retrofitConverterGson
+    implementation rootProject.ext.retrofitAdapterRxjava
+    api rootProject.ext.retrofitUrlManager //支持修改base url
     //okhttp
-    api rootProject.ext.okhttp
-    api rootProject.ext.okhttpLoggingInterceptor
+    implementation rootProject.ext.okhttp
+    implementation rootProject.ext.okhttpLoggingInterceptor
     //rxjava
     api rootProject.ext.rxjava
     api rootProject.ext.rxandroid
-    //gson
-    api rootProject.ext.gson
+
+    implementation rootProject.ext.jdispatcherApi
+    kapt rootProject.ext.jdispatcherCompiler
+
+    implementation 'com.localebro:okhttpprofiler:1.0.8'
 
 }
-
 

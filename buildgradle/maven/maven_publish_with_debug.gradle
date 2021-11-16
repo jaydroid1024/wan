@@ -1,0 +1,85 @@
+apply plugin: 'maven-publish'
+
+println("--------${project.name}：Maven Publish Gradle--------")
+//release 和 snapshot 的控制开关
+def isUploadToRelease = rootProject.ext.mavenRepo['isUploadToRelease']
+//远程Maven仓库的URL Release
+def MAVEN_REPO_RELEASE_URL = rootProject.ext.mavenRepo['mavenRepoUrlRelease']
+//远程Maven仓库的URL snapshots
+def MAVEN_REPO_SNAPSHOTS_URL = rootProject.ext.mavenRepo['mavenRepoUrlSnapshots']
+//远程Maven仓库用户名
+def USER_NAME = rootProject.ext.mavenRepo['userName']
+//远程Maven仓库密码
+def PASSWORD = rootProject.ext.mavenRepo['password']
+// 唯一标识 每个组件都要指定
+def GROUP = group.toString()
+// todo 默认为项目名称
+def ARTIFACT_ID = project.name
+// 版本号 每个组件都要指定
+def VERSION = version.toString()
+//远程Maven仓库的URL
+def URL = isUploadToRelease ? MAVEN_REPO_RELEASE_URL : MAVEN_REPO_SNAPSHOTS_URL
+
+println("dependencies_path: $GROUP:$ARTIFACT_ID:$VERSION")
+println("MAVEN_REPO_RELEASE_URL: $MAVEN_REPO_RELEASE_URL")
+println("MAVEN_REPO_SNAPSHOTS_URL: $MAVEN_REPO_SNAPSHOTS_URL")
+
+
+task sourceJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    from "$buildDir/generated/data_binding_base_class_source_out/release"
+    classifier "sources"
+}
+
+//https://docs.gradle.org/7.0/userguide/publishing_maven.html#publishing_maven
+//https://developer.android.com/studio/build/maven-publish-plugin
+// Because the components are created only during the afterEvaluate phase, you must
+// configure your publications using the afterEvaluate() lifecycle method.
+afterEvaluate {
+    publishing {
+        publications {
+            // Creates a Maven publication called "release".
+            release(MavenPublication) {
+                // Applies the component for the release build variant.
+                from components.release
+                // You can then customize attributes of the publication as shown below.
+                groupId = GROUP
+                artifactId = ARTIFACT_ID
+                version = VERSION
+                artifact sourceJar
+
+            }
+            // Creates a Maven publication called “debug”.
+            debug(MavenPublication) {
+                // Applies the component for the debug build variant.
+                from components.debug
+                groupId = GROUP
+                artifactId = ARTIFACT_ID + "-debug"
+                version = VERSION
+            }
+        }
+        repositories {
+            maven {
+                url = URL
+                credentials {
+                    username USER_NAME
+                    password PASSWORD
+                }
+            }
+        }
+    }
+}
+
+//发布到本地仓库的任务
+task cleanBuildPublishLocal(type: GradleBuild) {
+    tasks = ['clean', 'build', 'publishToMavenLocal']
+}
+
+//发布到远程仓库的任务
+task cleanBuildPublish(type: GradleBuild) {
+    tasks = ['clean', 'build', 'publish']
+}
+
+
+
+

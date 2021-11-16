@@ -1,0 +1,17 @@
+ext {
+
+    configs = [
+            buildWith = 0,
+    ]
+
+    bizComponents = [
+            [name: "", index: 0, depend: "", desc: "全量构建"],
+            [name: "main", index: 1, depend: "", desc: "首页业务组件"],
+            [name: "user", index: 2, depend: "", desc: "用户业务组件"],
+            [name: "setting", index: 3, depend: "", desc: "设置业务组件"],
+            [name: "favorite", index: 4, depend: "user", desc: "收藏业务组件"],
+            [name: "search", index: 5, depend: "", desc: "搜索业务组件"],
+            [name: "detail", index: 6, depend: "", desc: "详情业务组件"],
+    ]
+
+}

@@ -1,4 +1,4 @@
-apply from: "../../buildgradle/lib.gradle"
+apply from: "../../buildgradle/base/lib.gradle"
 
 dependencies {
 
@@ -12,6 +12,7 @@ dependencies {
 
     //glide
     api rootProject.ext.glide
+    api rootProject.ext.gson
 
 }
 

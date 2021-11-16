@@ -1,8 +1,19 @@
+
 buildscript {
+
     //使用config.gradle统一管理项目的依赖库
     apply from: "buildgradle/config.gradle"
+    apply from: "buildgradle/build/app_build.gradle"
 
     repositories {
+        //central
+        maven { url 'https://maven.aliyun.com/repository/central' }
+        //jcenter&public
+        maven { url 'https://maven.aliyun.com/repository/public' }
+        //google
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        //gradle-plugin
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
         google()
         jcenter()
         mavenCentral()
@@ -11,40 +22,55 @@ buildscript {
 
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.0.0'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+        classpath 'com.android.tools.build:gradle:7.0.2'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.30"
         classpath "com.alibaba:arouter-register:1.0.2"
         classpath rootProject.ext.jdispatcherPlugin
+        //https://docs.mongodb.com/realm/sdk/android/install/
+        classpath "io.realm:realm-gradle-plugin:10.8.0"
     }
 }
 
 allprojects {
     repositories {
+        //central
+        maven { url 'https://maven.aliyun.com/repository/central' }
+        //jcenter&public
+        maven { url 'https://maven.aliyun.com/repository/public' }
+        //google
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        //gradle-plugin
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
         google()
         jcenter()
         mavenCentral()
         maven { url "https://jitpack.io" }
         maven { url "https://maven.google.com" }
 
-        //本地Maven仓库地址
-        def MAVEN_LOCAL_REPO_PATH = rootProject.ext.mavenRepo['repoPathLocal']
-        //远程Maven仓库的URL
-        def MAVEN_REPO_RELEASE_URL = rootProject.ext.mavenRepo['repoPathRemote']
-        //远程Maven仓库用户名
-        def USER_NAME = rootProject.ext.mavenRepo['userName']
-        //远程Maven仓库密码
-        def PASSWORD = rootProject.ext.mavenRepo['password']
-        //本地 Maven
-//        maven { url MAVEN_LOCAL_REPO_PATH }
-        //远程 Maven
-//        maven {
-//            credentials {
-//                username USER_NAME
-//                password PASSWORD
-//            }
-//            url MAVEN_REPO_RELEASE_URL
-//        }
-
+        /**Maven 私服配置*/
+        // 仓库类型 local dev production
+        def currentMavenRepositoryType = rootProject.ext.mavenRepo['currentMavenRepositoryType']
+        def localMavenRepositoryType = rootProject.ext.mavenRepositoryType['local']
+        maven {
+            //区分本地仓库和远程仓库,Authentication scheme 'all'(Authentication) is not supported by protocol 'file'
+            if (currentMavenRepositoryType != localMavenRepositoryType) {
+                credentials {
+                    username rootProject.ext.mavenRepo['userName']
+                    password rootProject.ext.mavenRepo['password']
+                }
+            }
+            url rootProject.ext.mavenRepo['mavenRepoUrlRelease']
+        }
+        maven {
+            //区分本地仓库和远程仓库,Authentication scheme 'all'(Authentication) is not supported by protocol 'file'
+            if (currentMavenRepositoryType != localMavenRepositoryType) {
+                credentials {
+                    username rootProject.ext.mavenRepo['userName']
+                    password rootProject.ext.mavenRepo['password']
+                }
+            }
+            url rootProject.ext.mavenRepo['mavenRepoUrlSnapshots']
+        }
 
     }
 

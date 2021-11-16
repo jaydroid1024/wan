@@ -1,0 +1,107 @@
+[
+    {
+        "group": "com.flashman.android",
+        "name": "base-flashman",
+        "version": "1.0.2"
+    },
+    {
+        "group": "com.flashman.android",
+        "name": "base-flashman-api",
+        "version": "1.0.2"
+    },
+    {
+        "group": "com.flashman.android",
+        "name": "base-bean-aoao",
+        "version": "1.0.2"
+    },
+    {
+        "group": "com.flashman.android",
+        "name": "base-mqtt-aoao",
+        "version": "1.0.2"
+    },
+    {
+        "group": "com.flashman.android",
+        "name": "biz-user",
+        "version": "1.0.2"
+    },
+    {
+        "group": "com.flashman.android",
+        "name": "biz-home",
+        "version": "1.0.2"
+    },
+    {
+        "group": "com.flashman.android",
+        "name": "biz-help",
+        "version": "1.0.2"
+    },
+    {
+        "group": "com.flashman.android",
+        "name": "biz-setting",
+        "version": "1.0.2"
+    },
+    {
+        "group": "com.flashman.android",
+        "name": "biz-dispatch",
+        "version": "1.0.2"
+    },
+    {
+        "group": "com.flashman.android",
+        "name": "biz-real-name",
+        "version": "1.0.2"
+    },
+    {
+        "group": "com.flashman.android",
+        "name": "biz-person",
+        "version": "1.0.2"
+    },
+    {
+        "group": "com.flashman.android",
+        "name": "biz-work",
+        "version": "1.0.2"
+    },
+    {
+        "group": "com.flashman.android",
+        "name": "biz-vaccine",
+        "version": "1.0.2"
+    },
+    {
+        "group": "com.flashman.android",
+        "name": "biz-problem",
+        "version": "1.0.2"
+    },
+    {
+        "group": "com.flashman.android",
+        "name": "biz-history",
+        "version": "1.0.2"
+    },
+    {
+        "group": "com.flashman.android",
+        "name": "biz-statistics",
+        "version": "1.0.2"
+    },
+    {
+        "group": "com.flashman.android",
+        "name": "biz-change-phone",
+        "version": "1.0.2"
+    },
+    {
+        "group": "com.flashman.android",
+        "name": "biz-study",
+        "version": "1.0.2"
+    },
+    {
+        "group": "com.flashman.android",
+        "name": "biz-monitor",
+        "version": "1.0.2"
+    },
+    {
+        "group": "com.flashman.android",
+        "name": "biz-manage",
+        "version": "1.0.2"
+    },
+    {
+        "group": "com.flashman.android",
+        "name": "biz-map-tool",
+        "version": "1.0.2"
+    }
+]

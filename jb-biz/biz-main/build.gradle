@@ -1,12 +1,8 @@
-apply from: "../../buildgradle/biz.gradle"
+apply from: "../../buildgradle/base/biz.gradle"
 
 dependencies {
 
-    /**
-     * 单项目公共业务组件
-     */
     implementation project(path: ':jc-base:base-wan')
-
     implementation rootProject.ext.lottie
     implementation rootProject.ext.banner
     implementation rootProject.ext.smartRefreshLayout

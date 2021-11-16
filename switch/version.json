@@ -1,0 +1,162 @@
+[
+    {
+        "group": "com.qlife.android",
+        "name": "lib-net-release",
+        "version": "1.0.1"
+    },
+    {
+        "group": "com.qlife.android",
+        "name": "lib-utils-release",
+        "version": "1.0.0"
+    },
+    {
+        "group": "com.qlife.android",
+        "name": "lib-verification-code-release",
+        "version": "1.0.0"
+    },
+    {
+        "group": "com.qlife.android",
+        "name": "lib-float-view-release",
+        "version": "1.0.0"
+    },
+    {
+        "group": "com.qlife.android",
+        "name": "lib-slideview-release",
+        "version": "1.0.0"
+    },
+    {
+        "group": "com.qlife.android",
+        "name": "lib-countdown-view-release",
+        "version": "1.0.0"
+    },
+    {
+        "group": "com.qlife.android",
+        "name": "lib-arouter-release",
+        "version": "1.0.0"
+    },
+    {
+        "group": "com.qlife.android",
+        "name": "lib-crashlytics-release",
+        "version": "1.0.0"
+    },
+    {
+        "group": "com.qlife.android",
+        "name": "lib-login-aliyun",
+        "version": "1.0.0"
+    },
+    {
+        "group": "com.qlife.android",
+        "name": "lib-widget",
+        "version": "1.0.4"
+    },
+    {
+        "group": "com.qlife.android",
+        "name": "lib-res",
+        "version": "1.0.4"
+    },
+    {
+        "group": "com.qlife.android",
+        "name": "lib-dialog",
+        "version": "1.0.4"
+    },
+    {
+        "group": "com.qlife.android",
+        "name": "lib-base-adapter",
+        "version": "1.0.4"
+    },
+    {
+        "group": "com.qlife.android",
+        "name": "base-activity",
+        "version": "1.0.1"
+    },
+    {
+        "group": "com.qlife.android",
+        "name": "base-auth",
+        "version": "1.0.1"
+    },
+    {
+        "group": "com.qlife.android",
+        "name": "base-bean",
+        "version": "1.0.1"
+    },
+    {
+        "group": "com.qlife.android",
+        "name": "base-router",
+        "version": "1.0.1"
+    },
+    {
+        "group": "com.qlife.android",
+        "name": "base-web",
+        "version": "1.0.1"
+    },
+    {
+        "group": "com.qlife.android",
+        "name": "base-voice",
+        "version": "1.0.1"
+    },
+    {
+        "group": "com.qlife.android",
+        "name": "base-gallery",
+        "version": "1.0.1"
+    },
+    {
+        "group": "com.qlife.android",
+        "name": "base-login-aliyun",
+        "version": "1.0.1"
+    },
+    {
+        "group": "com.qlife.android",
+        "name": "base-push-aliyun",
+        "version": "1.0.1"
+    },
+    {
+        "group": "com.qlife.android",
+        "name": "base-umeng",
+        "version": "1.0.1"
+    },
+    {
+        "group": "com.qlife.android",
+        "name": "base-upload",
+        "version": "1.0.1"
+    },
+    {
+        "group": "com.qlife.android",
+        "name": "base-update",
+        "version": "1.0.1"
+    },
+    {
+        "group": "com.qlife.android",
+        "name": "base-lbs-amap",
+        "version": "1.0.1"
+    },
+    {
+        "group": "com.qlife.android",
+        "name": "base-mqtt",
+        "version": "1.0.1"
+    },
+    {
+        "group": "com.qlife.android",
+        "name": "base-dev-tools",
+        "version": "1.0.3"
+    },
+    {
+        "group": "com.qlife.android",
+        "name": "base-face",
+        "version": "1.0.1"
+    },
+    {
+        "group": "com.qlife.android",
+        "name": "lib-baidu-face-ui",
+        "version": "1.0.0"
+    },
+    {
+        "group": "com.qlife.android",
+        "name": "base-ocr",
+        "version": "1.0.1"
+    },
+    {
+        "group": "com.qlife.android",
+        "name": "lib-baidu-ocr-ui",
+        "version": "1.0.0"
+    }
+]

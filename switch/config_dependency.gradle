@@ -1,0 +1,88 @@
+
+
+//是否是依赖远程aar的方式
+def isDepAar = false
+
+gradle.addProjectEvaluationListener(new ProjectEvaluationListener() {
+
+    @Override
+    void beforeEvaluate(Project projectObj) {
+        println "beforeEvaluate: project name is $projectObj"
+    }
+
+    @Override
+    void afterEvaluate(Project projectObj, ProjectState state) {
+        println "afterEvaluate: project name is $projectObj"
+        println "project.configurations=${projectObj.configurations}"
+        //todo 目前只针对壳组件做动态切换 aar依赖 与 组件module 依赖
+//        if (projectObj.name != "simple") {
+//            return
+//        }
+
+//    implementation(project(":anyby"))
+//    implementation 'com.github.jaydroid1024.anyby:anyby:0.0.7'
+
+        projectObj.configurations.all { Configuration ->
+            resolutionStrategy {
+                // module，groupId:artifactId, project：组件 module 名称
+                dependencySubstitution {
+                    if (!isDepAar) {
+                        //aar 替换成 源码
+                        substitute module('com.jay.android:biz-test') with project(":test")
+                    }
+
+                    //源码 替换成 aar
+//                    substitute project(':anyby') with module("com.github.jaydroid1024.anyby:anyby:0.0.7")
+
+                }
+            }
+        }
+    }
+})
+
+
+//dependencySubstitution接收一系列替换规则，允许你通过substitute函数为项目中的依赖替换为你希望的依赖项：
+// 依赖替换规则的适用场景分为以下几种：
+//1.根据某些条件对依赖进行替换；
+//2.将本地依赖替换为外部依赖；
+//3.将外部依赖替换为本地依赖；
+
+/*
+// add dependency substitution rules：添加依赖替换规则
+configurations.all {
+    resolutionStrategy.dependencySubstitution {
+        // Substitute project and module dependencies 替换项目和模块依赖项
+        substitute module('org.gradle:api') with project(':api')
+        substitute project(':util') with module('org.gradle:util:3.0')
+        // Substitute one module dependency for another 用一个模块依赖替换另一个
+        substitute module('org.gradle:api:2.0') with module('org.gradle:api:2.1')
+    }
+}
+*/
+
+
+//eachDependency:
+//eachDependency允许你在gradle解析配置时为每个依赖项添加一个替换规则，
+// DependencyResolveDetails类型的参数可以让你获取一个requested和使用useVersion()、
+// useTarget()两个函数指定依赖版本和目标依赖。request中存放了依赖项的groupid、module name以及version，
+// 你可以通过这些值来筛选你想要替换的依赖项，再通过useVersion或useTarget指定你想要的依赖。
+
+/*
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        if (details.requested.name == 'rxjava') {
+            //将所有module为rxjava的依赖，全都指定使用如下版本：‘io.reactivex.rxjava3:rxjava:3.0.0-RC1’:
+            //由于useVersion只能指定版本号，不适用于group不同的情况
+            details.useTarget group: 'io.reactivex.rxjava3', name: 'rxjava', version: '3.0.0-RC1'
+        }
+
+        //将group是com.android.support且name不等于multidex的所有module版本指定为28.0.2：
+        def requested = details.requested
+        if (requested.group == 'com.android.support') {
+            if (!requested.name.startsWith("multidex")) {
+                details.useVersion '28.0.2'
+            }
+        }
+    }
+}
+*/

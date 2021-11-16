@@ -23,6 +23,7 @@ android {
                 arg("AROUTER_MODULE_NAME", project.getName())
             }
         }
+
     }
 
     buildTypes.each {
@@ -33,7 +34,6 @@ android {
             props = rootProject.ext.environment['liveEnvironmentProps']
         }
         it.buildConfigField("String", "BASE_URL", String.format(Locale.getDefault(), "\"%s\"", props["base_url"]))
-
     }
 
     buildTypes {

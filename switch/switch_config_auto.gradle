@@ -1,0 +1,307 @@
+import groovy.json.JsonOutput
+import groovy.json.JsonSlurper
+
+// 应用该文件的时候，执行该方法
+includeAndSwitchModuleDep()
+
+def includeAndSwitchModuleDep() {
+    try {
+        //将 version.json 中的信息转换到 switch_config.json 中用于过滤需要切换的组件
+        def objList = mapVersionJsonToSwitchConfig()
+        // 遍历配置信息列表，找出 useModule==true 的模块，动态include
+        objList.forEach {
+//            println "objList-it=$it"
+            //include ':biz-home'
+            //project(':biz-home').projectDir = file('../qlife-android/aoao-biz-android/biz/biz-home')
+            if (it.useModule) {
+                include ":$it.name"
+                project(":$it.name").projectDir = file(it.moduleDir)
+//                println "include \":$it.name\""
+//                println "project(\":$it.name\").projectDir = file(\"$it.moduleDir\")"
+            }
+        }
+        //list to map 提高查找效率
+        def objMap = new HashMap<String, Object>()
+        objList.forEach {
+            objMap.put(it.name, it)
+        }
+        println "objMap: " + objMap
+        // aar依赖 与 module依赖 动态切换
+        switchToModuleDependency(objMap)
+
+    } catch (Exception e) {
+        e.printStackTrace()
+    }
+}
+
+/**
+ * 切换到 module 依赖
+ * @param moduleDepMap
+ * @return
+ */
+def switchToModuleDependency(HashMap<String, Object> moduleDepMap) {
+    gradle.addProjectEvaluationListener(new ProjectEvaluationListener() {
+        @Override
+        void beforeEvaluate(Project projectObj) {
+
+        }
+
+        @Override
+        void afterEvaluate(Project projectObj, ProjectState state) {
+//            if (projectObj.name != "app") {
+//                return
+//            }
+            switchModuleDep(projectObj, moduleDepMap)
+        }
+    })
+}
+
+/**
+ * aar依赖 与 module依赖 动态切换
+ * @param projectObj project 对象
+ * @param moduleDepMap module依赖配置信息列表
+ * @return
+ */
+def switchModuleDep(Project projectObj, HashMap<String, Object> moduleDepMap) {
+    projectObj.configurations.all { Configuration ->
+        resolutionStrategy {
+            dependencySubstitution {
+                all { DependencySubstitution dependency ->
+                    if (dependency.requested instanceof ModuleComponentSelector &&
+                            (dependency.requested.group == "com.qlife.android" ||
+                                    dependency.requested.group == "com.flashman.android")) {
+                        def targetProject = findProject(":${dependency.requested.module}")
+                        if (targetProject != null) {
+                            def needDependencyItem = moduleDepMap.get(targetProject.name)
+                            if (needDependencyItem != null && needDependencyItem.needSubstitute) {
+                                println "targetProject:" + targetProject
+                                dependency.useTarget targetProject
+                            }
+                        }
+                    }
+                }
+
+
+//                moduleDepMap.values().forEach {
+//                    if (it.needSubstitute) {
+//                        //TODO 替换逻辑还有问题
+////                        substitute module('com.qlife.android:biz-history') with project(':biz-history')
+//                        substitute module("$it.group:$it.name") using project(":${it.name}")
+//                    }
+//                }
+
+            }
+        }
+    }
+}
+
+/**
+ * version.json 每次编译都会重置并获取最新的依赖信息
+ * 这个方法的作用是从所有的依赖信息里挑出我们关注的组件，写入 switch_config.json 中并添加一些开关路径等信息
+ * @return 返回从 switch_config.json 解析出的对象
+ */
+Object mapVersionJsonToSwitchConfig() {
+    // module依赖的配置信息文件路径，json格式
+    def versionDir = "version.json"
+    def versionFlashManDir = "version_flashman.json"
+    def switchConfigDir = "switch_config.json"
+
+    // 解析json配置
+    def versionFlashManList = new JsonSlurper().parseText(file(versionFlashManDir).getText())
+    def versionList = new JsonSlurper().parseText(file(versionDir).getText())
+    def needSwitchMap = getNeedSwitchMap()
+    def dependencies = new ArrayList<HashMap<String, String>>()
+    versionList.forEach {
+        //筛选出我们关注的组件
+        addNeedDependencies(needSwitchMap, it, dependencies)
+    }
+    versionFlashManList.forEach {
+        //筛选出我们关注的组件
+        addNeedDependencies(needSwitchMap, it, dependencies)
+    }
+
+    def switchConfigFile = file(switchConfigDir)
+    if (switchConfigFile.exists()) switchConfigFile.delete()
+    switchConfigFile.write(JsonOutput.prettyPrint(JsonOutput.toJson(dependencies)))
+    def switchConfigList = new JsonSlurper().parseText(switchConfigFile.getText())
+//    println "switchConfigList: $switchConfigList"
+    return switchConfigList
+
+}
+
+private static void addNeedDependencies(HashMap<String, HashMap<String, String>> needSwitchMap, Object it, ArrayList<HashMap<String, String>> dependencies) {
+    if (needSwitchMap.containsKey(it.name)) {
+        def dependenciesInfo = new TreeMap<String, Object>()
+        def dependenciesMap = needSwitchMap.get(it.name)
+        dependenciesInfo.put("needSubstitute", dependenciesMap.get("needSubstitute"))
+        dependenciesInfo.put("useModule", dependenciesMap.get("useModule"))
+        dependenciesInfo.put("moduleDir", dependenciesMap.get("moduleDir"))
+        dependenciesInfo.put("group", it.group)
+        dependenciesInfo.put("name", it.name)
+        dependenciesInfo.put("version", it.version)
+        dependencies.add(dependenciesInfo)
+    }
+}
+
+/**
+ * 获取属性配置文件公共方法
+ * @param propPath Properties配置文件路径
+ * @return Properties实例
+ */
+static Properties getProperties(String propPath) {
+    Properties props = new Properties()
+    try {
+        InputStream inputStream = new FileInputStream(new File(propPath))
+        //解决中文乱码问题
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream))
+        props.load(bufferedReader)
+    } catch (IOException e) {
+        e.printStackTrace()
+    }
+    return props
+}
+
+
+//todo 模拟可视化界面筛选需要的组件
+static HashMap<String, HashMap<String, String>> getNeedSwitchMap() {
+    Properties switchProperties = getProperties("switch/switch.properties")
+    def moduleRepoDir = switchProperties.getProperty("module.repo.dir")
+    assert moduleRepoDir
+    println "moduleRepoDir: " + moduleRepoDir
+
+    def needSwitchMap = new HashMap<String, HashMap<String, String>>()
+    def bizDirPrefix = "$moduleRepoDir/aoao-biz-android/biz"
+    println "bizDirPrefix: $bizDirPrefix"
+    needSwitchMap.put("biz-home", getNeedSwitchItem("$bizDirPrefix/biz-home"))
+    needSwitchMap.put("biz-history", getNeedSwitchItem("$bizDirPrefix/biz-history"))
+    needSwitchMap.put("biz-user", getNeedSwitchItem("$bizDirPrefix/biz-user"))
+    needSwitchMap.put("biz-help", getNeedSwitchItem("$bizDirPrefix/biz-help"))
+    needSwitchMap.put("biz-setting", getNeedSwitchItem("$bizDirPrefix/biz-setting"))
+    needSwitchMap.put("biz-dispatch", getNeedSwitchItem("$bizDirPrefix/biz-dispatch"))
+    needSwitchMap.put("biz-real-name", getNeedSwitchItem("$bizDirPrefix/biz-real-name"))
+    needSwitchMap.put("biz-work", getNeedSwitchItem("$bizDirPrefix/biz-work"))
+    needSwitchMap.put("biz-person", getNeedSwitchItem("$bizDirPrefix/biz-person"))
+    needSwitchMap.put("biz-vaccine", getNeedSwitchItem("$bizDirPrefix/biz-vaccine"))
+    needSwitchMap.put("biz-problem", getNeedSwitchItem("$bizDirPrefix/biz-problem"))
+    needSwitchMap.put("biz-history", getNeedSwitchItem("$bizDirPrefix/biz-history"))
+    needSwitchMap.put("biz-statistics", getNeedSwitchItem("$bizDirPrefix/biz-statistics"))
+    needSwitchMap.put("biz-study", getNeedSwitchItem("$bizDirPrefix/biz-study"))
+    needSwitchMap.put("biz-monitor", getNeedSwitchItem("$bizDirPrefix/biz-monitor"))
+    needSwitchMap.put("biz-manage", getNeedSwitchItem("$bizDirPrefix/biz-manage"))
+    needSwitchMap.put("biz-map-tool", getNeedSwitchItem("$bizDirPrefix/biz-map-tool"))
+    needSwitchMap.put("biz-change-phone", getNeedSwitchItem("$bizDirPrefix/biz-change-phone"))
+
+
+    def baseAoaoDirPrefix = "$moduleRepoDir/aoao-base-flashman-android/base"
+    needSwitchMap.put("base-flashman", getNeedSwitchItem("$baseAoaoDirPrefix/base-flashman"))
+    needSwitchMap.put("base-flashman-api", getNeedSwitchItem("$baseAoaoDirPrefix/base-flashman-api"))
+    needSwitchMap.put("base-mqtt-aoao", getNeedSwitchItem("$baseAoaoDirPrefix/base-mqtt-aoao"))
+    needSwitchMap.put("base-bean-aoao", getNeedSwitchItem("$baseAoaoDirPrefix/base-bean-aoao"))
+
+    def baseQlifeDirPrefix = "$moduleRepoDir/qlife-base-android/base"
+    needSwitchMap.put("base-dev-tools", getNeedSwitchItem("$baseQlifeDirPrefix/base-dev-tools"))
+
+    return needSwitchMap
+}
+
+static HashMap<String, Object> getNeedSwitchItem(String moduleDir) {
+    def bizHome = new HashMap<String, Object>()
+    bizHome.put("moduleDir", moduleDir)
+    bizHome.put("useModule", true)//全局导入源码
+    bizHome.put("needSubstitute", true) //全局替换
+    return bizHome
+}
+
+
+// 文档：https://docs.gradle.org/current/dsl/org.gradle.api.artifacts.DependencySubstitutions.html
+
+
+/*
+    // add dependency substitution rules
+                dependencySubstitution {
+                    // 使用规则更改依赖模块，同时保持组 + 版本不变
+                    all { DependencySubstitution dependency ->
+                        if (dependency.requested instanceof ModuleComponentSelector && dependency.requested.module == 'groovy-all') {
+                            dependency.useTarget dependency.requested.group + ':groovy:' + dependency.requested.version
+                        }
+                    }
+                    // 使用规则将所有缺失的项目替换为模块依赖项
+                    all { DependencySubstitution dependency ->
+                        if (dependency.requested instanceof ProjectComponentSelector) {
+                            def targetProject = findProject(":${dependency.requested.path}")
+                            if (targetProject == null) {
+                                dependency.useTarget "org.myorg:" + dependency.requested.path + ":+"
+                            }
+                        }
+                    }
+                }
+ */
+
+
+//dependencySubstitution接收一系列替换规则，允许你通过substitute函数为项目中的依赖替换为你希望的依赖项：
+// 依赖替换规则的适用场景分为以下几种：
+//1.根据某些条件对依赖进行替换；
+//2.将本地依赖替换为外部依赖；
+//3.将外部依赖替换为本地依赖；
+
+/*
+// add dependency substitution rules：添加依赖替换规则
+configurations.all {
+    resolutionStrategy.dependencySubstitution {
+        // Substitute project and module dependencies 替换项目和模块依赖项
+        substitute module('org.gradle:api') with project(':api')
+        substitute project(':util') with module('org.gradle:util:3.0')
+        // Substitute one module dependency for another 用一个模块依赖替换另一个
+        substitute module('org.gradle:api:2.0') with module('org.gradle:api:2.1')
+    }
+}
+*/
+
+
+//eachDependency:
+//eachDependency允许你在gradle解析配置时为每个依赖项添加一个替换规则，
+// DependencyResolveDetails类型的参数可以让你获取一个requested和使用useVersion()、
+// useTarget()两个函数指定依赖版本和目标依赖。request中存放了依赖项的groupid、module name以及version，
+// 你可以通过这些值来筛选你想要替换的依赖项，再通过useVersion或useTarget指定你想要的依赖。
+
+/*
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        if (details.requested.name == 'rxjava') {
+            //将所有module为rxjava的依赖，全都指定使用如下版本：‘io.reactivex.rxjava3:rxjava:3.0.0-RC1’:
+            //由于useVersion只能指定版本号，不适用于group不同的情况
+            details.useTarget group: 'io.reactivex.rxjava3', name: 'rxjava', version: '3.0.0-RC1'
+        }
+
+        //将group是com.android.support且name不等于multidex的所有module版本指定为28.0.2：
+        def requested = details.requested
+        if (requested.group == 'com.android.support') {
+            if (!requested.name.startsWith("multidex")) {
+                details.useVersion '28.0.2'
+            }
+        }
+    }
+}
+*/
+
+
+/*
+
+//引入的其它项目的组件
+include ':biz-home'
+project(':biz-home').projectDir = file('../qlife-android/aoao-biz-android/biz/biz-home')
+
+// 1
+//依赖的源码
+implementation project(path: ':biz-history')
+//编译时将源码替换成 Aar
+substitute project(':biz-history') with module("com.qlife.android:biz-history:1.0.0")
+
+// 2
+//依赖的Aar
+implementation rootProject.ext.bizHistory
+//编译时将 Aar 替换成源码
+substitute module('com.qlife.android:biz-history') with project(':biz-history')
+
+
+ */

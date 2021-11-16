@@ -1,10 +1,10 @@
 package com.jay.base_component.network.auth
 
-import android.content.Context
 import com.franmontiel.persistentcookiejar.PersistentCookieJar
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
-import com.jay.net.AbstractNetwork
+import com.jay.base_component.app.BaseComponentApp
+import com.jay.lib_net.AbstractNetwork
 import okhttp3.Headers
 import okhttp3.OkHttpClient
 
@@ -18,7 +18,7 @@ import okhttp3.OkHttpClient
  * @date 2019-12-24 17:18
  */
 
-abstract class AuthAbstractNetwork<T>(context: Context) : AbstractNetwork<T>(context),
+abstract class AuthAbstractNetwork<T> : AbstractNetwork<T>(),
     AuthorizationInterceptor.HeaderListener {
 
     private val authInterceptor: AuthorizationInterceptor
@@ -30,7 +30,7 @@ abstract class AuthAbstractNetwork<T>(context: Context) : AbstractNetwork<T>(con
         builder.cookieJar(
             PersistentCookieJar(
                 SetCookieCache(),
-                SharedPrefsCookiePersistor(context)
+                SharedPrefsCookiePersistor(BaseComponentApp.getApp())
             )
         )
         return super.okHttpClientBuilderHandler(builder)

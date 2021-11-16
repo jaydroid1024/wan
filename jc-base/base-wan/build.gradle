@@ -76,6 +76,8 @@ dependencies {
     androidTestImplementation rootProject.ext.junitX
     androidTestImplementation rootProject.ext.espressoCore
 
+    implementation rootProject.ext.jdispatcherApi
+    kapt rootProject.ext.jdispatcherCompiler
 
 }
 

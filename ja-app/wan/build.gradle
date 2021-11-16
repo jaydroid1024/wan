@@ -1,84 +1,68 @@
-apply from: "../../buildgradle/app.gradle"
+apply from: "../../buildgradle/base/app.gradle"
 
 
 android {
 
+    buildTypes.each {
+        Properties props
+        if (it.name == "debug") {
+            props = rootProject.ext.environment['debugEnvironmentProps']
+        } else {
+            props = rootProject.ext.environment['liveEnvironmentProps']
+        }
+        it.buildConfigField("String", "BASE_URL", String.format(Locale.getDefault(), "\"%s\"", props["base_url"]))
+    }
+
     sourceSets {
         main {
-            def buildWith = rootProject.ext.buildWith
-            println "buildWith in sourceSets: " + buildWith
-            switch (buildWith) {
-                case 0:
-                    //合并到宿主中
-                    manifest.srcFile 'src/main/AndroidManifest.xml'
-                    resources {
-                        //正式版本时.剔除debug文件夹下的所有调式文件
-                        exclude 'src/debug/*'
+            def buildWithIndex = Integer.valueOf(buildWith)
+            rootProject.bizComponents.each {
+                def index = Integer.valueOf(it.index)
+                if (index != 0 && buildWithIndex == index) {
+                    //单组件调试
+                    if (!it.name.isEmpty()) {
+                        manifest.srcFile "src/debug/$it.name/AndroidManifest.xml"
                     }
-                    break
-                case 1:
-                    //单独运行
-                    manifest.srcFile 'src/debug/main/AndroidManifest.xml'
-                    break
-                case 2:
-                    manifest.srcFile 'src/debug/login/AndroidManifest.xml'
-                    break
-                case 3:
-                    manifest.srcFile 'src/debug/setting/AndroidManifest.xml'
-                    break
-                case 4:
-                    manifest.srcFile 'src/debug/favorite/AndroidManifest.xml'
-                    break
-                case 5:
-                    manifest.srcFile 'src/debug/search/AndroidManifest.xml'
-                    break
-                case 6:
-                    manifest.srcFile 'src/debug/detail/AndroidManifest.xml'
-                    break
+                } else {
+                    if (buildWithIndex == 0) {
+                        //全量调试, 合并到宿主中
+                        manifest.srcFile 'src/main/AndroidManifest.xml'
+                        //正式版本时.剔除debug文件夹下的所有调式文件
+                        resources { exclude 'src/debug/*' }
+                    }
+                }
             }
         }
     }
-
 }
 
 
 dependencies {
-
-    def buildWith = rootProject.ext.buildWith
-    println "buildWith in dependencies: " + buildWith
-
-    if (buildWith == 0 || buildWith == 1) {
-        //首页业务组件
-        implementation project(path: ':jb-biz:biz-main')
-    }
-    if (buildWith == 0 || buildWith == 2) {
-        //用户业务组件
-        implementation project(path: ':jb-biz:biz-user')
-    }
-    if (buildWith == 0 || buildWith == 3) {
-        //设置业务组件
-        implementation project(path: ':jb-biz:biz-setting')
-    }
-    if (buildWith == 0 || buildWith == 4) {
-        //收藏业务组件
-        implementation project(path: ':jb-biz:biz-favorite')
-    }
-    if (buildWith == 0 || buildWith == 5) {
-        //搜索业务组件
-        implementation project(path: ':jb-biz:biz-search')
-    }
-    if (buildWith == 0 || buildWith == 6) {
-        //文章详情业务组件
-        implementation project(path: ':jb-biz:biz-detail')
-    }
-    if (buildWith == 0 || buildWith == 7) {
-
-    }
-    if (buildWith == 0 || buildWith == 8) {
-
+    def buildWithIndex = Integer.valueOf(rootProject.buildWith)
+    println "buildWith in dependencies: " + buildWithIndex
+    rootProject.bizComponents.each {
+        def index = Integer.valueOf(it.index)
+        println "bizComponent: name=" + it.name + ", index=" + index + ", depend=" + it.depend + ", desc=" + it.desc
+        if (index != 0 && buildWithIndex == index) {
+            //单组件调试
+            if (!it.name.isEmpty()) {
+                implementation project(path: ":jb-biz:biz-$it.name")
+                if (!it.depend.isEmpty()) {
+                    implementation project(path: ":jb-biz:biz-$it.depend")
+                }
+            }
+        } else {
+            //全量调试
+            if (buildWithIndex == 0 && !it.name.isEmpty()) {
+                implementation project(path: ":jb-biz:biz-$it.name")
+            }
+        }
     }
 
-    // WanAndroid 公共基础组件
+    //公共基础组件
     implementation project(path: ':jc-base:base-wan')
-
+    implementation rootProject.ext.jdispatcherApi
+    kapt rootProject.ext.jdispatcherCompiler
 }
+
+

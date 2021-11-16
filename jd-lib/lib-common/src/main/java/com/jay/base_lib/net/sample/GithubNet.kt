@@ -1,7 +1,6 @@
 package com.jay.base_lib.net.sample
 
-import android.content.Context
-import com.jay.net.AbstractNetwork
+import com.jay.lib_net.AbstractNetwork
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 
@@ -11,7 +10,7 @@ import retrofit2.Retrofit
  * @date 2019-12-24 17:18
  */
 
-class GithubNet(context: Context) : AbstractNetwork<GithubApiService>(context) {
+class GithubNet : AbstractNetwork<GithubApiService>() {
 
     override val baseUrl: String
         get() = "https://api.github.com"

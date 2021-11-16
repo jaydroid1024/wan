@@ -1,0 +1,340 @@
+import groovy.json.JsonOutput
+import groovy.json.JsonSlurper
+
+apply from: "app_build.gradle"
+
+
+buildInclude()
+
+def buildInclude() {
+    def buildWithIndex = Integer.valueOf(buildWith)
+    println "buildWith in setting: " + buildWithIndex
+    bizComponents.each {
+        def index = Integer.valueOf(it.index)
+        println "index in setting: " + index
+
+        if (index != 0 && buildWithIndex == index) {
+            //单组件调试
+            if (!it.name.isEmpty()) {
+                include ":jb-biz:biz-${it.name}"
+                if (!it.depend.isEmpty()) {
+                    include ":jb-biz:biz-${it.depend}"
+                }
+            }
+        } else {
+            //全量调试
+            if (buildWithIndex == 0 && !it.name.isEmpty()) {
+                include ":jb-biz:biz-${it.name}"
+            }
+        }
+    }
+}
+
+
+//collectionComponentsByJson()
+
+def collectionComponentsByJson() {
+    println "sett=" + buildWith
+    ComponentsCollector collector = new ComponentsCollector()
+    bizComponents.each {
+        def dependenciesInfo = new TreeMap<String, String>()
+        dependenciesInfo.put("name", it.name)
+        dependenciesInfo.put("index", it.index)
+        dependenciesInfo.put("depend", it.depend)
+        dependenciesInfo.put("desc", it.desc)
+        collector.collectDependenciesInfo(dependenciesInfo)
+    }
+    collector.generateJsonFile()
+}
+
+
+class ComponentsCollector {
+
+    ArrayList<HashMap<String, String>> dependencies
+
+    def generateJsonFile() {
+        try {
+            // 指定路径如果没有则创建并添加
+            File file = new File("buildgradle/build/app_build.json")
+            //获取父目录
+            File fileParent = file.getParentFile()
+            //判断是否存在
+            if (!fileParent.exists()) {
+                //创建父目录文件
+                fileParent.mkdirs()
+            }
+            file.createNewFile()
+            if (dependencies != null && !dependencies.isEmpty()) {
+                file.write(JsonOutput.prettyPrint(JsonOutput.toJson(dependencies)))
+            }
+        } catch (FileNotFoundException exception) {
+            exception.printStackTrace()
+        }
+    }
+
+    def collectDependenciesInfo(TreeMap<String, Object> dependenciesInfo) {
+        if (dependencies == null) {
+            dependencies = new ArrayList<HashMap<String, String>>()
+        }
+        if (!dependenciesInfo.isEmpty()) {
+            dependencies.add(dependenciesInfo)
+        }
+    }
+}
+
+
+// 应用该文件的时候，执行该方法
+//includeAndSwitchModuleDep()
+
+def includeAndSwitchModuleDep() {
+    try {
+        //将 version.json 中的信息转换到 switch_config.json 中用于过滤需要切换的组件
+        def objList = mapVersionJsonToSwitchConfig()
+        // 遍历配置信息列表，找出 useModule==true 的模块，动态include
+        objList.forEach {
+            if (it.useModule) { //依赖源码
+                println "moduleDir: $it.moduleDir"
+                if (it.moduleDir.isEmpty() == false) { //外部组件需要通过文件导入
+                    println "外部导入组件: $it.name"
+                    include ":$it.name"
+                    project(":$it.name").projectDir = file(it.moduleDir)
+                } else {
+                    println "内部依赖组件: $it.name"
+                    def includePrefix = ""
+                    if (it.name.startsWith("biz")) {
+                        includePrefix = ":biz"
+                    } else if (it.name.startsWith("base")) {
+                        includePrefix = ":base"
+                    } else if (it.name.startsWith("lib")) {
+                        includePrefix = ":lib"
+                    } else {
+                        includePrefix = ""
+                    }
+                    include "$includePrefix:$it.name"
+                }
+            }
+        }
+        //list to map 提高切换时的查找效率
+        def objMap = new HashMap<String, Object>()
+        objList.forEach {
+            objMap.put(it.name, it)
+        }
+        // aar依赖 与 module依赖 动态切换
+        switchToModuleDependency(objMap)
+
+    } catch (Exception e) {
+        e.printStackTrace()
+    }
+}
+
+/**
+ * 切换到 module 依赖
+ * @param moduleDepMap
+ * @return
+ */
+def switchToModuleDependency(HashMap<String, Object> moduleDepMap) {
+    //添加 gradle 项目评估过程的回调， Evaluation:	评价；定值；估计；评审；计值
+    gradle.addProjectEvaluationListener(new ProjectEvaluationListener() {
+        @Override
+        //在评估项目之前立即调用此方法。
+        void beforeEvaluate(Project projectObj) {
+
+        }
+
+        @Override
+        //表示所有的模块都已经配置完了，可以准备执行task了
+        void afterEvaluate(Project projectObj, ProjectState state) {
+//            if (projectObj.name != "app") {
+//                return
+//            }
+            switchModuleDep(projectObj, moduleDepMap)
+        }
+    })
+}
+
+/**
+ * aar依赖 与 module依赖 动态切换
+ * @param projectObj project 对象
+ * @param moduleDepMap module依赖配置信息列表
+ * @return
+ */
+def switchModuleDep(Project projectObj, HashMap<String, Object> moduleDepMap) {
+    projectObj.configurations.all { Configuration ->
+        resolutionStrategy {
+            dependencySubstitution {
+                //条件替换
+                all { DependencySubstitution dependency ->
+                    if (dependency.requested instanceof ModuleComponentSelector &&
+                            (dependency.requested.group == "com.qlife.android" ||
+                                    dependency.requested.group == "com.flashman.android")) {
+                        def targetProject = findProject(":${dependency.requested.module}")
+                        if (targetProject != null) {
+                            def needDependencyItem = moduleDepMap.get(targetProject.name)
+                            if (needDependencyItem != null && needDependencyItem.needSubstitute) {
+//                                println "targetProject:" + targetProject
+//                                dependency.useTarget targetProject
+                            }
+                        }
+                    }
+                }
+
+
+                //全部替换
+//                moduleDepMap.values().forEach {
+//                    if (it.needSubstitute) {
+//                        //TODO 替换逻辑还有问题
+////                        substitute module('com.qlife.android:biz-history') with project(':biz-history')
+//                        substitute module("$it.group:$it.name") using project(":${it.name}")
+//                    }
+//                }
+
+            }
+        }
+    }
+}
+
+/**
+ * version.json 每次编译都会重置并获取最新的依赖信息
+ * 这个方法的作用是从所有的依赖信息里挑出我们关注的组件，写入 switch_config.json 中并添加一些开关路径等信息
+ * @return 返回从 switch_config.json 解析出的对象
+ */
+Object mapVersionJsonToSwitchConfig() {
+    // module依赖的配置信息文件路径，json格式
+    def versionDir = "version.json"
+    def versionFlashManDir = "version_flashman.json"
+    def switchConfigDir = "switch_config.json"
+
+    // 解析json配置
+    def versionFlashManList = new JsonSlurper().parseText(file(versionFlashManDir).getText())
+    def versionList = new JsonSlurper().parseText(file(versionDir).getText())
+    def needSwitchMap = getNeedSwitchMap()
+
+    def dependencies = new ArrayList<HashMap<String, String>>()
+    versionList.forEach {
+        //筛选出我们关注的组件
+        addNeedDependencies(needSwitchMap, it, dependencies)
+    }
+    versionFlashManList.forEach {
+        //筛选出我们关注的组件
+        addNeedDependencies(needSwitchMap, it, dependencies)
+    }
+
+    def switchConfigFile = file(switchConfigDir)
+    if (switchConfigFile.exists()) switchConfigFile.delete()
+    switchConfigFile.write(JsonOutput.prettyPrint(JsonOutput.toJson(dependencies)))
+    def switchConfigList = new JsonSlurper().parseText(switchConfigFile.getText())
+    return switchConfigList
+
+}
+
+private static void addNeedDependencies(HashMap<String, HashMap<String, String>> needSwitchMap, Object it, ArrayList<HashMap<String, String>> dependencies) {
+    Properties switchProperties = null
+    if (switchProperties == null) {
+        switchProperties = getProperties("switch/switch.properties")
+    }
+    // 是否引入源码
+    def useModule = Boolean.valueOf(switchProperties.getProperty("useModule"))
+    // 是否替换为源码
+    def needSubstitute = Boolean.valueOf(switchProperties.getProperty("needSubstitute"))
+
+    if (needSwitchMap.containsKey(it.name)) {
+        def dependenciesInfo = new TreeMap<String, Object>()
+        def dependenciesMap = needSwitchMap.get(it.name)
+        dependenciesInfo.put("needSubstitute", useModule)
+        dependenciesInfo.put("useModule", needSubstitute)
+        dependenciesInfo.put("moduleDir", dependenciesMap.get("moduleDir"))
+        dependenciesInfo.put("group", it.group)
+        dependenciesInfo.put("name", it.name)
+        dependenciesInfo.put("version", it.version)
+        dependencies.add(dependenciesInfo)
+    }
+}
+
+/**
+ * 获取属性配置文件公共方法
+ * @param propPath Properties配置文件路径
+ * @return Properties实例
+ */
+static Properties getProperties(String propPath) {
+    Properties props = new Properties()
+    try {
+        InputStream inputStream = new FileInputStream(new File(propPath))
+        //解决中文乱码问题
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream))
+        props.load(bufferedReader)
+    } catch (IOException e) {
+        e.printStackTrace()
+    }
+    return props
+}
+
+
+//todo 模拟可视化界面筛选需要的组件
+static HashMap<String, HashMap<String, String>> getNeedSwitchMap() {
+    def needSwitchMap = new HashMap<String, HashMap<String, String>>()
+    //biz-aoao
+    needSwitchMap.put("biz-home", getNeedSwitchItem(""))
+    needSwitchMap.put("biz-history", getNeedSwitchItem(""))
+    needSwitchMap.put("biz-user", getNeedSwitchItem(""))
+    needSwitchMap.put("biz-help", getNeedSwitchItem(""))
+    needSwitchMap.put("biz-setting", getNeedSwitchItem(""))
+    needSwitchMap.put("biz-dispatch", getNeedSwitchItem(""))
+    needSwitchMap.put("biz-real-name", getNeedSwitchItem(""))
+    needSwitchMap.put("biz-work", getNeedSwitchItem(""))
+    needSwitchMap.put("biz-person", getNeedSwitchItem(""))
+    needSwitchMap.put("biz-vaccine", getNeedSwitchItem(""))
+    needSwitchMap.put("biz-problem", getNeedSwitchItem(""))
+    needSwitchMap.put("biz-history", getNeedSwitchItem(""))
+    needSwitchMap.put("biz-statistics", getNeedSwitchItem(""))
+    needSwitchMap.put("biz-study", getNeedSwitchItem(""))
+    needSwitchMap.put("biz-monitor", getNeedSwitchItem(""))
+    needSwitchMap.put("biz-manage", getNeedSwitchItem(""))
+    needSwitchMap.put("biz-map-tool", getNeedSwitchItem(""))
+    needSwitchMap.put("biz-change-phone", getNeedSwitchItem(""))
+    //base-aoao
+    needSwitchMap.put("base-flashman", getNeedSwitchItem(""))
+    needSwitchMap.put("base-flashman-api", getNeedSwitchItem(""))
+    needSwitchMap.put("base-mqtt-aoao", getNeedSwitchItem(""))
+    needSwitchMap.put("base-bean-aoao", getNeedSwitchItem(""))
+
+    Properties switchProperties = getProperties("switch/switch.properties")
+    def moduleRepoDir = switchProperties.getProperty("module.repo.dir")
+    assert moduleRepoDir
+
+    //base-qlife
+    def baseQlifeDirPrefix = "$moduleRepoDir/qlife-base-android/base"
+    needSwitchMap.put("base-dev-tools", getNeedSwitchItem("$baseQlifeDirPrefix/base-dev-tools"))
+    needSwitchMap.put("base-lbs", getNeedSwitchItem("$baseQlifeDirPrefix/base-lbs"))
+    needSwitchMap.put("base-mqtt", getNeedSwitchItem("$baseQlifeDirPrefix/base-mqtt"))
+    needSwitchMap.put("base-update", getNeedSwitchItem("$baseQlifeDirPrefix/base-update"))
+    needSwitchMap.put("base-login-aliyun", getNeedSwitchItem("$baseQlifeDirPrefix/base-login-aliyun"))
+    needSwitchMap.put("base-gallery", getNeedSwitchItem("$baseQlifeDirPrefix/base-gallery"))
+    needSwitchMap.put("base-push", getNeedSwitchItem("$baseQlifeDirPrefix/base-push"))
+    needSwitchMap.put("base-umeng", getNeedSwitchItem("$baseQlifeDirPrefix/base-umeng"))
+    needSwitchMap.put("base-upload", getNeedSwitchItem("$baseQlifeDirPrefix/base-upload"))
+    needSwitchMap.put("base-voice", getNeedSwitchItem("$baseQlifeDirPrefix/base-voice"))
+    needSwitchMap.put("base-web", getNeedSwitchItem("$baseQlifeDirPrefix/base-web"))
+    needSwitchMap.put("base-lbs-amap", getNeedSwitchItem("$baseQlifeDirPrefix/base-lbs-amap"))
+    needSwitchMap.put("base-push-aliyun", getNeedSwitchItem("$baseQlifeDirPrefix/base-push-aliyun"))
+    def baseAppQlifeDirPrefix = "$moduleRepoDir/qlife-base-app-android/base"
+    needSwitchMap.put("base-router", getNeedSwitchItem("$baseAppQlifeDirPrefix/base-router"))
+    needSwitchMap.put("base-bean", getNeedSwitchItem("$baseAppQlifeDirPrefix/base-bean"))
+    needSwitchMap.put("base-auth", getNeedSwitchItem("$baseAppQlifeDirPrefix/base-auth"))
+    needSwitchMap.put("base-activity", getNeedSwitchItem("$baseAppQlifeDirPrefix/base-activity"))
+
+    //lib-qlife
+    def libUtilsDirPrefix = "$moduleRepoDir/qlife-lib-utils-android/lib"
+    needSwitchMap.put("lib-utils", getNeedSwitchItem("$libUtilsDirPrefix/lib-utils"))
+
+
+    return needSwitchMap
+}
+
+static HashMap<String, Object> getNeedSwitchItem(String moduleDir) {
+    def bizHome = new HashMap<String, Object>()
+    bizHome.put("moduleDir", moduleDir)//moduleDir 为空说明是内部组件，否则为外部导入组件
+    return bizHome
+}
+
+
+// 文档：https://docs.gradle.org/current/dsl/org.gradle.api.artifacts.DependencySubstitutions.html

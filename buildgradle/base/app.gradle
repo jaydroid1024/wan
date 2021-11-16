@@ -1,0 +1,80 @@
+//****************************************
+//********  调试壳公共gradle配置  **********
+//****************************************
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'com.alibaba.arouter'
+//配置 jdispatcher 插件
+apply plugin: 'jdispatcher'
+dispatcher {
+    appCanonicalName = "com.jaydroid.base_component_wan.application.WanApp"
+    buildIncremental = false //todo 增量编译还有问题
+    buildDebug = true //打印详细日志信息
+}
+
+android {
+
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdk
+        targetSdkVersion rootProject.ext.targetSdk
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
+        versionName rootProject.ext.prodApplicationId
+        applicationId rootProject.ext.prodApplicationId
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+        //ARouter Compile options
+        kapt {
+            arguments {
+                arg("AROUTER_MODULE_NAME", project.getName())
+            }
+        }
+    }
+
+    signingConfigs {
+        debug {
+            keyAlias rootProject.ext.sign["aliasDebug"]
+            keyPassword rootProject.ext.sign["passDebug"]
+            storeFile rootProject.ext.sign["storeDebug"]
+            storePassword rootProject.ext.sign["storePassDebug"]
+        }
+        release {
+            keyAlias rootProject.ext.sign["alias"]
+            keyPassword rootProject.ext.sign["pass"]
+            storeFile rootProject.ext.sign["store"]
+            storePassword rootProject.ext.sign["storePass"]
+        }
+    }
+
+
+
+
+    compileOptions {
+        sourceCompatibility rootProject.ext.javaSourceCompatibility
+        targetCompatibility rootProject.ext.javaSourceCompatibility
+    }
+
+    kotlinOptions {
+        jvmTarget = rootProject.ext.kotlinOptionsJvmTarget
+    }
+
+}
+
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation rootProject.ext.kotlinStdlibJdk8
+    implementation rootProject.ext.appcompat
+    implementation rootProject.ext.coreKtx
+
+    //需要所有使用 ARouter 的组件都添加依赖
+    implementation rootProject.ext.arouterApi
+    kapt rootProject.ext.arouterCompiler
+
+    implementation rootProject.ext.jdispatcherApi
+    kapt rootProject.ext.jdispatcherCompiler
+
+}

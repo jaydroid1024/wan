@@ -1,0 +1,157 @@
+apply plugin: 'maven-publish'
+
+println("--------${project.name}：Maven Publish Gradle--------")
+//release 和 snapshot 的控制开关
+def isUploadToRelease = rootProject.ext.mavenRepo['isUploadToRelease']
+//远程Maven仓库的URL Release
+def MAVEN_REPO_RELEASE_URL = rootProject.ext.mavenRepo['mavenRepoUrlRelease']
+//远程Maven仓库的URL snapshots
+def MAVEN_REPO_SNAPSHOTS_URL = rootProject.ext.mavenRepo['mavenRepoUrlSnapshots']
+//远程Maven仓库用户名
+def USER_NAME = rootProject.ext.mavenRepo['userName']
+//远程Maven仓库密码
+def PASSWORD = rootProject.ext.mavenRepo['password']
+// 唯一标识 每个组件都要指定
+def GROUP = group.toString()
+// todo 默认为项目名称
+def ARTIFACT_ID = project.name
+// 版本号 每个组件都要指定
+def VERSION = version.toString()
+//远程Maven仓库的URL
+def URL = isUploadToRelease ? MAVEN_REPO_RELEASE_URL : MAVEN_REPO_SNAPSHOTS_URL
+
+println("dependencies_path: $GROUP:$ARTIFACT_ID:$VERSION")
+println("MAVEN_REPO_RELEASE_URL: $MAVEN_REPO_RELEASE_URL")
+println("MAVEN_REPO_SNAPSHOTS_URL: $MAVEN_REPO_SNAPSHOTS_URL")
+
+
+//https://docs.gradle.org/7.0/userguide/publishing_maven.html#publishing_maven
+//https://developer.android.com/studio/build/maven-publish-plugin
+
+// Because the components are created only during the afterEvaluate phase, you must
+// configure your publications using the afterEvaluate() lifecycle method.
+
+
+task sourceJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    from "$buildDir/generated/data_binding_base_class_source_out/release"
+    classifier "sources"
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            maven(MavenPublication) {
+                groupId GROUP
+                artifactId ARTIFACT_ID
+                version VERSION
+                artifact bundleReleaseAar
+                artifact sourceJar
+
+
+                //根据输入数据生成 POM 后，自定义配置 POM。
+                pom.withXml {
+                    
+                    //<?xml version="1.0" encoding="UTF-8"?>
+                    //<project xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+                    //  <modelVersion>4.0.0</modelVersion>
+                    //  <groupId>com.qlife.android</groupId>
+                    //  <artifactId>lib-baidu-ocr-ui</artifactId>
+                    //  <version>1.0.0</version>
+                    //  <packaging>aar</packaging>
+
+                    //  <dependencies>
+                    //    <dependency>
+                    //      <artifactId>kotlin-stdlib-jdk8</artifactId>
+                    //      <groupId>org.jetbrains.kotlin</groupId>
+                    //      <version>1.5.21</version>
+                    //      <scope>runtime</scope>
+                    //    </dependency>
+                    //    </dependency>
+                    //  </dependencies>
+                    //</project>
+
+                    final dependenciesNode = asNode().appendNode('dependencies')
+
+                    //dependenciesNode:dependencies[attributes={}; value=[]]
+                    println "dependenciesNode:" + dependenciesNode
+                    ext.addDependency = { Dependency dep, String scope ->
+                        //Dependency:DefaultExternalModuleDependency{group='com.qlife.android', name='lib-baidu-face', version='1.0.0', configuration='default'}
+                        //scope:compile
+                        println "Dependency:" + dep
+                        println "scope:" + scope
+
+                        if (dep.group == null || dep.version == null || dep.name == null || dep.name == "unspecified")
+                            return // invalid dependencies should be ignored
+
+                        final dependencyNode = dependenciesNode.appendNode('dependency')
+                        dependencyNode.appendNode('artifactId', dep.name)
+
+                        if (dep.version == 'unspecified') {
+                            dependencyNode.appendNode('groupId', project.ext.pomGroupID)
+                            dependencyNode.appendNode('version', project.ext.pomVersion)
+                            System.println("${project.ext.pomGroupID} ${dep.name} ${project.ext.pomVersion}")
+                        } else {
+                            dependencyNode.appendNode('groupId', dep.group)
+                            dependencyNode.appendNode('version', dep.version)
+                            System.println("${dep.group} ${dep.name} ${dep.version}")
+                        }
+
+                        dependencyNode.appendNode('scope', scope)
+                        //一些依赖可能有类型，比如aar，应该在POM文件中提到
+                        // Some dependencies may have types, such as aar, that should be mentioned in the POM file
+                        def artifactsList = dep.properties['artifacts']
+                        if (artifactsList != null && artifactsList.size() > 0) {
+                            final artifact = artifactsList[0]
+                            dependencyNode.appendNode('type', artifact.getType())
+                        }
+
+                        if (!dep.transitive) {
+                            //在非传递依赖的情况下，它的所有依赖都应该从 POM 文件中强制排除
+                            // In case of non transitive dependency, all its dependencies should be force excluded from them POM file
+                            final exclusionNode = dependencyNode.appendNode('exclusions').appendNode('exclusion')
+                            exclusionNode.appendNode('groupId', '*')
+                            exclusionNode.appendNode('artifactId', '*')
+                        } else if (!dep.properties.excludeRules.empty) {
+                            //对于带排除的传递，应将所有排除规则添加到 POM 文件中
+                            // For transitive with exclusions, all exclude rules should be added to the POM file
+                            final exclusions = dependencyNode.appendNode('exclusions')
+                            dep.properties.excludeRules.each { ExcludeRule rule ->
+                                final exclusionNode = exclusions.appendNode('exclusion')
+                                exclusionNode.appendNode('groupId', rule.group ?: '*')
+                                exclusionNode.appendNode('artifactId', rule.module ?: '*')
+                            }
+                        }
+                    }
+
+                    // List all "api" dependencies (for new Gradle) as "compile" dependencies
+                    configurations.api.getDependencies().each { dep -> addDependency(dep, "compile") }
+                    // List all "implementation" dependencies (for new Gradle) as "runtime" dependencies
+                    configurations.implementation.getDependencies().each { dep -> addDependency(dep, "runtime") }
+
+                }
+            }
+        }
+        repositories {
+            maven {
+                url = URL
+                credentials {
+                    username USER_NAME
+                    password PASSWORD
+                }
+            }
+        }
+    }
+}
+
+task cleanBuildPublishLocal(type: GradleBuild) {
+    tasks = ['clean', 'build', 'publishToMavenLocal']
+}
+
+task cleanBuildPublish(type: GradleBuild) {
+    tasks = ['clean', 'build', 'publish']
+}
+
+
+

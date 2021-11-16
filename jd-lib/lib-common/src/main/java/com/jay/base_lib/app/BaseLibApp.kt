@@ -4,7 +4,6 @@ import android.app.Application
 import android.content.Context
 import android.content.res.Configuration
 import android.util.Log
-import com.facebook.stetho.Stetho
 import com.jay.base_lib.app.appdelegate.IAppLife
 import com.jay.base_lib.app.appdelegate.PriorityLevel
 
@@ -25,17 +24,11 @@ class BaseLibApp : IAppLife {
     override fun onCreate(application: Application) {
         Log.d(TAG, "onCreate")
         app = application
-        initStetho()
+
         //网络库测试类,需要依赖lib_net
 //        NetTest().testNet()
     }
 
-    /**
-     * 初始化Stetho
-     */
-    private fun initStetho() {
-        Stetho.initializeWithDefaults(getApp())
-    }
 
     override fun onTerminate(application: Application) {
         Log.d(TAG, "onTerminate")

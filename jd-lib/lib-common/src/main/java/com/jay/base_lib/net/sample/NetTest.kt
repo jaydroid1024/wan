@@ -1,7 +1,6 @@
 package com.jay.base_lib.net.sample
 
 import android.util.Log
-import com.jay.base_lib.app.BaseLibApp
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -13,7 +12,7 @@ import retrofit2.Response
  */
 class NetTest {
 
-    private val gitNetService = GithubNet(BaseLibApp.getApp()).getApiService()
+    private val gitNetService = GithubNet().getApiService()
 
     open fun testNet() {
         Thread(Runnable {

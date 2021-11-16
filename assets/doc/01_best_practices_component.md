@@ -87,7 +87,7 @@ Demo地址：[WanDroid组件化测试项目](https://github.com/Jay-Droid/WanDro
 #### 2. 添加常规业务组件的步骤
 
 1. 点击 biz 目录右键\New\Module 选择Android Library 新建一个组件 如：login
-1. 修改 biz\login\build.gradle 文件 添加需要依赖的下层依赖库或者其它第三方依赖,引入公共等gradle配置文件 `apply from: "../../biz.gradle" `
+1. 修改 biz\login\build.gradle 文件 添加需要依赖的下层依赖库或者其它第三方依赖,引入公共等gradle配置文件 `apply from: "../../base/biz.gradle" `
 1. 在settings.gradle文件中修改引用路径：`include ':jb-biz:login'`
 1. 同步代码，添加组件功能，需要考虑是否多个项目会依赖该组件，ButterKnife在组件中的使用问题等等
 1. 组件开发完成，可以考虑发布aar，本地依赖或远程依赖，具体查看发布流程

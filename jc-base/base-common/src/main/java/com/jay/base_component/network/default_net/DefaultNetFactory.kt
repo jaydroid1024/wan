@@ -31,7 +31,7 @@ object DefaultNetFactory {
     @Synchronized
     fun getDefaultNet(): WanDroidNetwork {
         if (defaultNetwork == null) {
-            defaultNetwork = WanDroidNetwork(application.applicationContext!!)
+            defaultNetwork = WanDroidNetwork()
         }
         return defaultNetwork!!
     }

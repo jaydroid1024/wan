@@ -19,3 +19,7 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+#组件化
+# 保留app声明周期分发类不被混淆
+-keep class com.jay.lib_net.app.LibNetApp
